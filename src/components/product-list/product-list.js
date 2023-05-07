@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import withShopService from "../hoc";
+
+import { withShopService } from "../hoc";
 import ProductListItem from "../product-list-item";
 
 class ProductList extends Component {
     render() {
-        const { products } = this.props;
+        const { shopService } = this.props;
+        const products = shopService.getProducts();
+
         return (
             <ul>
                 {
