@@ -1,12 +1,21 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import { withShopService } from "../hoc";
 import ProductListItem from "../product-list-item";
+import { productsLoaded } from "../../actions";
+import { compose } from "../../utils";
 
 class ProductList extends Component {
-    render() {
+
+    componentDidMount() {
         const { shopService } = this.props;
-        const products = shopService.getProducts();
+        const data = shopService.getProducts();
+        this.props.productsLoaded(data);
+    };
+
+    render() {
+        const { products } = this.props;
 
         return (
             <ul>
@@ -22,4 +31,15 @@ class ProductList extends Component {
     };
 };
 
-export default withShopService()(ProductList);
+const mapStateToProps = ({ products }) => {
+    return { products };
+}
+
+const mapDispatchToProps = {
+    productsLoaded
+};
+
+export default compose(
+    withShopService(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(ProductList);
