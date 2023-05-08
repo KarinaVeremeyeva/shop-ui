@@ -20,5 +20,29 @@ export default class ShopService {
                 category: 'Category 3'
             },
         ];
-    }; 
+    };
+
+    getCategories() {
+        return [{
+            id: 'root',
+            name: 'Parent',
+            children: [
+                {
+                    id: '1',
+                    name: 'Child - 1',
+                    children: []
+                },
+                {
+                    id: '3',
+                    name: 'Child - 3',
+                    children: [
+                        {
+                        id: '4',
+                        name: 'Child - 4',
+                        },
+                    ]
+                }
+            ]
+        }]
+    }
 };

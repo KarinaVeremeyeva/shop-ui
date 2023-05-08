@@ -1,8 +1,7 @@
 import React from "react";
-import ProductList from "../product-list";
 
 const HomePage = () => {
-    return <ProductList />
+    return <div />
 };
 
 export default HomePage;

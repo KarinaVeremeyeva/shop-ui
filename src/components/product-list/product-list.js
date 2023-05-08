@@ -5,6 +5,7 @@ import { withShopService } from "../hoc";
 import ProductListItem from "../product-list-item";
 import { productsLoaded } from "../../actions";
 import { compose } from "../../utils";
+import { Grid } from "@mui/material";
 
 class ProductList extends Component {
 
@@ -18,15 +19,15 @@ class ProductList extends Component {
         const { products } = this.props;
 
         return (
-            <ul>
+            <Grid container spacing={3}>
                 {
                     products.map((product) => {
                         return (
-                            <li key={product.id}><ProductListItem product={product}/></li>
+                            <ProductListItem key={product.id} product={product}/>
                         );
                     })
                 }
-            </ul>
+            </Grid>
         );
     };
 };

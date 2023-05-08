@@ -1,5 +1,6 @@
 const initialState = {
-    products: []
+    products: [],
+    categories: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -7,7 +8,13 @@ const reducer = (state = initialState, action) => {
 
         case 'PRODUCTS_LOADED':
             return {
+                ...state,
                 products: action.payload
+            };
+        case 'CATEGORIES_LOADED':
+            return {
+                ...state,
+                categories: action.payload
             };
         default:
             return state;

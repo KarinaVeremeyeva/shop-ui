@@ -5,4 +5,12 @@ const productsLoaded = (products) => {
     };
 };
 
-export { productsLoaded };
+const categoriesLoaded = (categories) => {
+    return {
+        type: 'CATEGORIES_LOADED',
+        payload: categories
+    };
+};
+
+
+export { productsLoaded, categoriesLoaded };
