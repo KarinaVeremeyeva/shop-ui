@@ -1,13 +1,69 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { TreeView, TreeItem} from '@mui/lab';
+import { TreeView, TreeItem , useTreeItem } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Grid } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 
 import { withShopService } from "../hoc";
 import { categoriesLoaded } from "../../actions";
 import { compose } from "../../utils";
+
+const CustomContent = React.forwardRef(function CustomContent(props, ref) {
+  const {
+    classes,
+    className,
+    label,
+    nodeId,
+    icon: iconProp,
+    expansionIcon,
+    displayIcon,
+  } = props;
+
+  const {
+    disabled,
+    expanded,
+    selected,
+    focused,
+    handleExpansion,
+    handleSelection,
+    preventSelection,
+  } = useTreeItem(nodeId);
+
+  const icon = iconProp || expansionIcon || displayIcon;
+
+  const handleMouseDown = (event) => {
+    preventSelection(event);
+  };
+
+  const handleExpansionClick = (event) => {
+    handleExpansion(event);
+  };
+
+  const handleSelectionClick = (event) => {
+    handleSelection(event);
+  };
+
+  return (
+    <div
+      // className={clsx(className, classes.root, {
+      //   [classes.expanded]: expanded,
+      //   [classes.selected]: selected,
+      //   [classes.focused]: focused,
+      //   [classes.disabled]: disabled,
+      // })}
+      onMouseDown={handleMouseDown}
+      ref={ref}
+    >
+      <div onClick={handleExpansionClick} className={classes.iconContainer}>
+        {icon}
+      </div>
+      <Link to={`/products/category/${0}`}>
+          {label}
+        </Link> 
+    </div>
+  );
+});
 
 class CategoryList extends Component {
   componentDidMount() {
@@ -24,7 +80,11 @@ class CategoryList extends Component {
     }
 
     const renderTree = (nodes) => (
-      <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
+      <TreeItem
+        key={nodes.id}
+        nodeId={nodes.id}
+        label={nodes.name}
+        ContentComponent={CustomContent} >
         {(nodes.children?.length)
           ? nodes.children.map((node) => renderTree(node))
           : null}
@@ -43,6 +103,9 @@ class CategoryList extends Component {
             categories.map((category) => renderTree(category))
           }
         </TreeView>
+        <Link to={`/products/category/${0}`}>
+          {"hhhh"}
+        </Link> 
       </Grid>     
     );
   };
@@ -62,5 +125,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
     withShopService(),
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(mapStateToProps, mapDispatchToProps),
 )(CategoryList);
