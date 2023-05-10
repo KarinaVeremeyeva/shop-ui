@@ -30,7 +30,8 @@ const CustomContent = React.forwardRef(function CustomContent(props, ref) {
 
   const titleComponent = nodeId === ROOT_NODE_KEY 
     ? label
-    : <Link to={`/products/category/${nodeId}`}>{label}</Link>;
+    : <Link to={`/products/category/${nodeId}`} 
+        style={{ textDecoration: 'none', color: 'inherit'}}>{label}</Link>;
 
   return (
     <div
@@ -69,7 +70,7 @@ class CategoryList extends Component {
         label={nodes.name}
         ContentComponent={CustomContent} >
         {(nodes.children?.length)
-          ? nodes.children.map((node) => renderTree(node))
+          ? nodes.children.map(renderTree)
           : null}
       </TreeItem>
     );
@@ -82,9 +83,7 @@ class CategoryList extends Component {
           defaultExpanded={[ROOT_NODE_KEY]}
           defaultExpandIcon={<ChevronRightIcon />}
         >
-          {
-            categories.map((category) => renderTree(category))
-          }
+          { categories.map(renderTree) }
         </TreeView>
       </Grid>     
     );
@@ -95,13 +94,11 @@ const mapStateToProps = ({ categories }) => {
     return { categories };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     categoriesLoaded: (categories) => {
       dispatch(categoriesLoaded(categories))
     }
-  }
-};
+}); 
 
 export default compose(
     withShopService(),
