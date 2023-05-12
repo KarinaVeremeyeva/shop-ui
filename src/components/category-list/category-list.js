@@ -30,8 +30,11 @@ const CustomContent = React.forwardRef(function CustomContent(props, ref) {
 
   const titleComponent = nodeId === ROOT_NODE_KEY 
     ? label
-    : <Link to={`/products/category/${nodeId}`} 
-        style={{ textDecoration: 'none', color: 'inherit'}}>{label}</Link>;
+    : (
+      <Link to={`/products/category/${nodeId}`} style={{ textDecoration: 'none', color: 'inherit'}}>
+        {label}
+      </Link>
+      );
 
   return (
     <div
@@ -95,9 +98,7 @@ const mapStateToProps = ({ categories }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    categoriesLoaded: (categories) => {
-      dispatch(categoriesLoaded(categories))
-    }
+    categoriesLoaded: (categories) => dispatch(categoriesLoaded(categories))
 }); 
 
 export default compose(
