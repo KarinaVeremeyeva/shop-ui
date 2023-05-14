@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
+import { Grid } from "@mui/material";
 import { TreeView, TreeItem , useTreeItem } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Grid } from "@mui/material";
-
-import { withShopService } from "../hoc";
-import { categoriesLoaded } from "../../actions";
-import { compose } from "../../utils";
-import { Link } from "react-router-dom";
 import clsx from "clsx";
 
 const ROOT_NODE_KEY = 'root';
@@ -53,12 +49,7 @@ const CustomContent = React.forwardRef(function CustomContent(props, ref) {
 });
 
 class CategoryList extends Component {
-  componentDidMount() {
-    const { shopService } = this.props;
-    const categories = shopService.getCategories()
-    this.props.categoriesLoaded(categories)
-  };
-
+  
   render() {
     const { categories } = this.props;
 
@@ -93,15 +84,4 @@ class CategoryList extends Component {
   };
 };
 
-const mapStateToProps = ({ categories }) => {
-    return { categories };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    categoriesLoaded: (categories) => dispatch(categoriesLoaded(categories))
-}); 
-
-export default compose(
-    withShopService(),
-    connect(mapStateToProps, mapDispatchToProps),
-)(CategoryList);
+export default CategoryList;
