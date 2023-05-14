@@ -49,7 +49,6 @@ const CustomContent = React.forwardRef(function CustomContent(props, ref) {
 });
 
 class CategoryList extends Component {
-  
   render() {
     const { categories } = this.props;
 

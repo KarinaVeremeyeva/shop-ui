@@ -11,7 +11,6 @@ import { withShopService, withRouter } from "../hoc";
 import classes from './products-page.module.css';
 
 class ProductsPage extends Component {
-
     componentDidMount() {
         const { shopService, categoriesLoaded } = this.props;
 
