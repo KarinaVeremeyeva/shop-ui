@@ -5,7 +5,7 @@ const BasicCheckbox = ({ values, name }) => {
     return (
         <FormGroup row>
             <Typography variant="subtitle1">{name}</Typography>
-            <Checkbox checked={values} onChange={(e) => console.log(e.target.value)} />
+            <Checkbox checked={values} sx={{ padding: 0, marginLeft:'0.6rem'}} onChange={(e) => console.log(e.target.value)} />
         </FormGroup>
     );
 };
@@ -46,7 +46,7 @@ const RangeSlider = ({ values, name }) => {
     };
 
     return (
-        <Grid container direction="row"  >
+        <Grid container direction="row">
             <Typography variant="subtitle1">{name}</Typography>
             <Grid container item justifyContent="space-between">
                 <TextField

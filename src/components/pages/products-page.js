@@ -37,7 +37,7 @@ class ProductsPage extends Component {
         const id = router.params.categoryId;
 
         return (
-            <Grid container className={classes.categoryWrapper}>
+            <Grid container spacing={1} className={classes.categoryWrapper}>
                 <Grid item xs={3}>
                     <Grid item xs={12}>
                         <CategoryList categories={categories}/>
