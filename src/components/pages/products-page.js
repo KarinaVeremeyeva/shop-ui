@@ -27,24 +27,7 @@ class ProductsPage extends Component {
             const products = shopService.getProducts(categoryId);
             productsLoaded(products);
 
-            const allSelectedFilters = makeFilters(products);
-
-            const selectedFilters = allSelectedFilters.reduce((accumulator, currentValue) => {
-                const index = accumulator.findIndex(item => item.id === currentValue.id);
-                if (index !== -1) {
-                    if (!accumulator[index].value.includes(currentValue.value)) {
-                        accumulator[index].value.push(currentValue.value);
-                    }
-                }
-                else {
-                    accumulator.push({
-                        ...currentValue,
-                        value: [currentValue.value]});
-                }
-    
-                return accumulator;
-            }, []);
-            
+            const selectedFilters = makeFilters(products);
             setFilters(selectedFilters);
         }
     }

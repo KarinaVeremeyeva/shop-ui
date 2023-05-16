@@ -17,7 +17,7 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 1
+                        value: 10
                     }
                 ]
             },
@@ -37,7 +37,13 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 1
+                        value: 30
+                    },
+                    {
+                        id: 3,
+                        name: 'filter 3',
+                        type: 'boolean',
+                        value: true
                     }
                 ]
             },
@@ -57,7 +63,19 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 1
+                        value: 50
+                    },
+                    {
+                        id: 3,
+                        name: 'filter 3',
+                        type: 'string',
+                        value: 'test'
+                    },
+                    {
+                        id: 4,
+                        name: 'filter 4',
+                        type: 'boolean',
+                        value: true
                     }
                 ]
             },
@@ -77,7 +95,7 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 2
+                        value: 20
                     },
                     {
                         id: 3,
@@ -103,7 +121,7 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 2
+                        value: 15
                     },
                     {
                         id: 3,
@@ -135,7 +153,13 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 1
+                        value: 50
+                    },
+                    {
+                        id: 3,
+                        name: 'filter 3',
+                        type: 'boolean',
+                        value: false
                     },
                     {
                         id: 4,
@@ -161,13 +185,13 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 1
+                        value: 15
                     },
                     {
                         id: 3,
                         name: 'filter 3',
-                        type: 'boolean',
-                        value: false
+                        type: 'string',
+                        value: 'test'
                     }
                 ]
             },
@@ -187,13 +211,13 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 1
+                        value: 80
                     },
                     {
                         id: 4,
                         name: 'filter 4',
                         type: 'number',
-                        value: 10
+                        value: 30
                     }
                 ]
             },
@@ -213,7 +237,7 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 2
+                        value: 30
                     },
                     {
                         id: 3,
@@ -226,7 +250,7 @@ export default class ShopService {
             {
                 id: 10,
                 name: 'Product 10',
-                categoryId: '2',
+                categoryId: '4',
                 price: 60,
                 details: [
                     {
@@ -239,7 +263,7 @@ export default class ShopService {
                         id: 2,
                         name: 'filter 2',
                         type: 'number',
-                        value: 2
+                        value: 50
                     },
                     {
                         id: 3,
@@ -262,6 +286,11 @@ export default class ShopService {
                 {
                     id: '1',
                     name: 'Child - 1',
+                    children: []
+                },
+                {
+                    id: '2',
+                    name: 'Child - 2',
                     children: []
                 },
                 {
