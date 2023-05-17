@@ -1,3 +1,5 @@
-import { BooleanFilter, StringFilter, NumberFilter } from "./filters";
+import BooleanFilter from './boolean-filter';
+import StringFilter from './string-filter';
+import NumberFilter from './number-filter';
 
-export { BooleanFilter, StringFilter, NumberFilter }
+export { BooleanFilter, StringFilter, NumberFilter };

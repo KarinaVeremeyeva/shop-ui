@@ -17,18 +17,25 @@ class ProductsPage extends Component {
 
         const categories = shopService.getCategories();
         categoriesLoaded(categories);
+        this.initializeProducts();
     };
 
+    initializeProducts() {
+        const { shopService, router, productsLoaded, setFilters } = this.props;
+        const categoryId = router.params.categoryId;
+
+        const products = shopService.getProducts(categoryId);
+        productsLoaded(products);
+
+        const selectedFilters = makeFilters(products);
+        setFilters(selectedFilters);
+    }
+
     componentDidUpdate(prevProps) {
-        const { shopService, productsLoaded, setFilters } = this.props;
         const categoryId = this.props.router.params.categoryId;
 
         if (categoryId !== prevProps.router.params.categoryId) {
-            const products = shopService.getProducts(categoryId);
-            productsLoaded(products);
-
-            const selectedFilters = makeFilters(products);
-            setFilters(selectedFilters);
+            this.initializeProducts();
         }
     }
 

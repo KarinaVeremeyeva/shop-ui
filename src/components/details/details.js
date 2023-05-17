@@ -1,11 +1,24 @@
 import React, { Fragment, useState } from "react";
 
-import { BooleanFilter, StringFilter, NumberFilter } from "../filters";
+import { StringFilter, NumberFilter, BooleanFilter } from "../filters";
 
 const filterTypes = {
     STRING: 'string',
     NUMBER: 'number',
     BOOLEAN: 'boolean'
+};
+
+const checkSelectedFilters = (type, id, selectedFilters) => {
+    switch (type) {
+        case filterTypes.STRING:
+            return selectedFilters[id] || [];
+        case filterTypes.NUMBER:
+            return selectedFilters[id] || [];
+        case filterTypes.BOOLEAN:
+            return selectedFilters[id] ? selectedFilters[id][0] || false : false;
+        default:
+            return null; 
+    }
 };
 
 const Details = ({ filters }) => {
@@ -14,7 +27,6 @@ const Details = ({ filters }) => {
         {});
 
     const [selectedFilters, setSelectedFilters] = useState(defailtSelectedFilters);
-    console.log('selectedFilters', selectedFilters);
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];
@@ -61,7 +73,7 @@ const Details = ({ filters }) => {
                                         values={value}
                                         name={name}
                                         onChange={handleStringFilterChange}
-                                        selectedValues={selectedFilters[id] || []}
+                                        selectedValues={checkSelectedFilters(type, id, selectedFilters)}
                                     />);
                             case filterTypes.NUMBER:
                                 return (
