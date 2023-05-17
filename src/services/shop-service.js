@@ -44,6 +44,24 @@ export default class ShopService {
                         name: 'filter 3',
                         type: 'boolean',
                         value: true
+                    },
+                    {
+                        id: 1,
+                        name: 'filter 1',
+                        type: 'string',
+                        value: 'test'
+                    },
+                    {
+                        id: 1,
+                        name: 'filter 1',
+                        type: 'string',
+                        value: 'test 2'
+                    },
+                    {
+                        id: 5,
+                        name: 'filter 5',
+                        type: 'string',
+                        value: 'test 5'
                     }
                 ]
             },
@@ -166,6 +184,12 @@ export default class ShopService {
                         name: 'filter 4',
                         type: 'number',
                         value: 10
+                    },
+                    {
+                        id: 5,
+                        name: 'filter 5',
+                        type: 'string',
+                        value: 'test 5'
                     }
                 ]
             },

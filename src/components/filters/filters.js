@@ -1,23 +1,32 @@
 import React from "react";
 import { Checkbox, FormGroup, FormControlLabel, TextField, Slider, Grid, Typography } from "@mui/material";
 
-const BasicCheckbox = ({ values, name }) => {
+const BooleanFilter = ({ checked, name, onChange, id }) => {
     return (
         <FormGroup row>
             <Typography variant="subtitle1">{name}</Typography>
-            <Checkbox checked={values} sx={{ padding: 0, marginLeft:'0.6rem'}} onChange={(e) => console.log(e.target.value)} />
+            <Checkbox
+                sx={{ padding: 0, marginLeft:'0.6rem'}}
+                checked={checked}
+                onChange={(e) => onChange(id, e.target.checked)}
+            />
         </FormGroup>
     );
 };
 
-const CheckboxList = ({ values, name }) => {
+const StringFilter = ({ values, name, onChange, selectedValues, id }) => {
     return (
         <FormGroup>
             <Typography variant="subtitle1">{name}</Typography>
             {
                 values.map((value) => {
                     return (
-                        <FormControlLabel control={<Checkbox />} label={value} />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={selectedValues.includes(value)} onChange={(e) => onChange(id, e.target.value)} value={value}/>
+                            }
+                            label={value}
+                        />
                     );
                 })
             }
@@ -25,36 +34,32 @@ const CheckboxList = ({ values, name }) => {
     );
 };
 
-const RangeSlider = ({ values, name }) => {
-    const minValue = Math.min(...values);
-    const maxValue = Math.max(...values);
-    
-    const [value, setValue] = React.useState([minValue, maxValue]);
+const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
+    const valuesToShow = selectedValues.length < 2 ? values : selectedValues;
+    const sorderValues = valuesToShow.sort();
 
-    const handleSliderChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    const minValue = Math.min(...sorderValues);
+    const maxValue = Math.max(...sorderValues);
 
     const handleMinValueChange = (event) => {
         const minValue = event.target.value || 0;
-        setValue([minValue, value[1]]);
+        onChange(id, [minValue, maxValue]);
     };
 
     const handleMaxValueChange = (event) => {
         const maxValue = event.target.value || 0;
-        setValue([maxValue, value[0]])   
+        onChange(id, [maxValue, minValue]);   
     };
-
+        
     return (
         <Grid container direction="row">
             <Typography variant="subtitle1">{name}</Typography>
             <Grid container item justifyContent="space-between">
                 <TextField
-                    value={value[0]}
+                    value={minValue}
                     id="outlined-basic-min"
                     type="number"
                     label="Min"
-                    defaultValue={minValue}
                     variant="outlined"
                     size="small"
                     style = {{width: 80}}
@@ -64,8 +69,7 @@ const RangeSlider = ({ values, name }) => {
                     id="outlined-basic-max"
                     type="number"
                     label="Max"
-                    value={value[1]}
-                    defaultValue={maxValue}
+                    value={maxValue}
                     variant="outlined"
                     size="small"
                     style = {{width: 80}}
@@ -73,8 +77,8 @@ const RangeSlider = ({ values, name }) => {
                 />
             </Grid>
             <Slider
-                value={value}
-                onChange={handleSliderChange}
+                value={[minValue, maxValue]}
+                onChange={(_, newValue) => onChange(id, newValue)}
                 valueLabelDisplay="auto"
             />
         </Grid>
@@ -82,7 +86,7 @@ const RangeSlider = ({ values, name }) => {
 };
 
 export {
-    BasicCheckbox,
-    CheckboxList,
-    RangeSlider
-}
+    BooleanFilter,
+    StringFilter,
+    NumberFilter
+};

@@ -1,3 +1,3 @@
-import { BasicCheckbox, CheckboxList, RangeSlider } from "./filters";
+import { BooleanFilter, StringFilter, NumberFilter } from "./filters";
 
-export { BasicCheckbox, CheckboxList, RangeSlider }
+export { BooleanFilter, StringFilter, NumberFilter }
