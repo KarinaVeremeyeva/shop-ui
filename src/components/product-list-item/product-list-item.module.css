@@ -1,0 +1,5 @@
+.productListItem {
+    height: 100%;
+    border: 1px solid lightblue;
+    border-radius: 0.7rem;
+}

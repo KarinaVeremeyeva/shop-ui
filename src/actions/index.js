@@ -14,4 +14,11 @@ const categoriesLoaded = (categories) => {
     };
 };
 
-export { productsLoaded, categoriesLoaded };
+const setFilters = (filters) => {
+    return {
+        type: actionType.SET_FILTERS,
+        payload: filters
+    };
+};
+
+export { productsLoaded, categoriesLoaded, setFilters };
