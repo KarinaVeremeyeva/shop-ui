@@ -1,9 +1,7 @@
 import compose from "./compose";
-import { makeFilters, printAllDetails, removeArrayDublicates } from "./filters-helper";
+import makeFilters from "./filters-helper";
 
 export {
     compose,
-    makeFilters,
-    printAllDetails,
-    removeArrayDublicates
+    makeFilters
 };

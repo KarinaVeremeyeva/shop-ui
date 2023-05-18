@@ -13,7 +13,8 @@ const StringFilter = ({ values, name, onChange, selectedValues, id }) => {
                                 <Checkbox
                                     checked={selectedValues.includes(value)}
                                     onChange={(e) => onChange(id, e.target.value)}
-                                    value={value}/>
+                                    value={value}
+                                />
                             }
                             label={value}
                         />

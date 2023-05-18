@@ -12,19 +12,20 @@ const makeFilters = (products) => {
     }, []);
 
     const allSelectedFilters = details.filter(detail => uniqueIds.includes(detail.id));
-    console.log(allSelectedFilters);
 
     const selectedFilters = allSelectedFilters.reduce((accumulator, currentValue) => {
-        const index = accumulator.findIndex(item => item.id === currentValue.id);
+        const { value, ...restProps } = currentValue;
+
+        const index = accumulator.findIndex(item => item.id === restProps.id);
         if (index !== -1) {
-            if (!accumulator[index].value.includes(currentValue.value)) {
-                accumulator[index].value.push(currentValue.value);
+            if (!accumulator[index].values.includes(value)) {
+                accumulator[index].values.push(value);
             }
         }
         else {
             accumulator.push({
-                ...currentValue,
-                value: [currentValue.value]});
+                ...restProps,
+                values: [value]});
         }
         
         return accumulator;
@@ -33,19 +34,4 @@ const makeFilters = (products) => {
     return selectedFilters;
 };
 
-const printAllDetails = (products) => {
-    const details = products.map(p => p.details).flat();
-    return details;
-};
-
-const removeArrayDublicates = (items) => {
-    const uniqueArray = items.reduce(
-        (unique, item) => (unique.includes(item) ? unique : [...unique, item]),
-        []);
-
-    return uniqueArray;
-};
-
-export {
-    makeFilters, printAllDetails, removeArrayDublicates
-};
+export default makeFilters;

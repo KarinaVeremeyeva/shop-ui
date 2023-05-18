@@ -22,7 +22,7 @@ class ProductsPage extends Component {
 
     initializeProducts() {
         const { shopService, router, productsLoaded, setFilters } = this.props;
-        const categoryId = router.params.categoryId;
+        const { categoryId } = router.params;
 
         const products = shopService.getProducts(categoryId);
         productsLoaded(products);

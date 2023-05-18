@@ -1,5 +1,6 @@
 import React from "react";
 import { Slider, Grid, Typography, TextField } from "@mui/material";
+import classes from './filters.module.css';
 
 const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
     const valuesToShow = selectedValues.length < 2 ? values : selectedValues;
@@ -28,7 +29,7 @@ const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
                     label="Min"
                     variant="outlined"
                     size="small"
-                    style = {{width: 80}}
+                    classes={{ root: classes.textField }}
                     onChange={handleMinValueChange}
                 />
                 <TextField 
@@ -38,7 +39,7 @@ const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
                     value={maxValue}
                     variant="outlined"
                     size="small"
-                    style = {{width: 80}}
+                    classes={{ root: classes.textField }}
                     onChange={handleMaxValueChange}
                 />
             </Grid>
