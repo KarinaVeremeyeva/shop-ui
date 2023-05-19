@@ -1,8 +1,23 @@
-.checkBoxAlign {
-    padding: 0;
-    margin-left: 0.6rem;
+.wrapCheckbox {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
 }
 
 .textField {
     width: 80px;
+}
+
+.formGroup {
+    margin-bottom: 8px;
+}
+
+.titleWrap {
+    margin-bottom: 8px !important;
+}
+
+.wrapGrid {
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
