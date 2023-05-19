@@ -22,8 +22,16 @@ const checkSelectedFilters = (type, id, selectedFilters) => {
     }
 };
 
-const Details = ({ filters }) => {
+const Details = ({ filters, products }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
+
+    const priceFilter = {
+        id: 'price',
+        name: 'Price',
+        type: 'number',
+        values: products.map(p => p.price)
+    };
+    const filtersExtended = [priceFilter, ...filters];
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];
@@ -57,7 +65,7 @@ const Details = ({ filters }) => {
     return (
         <div className={classes.container}>
             {
-                filters.map((filter) => {
+                filtersExtended.map((filter) => {
                     const { id, name, type, values } = filter;                        
                     switch (type) {
                         case filterTypes.STRING:

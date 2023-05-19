@@ -50,7 +50,7 @@ class ProductsPage extends Component {
                         <CategoryList categories={categories}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <Details filters={filters}/>
+                        <Details filters={filters} products={products}/>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
