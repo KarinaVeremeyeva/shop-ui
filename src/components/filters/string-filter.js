@@ -1,9 +1,10 @@
 import React from "react";
 import { Checkbox, FormGroup, FormControlLabel, Typography } from "@mui/material";
+import classes from './filters.module.css';
 
 const StringFilter = ({ values, name, onChange, selectedValues, id }) => {
     return (
-        <FormGroup>
+        <FormGroup classes={{ root: classes.formGroup}}>
             <Typography variant="subtitle1">{name}</Typography>
             {
                 values.map((value) => {
@@ -14,6 +15,7 @@ const StringFilter = ({ values, name, onChange, selectedValues, id }) => {
                                     checked={selectedValues.includes(value)}
                                     onChange={(e) => onChange(id, e.target.value)}
                                     value={value}
+                                    classes={{ root: classes.checkbox }}
                                 />
                             }
                             label={value}

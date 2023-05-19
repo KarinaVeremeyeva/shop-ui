@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
 import { StringFilter, NumberFilter, BooleanFilter } from "../filters";
+import classes from './details.module.css';
 
 const filterTypes = {
     STRING: 'string',
@@ -21,8 +22,16 @@ const checkSelectedFilters = (type, id, selectedFilters) => {
     }
 };
 
-const Details = ({ filters }) => {
+const Details = ({ filters, products }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
+
+    const priceFilter = {
+        id: 'price',
+        name: 'Price',
+        type: 'number',
+        values: products.map(p => p.price)
+    };
+    const filtersExtended = [priceFilter, ...filters];
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];
@@ -54,52 +63,49 @@ const Details = ({ filters }) => {
     };
 
     return (
-        <Fragment>
-            <span>Selected filters:</span>
-            <div>
-                {
-                    filters.map((filter) => {
-                        const { id, name, type, values } = filter;                        
-                        switch (type) {
-                            case filterTypes.STRING:
-                                return (
-                                    <StringFilter
-                                        key={`filter_${id}_${values}`}
-                                        id={id}
-                                        values={values}
-                                        name={name}
-                                        onChange={handleStringFilterChange}
-                                        selectedValues={checkSelectedFilters(type, id, selectedFilters)}
-                                    />
-                                );
-                            case filterTypes.NUMBER:
-                                return (
-                                    <NumberFilter
-                                        key={`filter_${id}_${values}`}
-                                        id={id}
-                                        values={values}
-                                        name={name}
-                                        onChange={handleNumberFilterChange}
-                                        selectedValues={checkSelectedFilters(type, id, selectedFilters)}
-                                    />
-                                );
-                            case filterTypes.BOOLEAN:
-                                return (
-                                    <BooleanFilter
-                                        key={`filter_${id}_${values}`}
-                                        id={id}
-                                        name={name}
-                                        onChange={handleBooleanFilterChange}
-                                        checked={checkSelectedFilters(type, id, selectedFilters)}
-                                    />
-                                );
-                            default:
-                                return null;
-                        }
-                    })
-                }
-            </div>
-        </Fragment>
+        <div className={classes.filterContainer}>
+            {
+                filtersExtended.map((filter) => {
+                    const { id, name, type, values } = filter;                        
+                    switch (type) {
+                        case filterTypes.STRING:
+                            return (
+                                <StringFilter
+                                    key={`filter_${id}_${values}`}
+                                    id={id}
+                                    values={values}
+                                    name={name}
+                                    onChange={handleStringFilterChange}
+                                    selectedValues={checkSelectedFilters(type, id, selectedFilters)}
+                                />
+                            );
+                        case filterTypes.NUMBER:
+                            return (
+                                <NumberFilter
+                                    key={`filter_${id}_${values}`}
+                                    id={id}
+                                    values={values}
+                                    name={name}
+                                    onChange={handleNumberFilterChange}
+                                    selectedValues={checkSelectedFilters(type, id, selectedFilters)}
+                                />
+                            );
+                        case filterTypes.BOOLEAN:
+                            return (
+                                <BooleanFilter
+                                    key={`filter_${id}_${values}`}
+                                    id={id}
+                                    name={name}
+                                    onChange={handleBooleanFilterChange}
+                                    checked={checkSelectedFilters(type, id, selectedFilters)}
+                                />
+                            );
+                        default:
+                            return null;
+                    }
+                })
+            }
+        </div>
     );
 };
 

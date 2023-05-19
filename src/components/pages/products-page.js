@@ -1,15 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Grid } from "@mui/material";
 
 import ProductList from "../product-list";
-import { Grid } from "@mui/material";
 import CategoryList from "../category-list";
 import { productsLoaded, categoriesLoaded, setFilters } from "../../actions";
 import { compose } from "../../utils";
-import { connect } from "react-redux";
 import { withShopService, withRouter } from "../hoc";
 import Details from "../details";
-import classes from './products-page.module.css';
 import { makeFilters } from "../../utils";
+import classes from './products-page.module.css';
 
 class ProductsPage extends Component {
     componentDidMount() {
@@ -44,13 +44,13 @@ class ProductsPage extends Component {
         const id = router.params.categoryId;
 
         return (
-            <Grid container spacing={1} className={classes.categoryWrapper}>
+            <Grid container spacing={2} className={classes.pageContainer}>
                 <Grid item xs={3}>
                     <Grid item xs={12}>
                         <CategoryList categories={categories}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <Details filters={filters}/>
+                        <Details filters={filters} products={products}/>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>

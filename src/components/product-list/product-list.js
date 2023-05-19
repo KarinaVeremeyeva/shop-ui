@@ -4,7 +4,6 @@ import ProductListItem from "../product-list-item";
 import { Grid } from "@mui/material";
 
 class ProductList extends Component {
-
     render() {
         const { products } = this.props;
 

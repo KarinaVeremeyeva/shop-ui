@@ -6,6 +6,7 @@ import { TreeView, TreeItem , useTreeItem } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import clsx from "clsx";
+import classes from './category-list.module.css';
 
 const ROOT_NODE_KEY = 'root';
 
@@ -58,6 +59,7 @@ class CategoryList extends Component {
 
     const renderTree = (nodes) => (
       <TreeItem
+        classes={{ content: classes.treeItem }}
         key={nodes.id}
         nodeId={nodes.id}
         label={nodes.name}

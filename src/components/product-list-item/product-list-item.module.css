@@ -3,3 +3,7 @@
     border: 1px solid lightblue;
     border-radius: 0.7rem;
 }
+
+.link {
+    text-decoration: none;
+}

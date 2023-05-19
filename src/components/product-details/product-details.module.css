@@ -1,0 +1,18 @@
+.descriptionContainer {
+    padding-left: 20px;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.detailsGridWrapper {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.detailsContainer {
+    margin-top: 2rem;
+}
