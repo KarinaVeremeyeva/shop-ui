@@ -4,10 +4,9 @@ import classes from './filters.module.css';
 
 const BooleanFilter = ({ checked, name, onChange, id }) => {
     return (
-        <FormGroup row className={classes.wrapCheckbox}>
+        <FormGroup row className={classes.checkboxWrapper}>
             <Typography variant="subtitle1">{name}</Typography>
             <Checkbox
-                classes={{ root: classes.checkBoxAlign }}
                 checked={checked}
                 onChange={(e) => onChange(id, e.target.checked)}
             />

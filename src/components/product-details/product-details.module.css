@@ -1,14 +1,14 @@
-.container {
+.descriptionContainer {
     padding-left: 20px;
 }
 
-.wrapIcon {
+.iconWrapper {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.wrapDetailsGrid {
+.detailsGridWrapper {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
 }

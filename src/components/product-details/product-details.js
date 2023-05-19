@@ -1,15 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button, Grid, Typography, Box } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
 import classes from './product-details.module.css';
 
 const ProductDetails = ({ product }) => {
-    const { name, price, description, categoryId, categoryName, details, photoUrl } = product;
+    const { name, price, description, categoryName, details, photoUrl } = product;
 
     const setFormat = (type, value) => {
         return type == 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
@@ -17,9 +15,7 @@ const ProductDetails = ({ product }) => {
 
     return (
         <Grid container>
-            <Grid>
-                <Typography variant="h6">{name}</Typography>
-            </Grid>
+            <Typography variant="h6">{name}</Typography>
             <Grid container>
                 <Grid item xs={6}>
                     <Box 
@@ -32,7 +28,7 @@ const ProductDetails = ({ product }) => {
                         src={photoUrl}
                     />
                 </Grid>
-                <Grid item xs={6} className={classes.container}>
+                <Grid item xs={6} className={classes.descriptionContainer}>
                     <Grid container alignItems="center" spacing={3} wrap="nowrap">
                         <Grid item>
                             <Typography variant="h6">${price}</Typography></Grid>
@@ -49,7 +45,7 @@ const ProductDetails = ({ product }) => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12} className={classes.wrapDetailsGrid}>
+            <Grid item xs={12} className={classes.detailsGridWrapper}>
                 <Typography variant="body1">Details</Typography>
                 {
                     details.map(detail => {
@@ -57,19 +53,12 @@ const ProductDetails = ({ product }) => {
                         return (
                             <Grid container key={`${id}-${type}-${value}`} columnGap={5}>
                                 <Grid item xs={4}>{detailName}</Grid>
-                                <Grid item xs={4} className={classes.wrapIcon}>{setFormat(type, value)}</Grid>
+                                <Grid item xs={4} className={classes.iconWrapper}>{setFormat(type, value)}</Grid>
                             </Grid>
                         );
                     })
                 }
             </Grid>
-            <Button startIcon={<ArrowBackIcon />}>
-                <Link
-                    to={`/products/category/${categoryId}`}
-                    style={{ textDecoration: 'none', color: 'inherit', textAlign: 'left'}}>
-                    BACK TO PRODUCTS
-                </Link>
-            </Button>
         </Grid>
     );
 }

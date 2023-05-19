@@ -63,7 +63,7 @@ const Details = ({ filters, products }) => {
     };
 
     return (
-        <div className={classes.container}>
+        <div className={classes.filterContainer}>
             {
                 filtersExtended.map((filter) => {
                     const { id, name, type, values } = filter;                        

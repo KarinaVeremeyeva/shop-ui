@@ -37,7 +37,7 @@ class ProductDetailsPage extends Component {
         }
 
         return (
-            <Grid container spacing={1} className={classes.container}>
+            <Grid container spacing={1} className={classes.pageContainer}>
                 <Grid item xs={3}>
                     <CategoryList categories={categories}></CategoryList>
                 </Grid>

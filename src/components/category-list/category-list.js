@@ -59,7 +59,7 @@ class CategoryList extends Component {
 
     const renderTree = (nodes) => (
       <TreeItem
-        classes={{ content: classes.item }}
+        classes={{ content: classes.treeItem }}
         key={nodes.id}
         nodeId={nodes.id}
         label={nodes.name}
