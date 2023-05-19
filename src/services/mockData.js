@@ -4,7 +4,7 @@ export const allProducts = [
     {
         id: '1',
         name:  'Product 1',
-        description: '',
+        description: 'This is a description',
         price: 100,
         categoryId: '1',
         categoryName: 'Child - 1',
@@ -27,6 +27,7 @@ export const allProducts = [
     {
         id: '2',
         name:  'Product 2',
+        description: 'This is a description',
         price: 20,
         categoryId: '2',
         categoryName: 'Child - 2',
@@ -73,6 +74,7 @@ export const allProducts = [
     {
         id: '3',
         name:  'Product 3',
+        description: 'This is a description',
         price: 45,
         categoryId: '3',
         categoryName: 'Child - 3',
@@ -107,6 +109,7 @@ export const allProducts = [
     {
         id: '4',
         name: 'Product 4',
+        description: 'This is a description',
         price: 1000,
         categoryId: '4',
         categoryName: 'Child - 4',
@@ -135,6 +138,7 @@ export const allProducts = [
     {
         id: '5',
         name: 'Product 5',
+        description: 'This is a description',
         price: 400,
         categoryId: '1',
         categoryName: 'Child - 1',
@@ -169,6 +173,7 @@ export const allProducts = [
     {
         id: '6',
         name: 'Product 6',
+        description: 'This is a description',
         categoryId: '2',
         categoryName: 'Child - 2',
         price: 999,
@@ -209,6 +214,7 @@ export const allProducts = [
     {
         id: '7',
         name: 'Product 7',
+        description: 'This is a description',
         categoryId: '3',
         categoryName: 'Child - 3',
         price: 55,
@@ -237,6 +243,7 @@ export const allProducts = [
     {
         id: '8',
         name: 'Product 8',
+        description: 'This is a description',
         categoryId: '4',
         categoryName: 'Child - 4',
         photoUrl,
@@ -265,6 +272,7 @@ export const allProducts = [
     {
         id: '9',
         name: 'Product 9',
+        description: 'This is a description',
         categoryId: '1',
         categoryName: 'Child - 1',
         price: 30,
@@ -293,6 +301,7 @@ export const allProducts = [
     {
         id: '10',
         name: 'Product 10',
+        description: 'This is a description',
         categoryId: '4',
         categoryName: 'Child - 4',
         price: 60,

@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import classes from './product-details.module.css';
 
 const ProductDetails = ({ product }) => {
-    const { name, price, categoryId, categoryName, details, photoUrl } = product;
+    const { name, price, description, categoryId, categoryName, details, photoUrl } = product;
 
     const setFormat = (type, value) => {
         return type == 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
@@ -45,6 +45,7 @@ const ProductDetails = ({ product }) => {
                     <Grid className={classes.detailsContainer}>
                         <Typography variant="body1">Category: {categoryName}</Typography>
                         <Typography variant="body1">Description</Typography>
+                        <Typography variant="body1">{description}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

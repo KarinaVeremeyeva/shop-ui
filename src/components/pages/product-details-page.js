@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Grid } from "@mui/material";
 
 import ProductDetails from "../product-details";
 import { withShopService, withRouter } from "../hoc";
 import { compose } from "../../utils";
+import CategoryList from "../category-list";
+import { categoriesLoaded } from "../../actions";
 import classes from './products-page.module.css';
+
 
 class ProductDetailsPage extends Component {
     state = {
@@ -12,7 +16,7 @@ class ProductDetailsPage extends Component {
     };
 
     componentDidMount() {
-        const { shopService, router } = this.props;
+        const { shopService, router, categoriesLoaded } = this.props;
         const { productId } = router.params;
         if (!productId) {
             return;
@@ -20,9 +24,13 @@ class ProductDetailsPage extends Component {
 
         const product = shopService.getProduct(productId);
         this.setState({product});
+
+        const categories = shopService.getCategories();
+        categoriesLoaded(categories);
     };
 
     render() {
+        const { categories } = this.props;
         const { product } = this.state;
         if (!product) {
             return null;
@@ -30,7 +38,9 @@ class ProductDetailsPage extends Component {
 
         return (
             <Grid container spacing={1} className={classes.container}>
-                <Grid item xs={3}></Grid>
+                <Grid item xs={3}>
+                    <CategoryList categories={categories}></CategoryList>
+                </Grid>
                 <Grid item xs={6}>
                     <ProductDetails product={product}/>
                 </Grid>
@@ -39,7 +49,16 @@ class ProductDetailsPage extends Component {
     }
 };
 
+const mapStateToProps = ({categories }) => {
+    return { categories };
+}
+
+const mapDispatchToProps = {
+    categoriesLoaded
+};
+
 export default compose(
     withShopService(),
     withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
 )(ProductDetailsPage);
