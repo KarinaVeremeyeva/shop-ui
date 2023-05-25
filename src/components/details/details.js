@@ -24,6 +24,9 @@ const checkSelectedFilters = (type, id, selectedFilters) => {
 
 const Details = ({ filters, products }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
+    if (products.length === 0 || products.length === 1) {
+        return null;
+    }
 
     const priceFilter = {
         id: 'price',
