@@ -57,15 +57,15 @@ class CategoryList extends Component {
       return null;
     }
 
-    const renderTree = (nodes) => (
+    const renderTree = (category) => (
       <TreeItem
         classes={{ content: classes.treeItem }}
-        key={nodes.id}
-        nodeId={nodes.id}
-        label={nodes.name}
+        key={category.id}
+        nodeId={category.id}
+        label={category.name}
         ContentComponent={CustomContent} >
-        {(nodes.children?.length)
-          ? nodes.children.map(renderTree)
+        {(category.childCategories?.length)
+          ? category.childCategories.map(renderTree)
           : null}
       </TreeItem>
     );

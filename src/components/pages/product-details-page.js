@@ -22,11 +22,11 @@ class ProductDetailsPage extends Component {
             return;
         }
 
-        const product = shopService.getProduct(productId);
-        this.setState({product});
+        shopService.getProduct(productId)
+            .then(product => this.setState({product}));
 
-        const categories = shopService.getCategories();
-        categoriesLoaded(categories);
+        shopService.getCategories()
+            .then(categories => categoriesLoaded(categories));
     };
 
     render() {
@@ -49,7 +49,7 @@ class ProductDetailsPage extends Component {
     }
 };
 
-const mapStateToProps = ({categories }) => {
+const mapStateToProps = ({ categories }) => {
     return { categories };
 }
 

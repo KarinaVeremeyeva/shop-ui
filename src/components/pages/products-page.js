@@ -9,14 +9,16 @@ import { compose } from "../../utils";
 import { withShopService, withRouter } from "../hoc";
 import Details from "../details";
 import { makeFilters } from "../../utils";
+import Spinner from "../spinner";
 import classes from './products-page.module.css';
 
 class ProductsPage extends Component {
     componentDidMount() {
         const { shopService, categoriesLoaded } = this.props;
 
-        const categories = shopService.getCategories();
-        categoriesLoaded(categories);
+        shopService.getCategories()
+            .then(categories => categoriesLoaded(categories));
+        
         this.initializeProducts();
     };
 
@@ -24,11 +26,13 @@ class ProductsPage extends Component {
         const { shopService, router, productsLoaded, setFilters } = this.props;
         const { categoryId } = router.params;
 
-        const products = shopService.getProducts(categoryId);
-        productsLoaded(products);
-
-        const selectedFilters = makeFilters(products);
-        setFilters(selectedFilters);
+        shopService.getProducts(categoryId)
+            .then(products => {
+                productsLoaded(products);
+                
+                const selectedFilters = makeFilters(products);
+                setFilters(selectedFilters);
+            });
     }
 
     componentDidUpdate(prevProps) {
@@ -40,8 +44,12 @@ class ProductsPage extends Component {
     }
 
     render() {
-        const { router, categories, products, filters } = this.props;
+        const { router, categories, products, filters, loading } = this.props;
         const id = router.params.categoryId;
+
+        if (loading) {
+            return <Spinner />;
+        }
 
         return (
             <Grid container spacing={2} className={classes.pageContainer}>
@@ -60,8 +68,8 @@ class ProductsPage extends Component {
     )};
 };
 
-const mapStateToProps = ({ products, categories, filters }) => {
-    return { products, categories, filters };
+const mapStateToProps = ({ products, categories, filters, loading }) => {
+    return { products, categories, filters, loading };
 }
 
 const mapDispatchToProps = {

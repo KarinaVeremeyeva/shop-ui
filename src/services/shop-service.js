@@ -1,42 +1,29 @@
-import { allProducts } from "./mockData";
-
 export default class ShopService {
-    getProducts(categoryId) {
-        return categoryId
-            ? allProducts.filter((product) => product.categoryId === categoryId)
-            : allProducts;
+    _apiUrl = 'https://localhost:7092/api';
+    
+    getResource = async (url) => {
+        const response = await fetch(`${this._apiUrl}/${url}`);
+        if (!response.ok) {
+            throw new Error(`Could not fetch ${this._apiUrl}/${url}, received ${response.status}`);
+        }
+        
+        const jsonData = await response.json();
+
+        return jsonData;
     };
 
-    getCategories() {
-        return [{
-            id: 'root',
-            name: 'Parent',
-            children: [
-                {
-                    id: '1',
-                    name: 'Child - 1',
-                    children: []
-                },
-                {
-                    id: '2',
-                    name: 'Child - 2',
-                    children: []
-                },
-                {
-                    id: '3',
-                    name: 'Child - 3',
-                    children: [
-                        {
-                        id: '4',
-                        name: 'Child - 4',
-                        },
-                    ]
-                }
-            ]
-        }]
+    getProducts = async (categoryId) => {
+        const data = await this.getResource(`products/category/${categoryId}`);
+        return data;
     };
 
-    getProduct(id) {
-        return allProducts.find(p => p.id === id);
+    getCategories = async () => {
+        const data = await this.getResource(`categories`);
+        return data;
+    }
+
+    getProduct = async (productId) => {
+        const data = await this.getResource(`products/${productId}`);
+        return data;
     };
 };
