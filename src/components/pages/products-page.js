@@ -29,6 +29,7 @@ class ProductsPage extends Component {
         shopService.getProducts(categoryId)
             .then(products => {
                 productsLoaded(products);
+                
                 const selectedFilters = makeFilters(products);
                 setFilters(selectedFilters);
             });

@@ -6,6 +6,7 @@ export default class ShopService {
         if (!response.ok) {
             throw new Error(`Could not fetch ${this._apiUrl}/${url}, received ${response.status}`);
         }
+        
         const jsonData = await response.json();
 
         return jsonData;
