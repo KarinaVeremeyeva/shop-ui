@@ -64,8 +64,8 @@ class CategoryList extends Component {
         nodeId={nodes.id}
         label={nodes.name}
         ContentComponent={CustomContent} >
-        {(nodes.children?.length)
-          ? nodes.children.map(renderTree)
+        {(nodes.childCategories?.length)
+          ? nodes.childCategories.map(renderTree)
           : null}
       </TreeItem>
     );

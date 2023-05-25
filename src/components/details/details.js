@@ -4,9 +4,9 @@ import { StringFilter, NumberFilter, BooleanFilter } from "../filters";
 import classes from './details.module.css';
 
 const filterTypes = {
-    STRING: 'string',
-    NUMBER: 'number',
-    BOOLEAN: 'boolean'
+    STRING: 0,
+    NUMBER: 1,
+    BOOLEAN: 2
 };
 
 const checkSelectedFilters = (type, id, selectedFilters) => {
@@ -28,7 +28,7 @@ const Details = ({ filters, products }) => {
     const priceFilter = {
         id: 'price',
         name: 'Price',
-        type: 'number',
+        type: 1,
         values: products.map(p => p.price)
     };
     const filtersExtended = [priceFilter, ...filters];
@@ -71,7 +71,7 @@ const Details = ({ filters, products }) => {
                         case filterTypes.STRING:
                             return (
                                 <StringFilter
-                                    key={`filter_${id}_${values}`}
+                                    key={id}
                                     id={id}
                                     values={values}
                                     name={name}
@@ -82,7 +82,7 @@ const Details = ({ filters, products }) => {
                         case filterTypes.NUMBER:
                             return (
                                 <NumberFilter
-                                    key={`filter_${id}_${values}`}
+                                    key={id}
                                     id={id}
                                     values={values}
                                     name={name}
@@ -93,7 +93,7 @@ const Details = ({ filters, products }) => {
                         case filterTypes.BOOLEAN:
                             return (
                                 <BooleanFilter
-                                    key={`filter_${id}_${values}`}
+                                    key={id}
                                     id={id}
                                     name={name}
                                     onChange={handleBooleanFilterChange}
