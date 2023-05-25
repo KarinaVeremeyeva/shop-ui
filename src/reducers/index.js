@@ -3,7 +3,8 @@ import * as actionType from '../actions/actionTypes';
 const initialState = {
     products: [],
     categories: [],
-    filters: []
+    filters: [],
+    loading: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,7 +13,8 @@ const reducer = (state = initialState, action) => {
         case actionType.PRODUCTS_LOADED:
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                loading: false
             };
         case actionType.CATEGORIES_LOADED:
             return {
