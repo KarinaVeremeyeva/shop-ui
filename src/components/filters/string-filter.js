@@ -19,6 +19,7 @@ const StringFilter = ({ values, name, onChange, selectedValues, id }) => {
                                 />
                             }
                             label={value}
+                            key={`${id}-${value}`}
                         />
                     );
                 })
