@@ -17,7 +17,20 @@ const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
         const maxValue = event.target.value || 0;
         onChange(id, [maxValue, minValue]);   
     };
-        
+
+    const sliderMin = Math.min(...values);
+    const sliderMax = Math.max(...values);
+    const step = (sliderMax - sliderMin)/100;
+
+    const inputPropsMin = {
+        min: sliderMin,
+        step: step
+    };
+    const inputPropsMax = {
+        max: sliderMax,
+        step: step
+    };
+
     return (
         <Grid container classes={{ root: classes.wrapGrid}}>
             <Typography variant="subtitle1" className={classes.titleWrap}>
@@ -33,6 +46,7 @@ const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
                     size="small"
                     classes={{ root: classes.textField }}
                     onChange={handleMinValueChange}
+                    InputProps={{ inputProps: inputPropsMin }}
                 />
                 <TextField
                     value={maxValue}
@@ -43,12 +57,16 @@ const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
                     size="small"
                     classes={{ root: classes.textField }}
                     onChange={handleMaxValueChange}
+                    InputProps={{ inputProps: inputPropsMax }}
                 />
             </Grid>
             <Slider
                 value={[minValue, maxValue]}
                 onChange={(_, newValue) => onChange(id, newValue)}
                 valueLabelDisplay="auto"
+                min={sliderMin}
+                max={sliderMax}
+                step={step}
             />
         </Grid>
     );
