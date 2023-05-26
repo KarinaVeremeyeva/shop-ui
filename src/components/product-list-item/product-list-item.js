@@ -11,10 +11,7 @@ const ProductListItem = ({ product }) => {
                 <CardContent>
                     <Box
                         component="img"
-                        sx={{
-                            height: '100%',
-                            width: '100%'
-                        }}
+                        className={classes.itemImage}
                         alt="item-image"
                         src={photoUrl} />
 

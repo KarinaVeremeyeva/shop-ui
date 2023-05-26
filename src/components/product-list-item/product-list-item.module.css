@@ -19,3 +19,8 @@
 .link:hover {
     color: rgb(70, 200, 150);
 }
+
+.itemImage {
+    height: 100%;
+    width: 100%;
+}
