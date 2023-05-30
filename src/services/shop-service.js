@@ -26,4 +26,11 @@ export default class ShopService {
         const data = await this.getResource(`products/${productId}`);
         return data;
     };
+
+    getUserData = () => {
+        return {
+            email: "user1@gmail.com",
+            role: "User"
+        };
+    };
 };
