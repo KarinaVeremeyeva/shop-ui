@@ -15,7 +15,8 @@ const Login = (props) => {
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        e.preventDefault();        
+        e.preventDefault();
+
         props.authService.login(login, password)
             .then(() => {
                 const userData = props.shopService.getUserData();

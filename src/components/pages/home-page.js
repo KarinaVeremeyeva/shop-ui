@@ -23,8 +23,7 @@ class HomePage extends Component {
                 <Grid item xs={3}>
                     <CategoryList categories={categories}></CategoryList>
                 </Grid>
-                <Grid item xs={6}>
-                </Grid>
+                <Grid item xs={6} />
             </Grid>
         );
     }

@@ -8,8 +8,7 @@ import classes from './products-page.module.css';
 const AuthPage = ({ authService }) => {
     return (
         <Grid container spacing={1} className={classes.pageContainer}>
-            <Grid item xs={3}>
-            </Grid>
+            <Grid item xs={3} />
             <Grid item xs={6}>
                 <Login authService={authService} />
             </Grid>

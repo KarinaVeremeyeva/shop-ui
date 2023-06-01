@@ -5,13 +5,7 @@ const withShopService = () => (Wrapped) => {
     return (props) => {
         return (
             <ShopServiceConsumer>
-                {
-                    (shopService) => {
-                        return (
-                            <Wrapped {...props} shopService={shopService} />
-                        );
-                    }
-                }
+                { (shopService) => (<Wrapped {...props} shopService={shopService} />) }
             </ShopServiceConsumer>
         );
     };

@@ -14,6 +14,7 @@ export default class AuthService {
             if (!response.ok) {
                 throw new Error(`Could not fetch ${this._apiUrl}/accounts/login, received ${response.status}`);
             }
+
             const token = response.headers.get("authorization");
             response.headers.forEach(x => console.log(x))
 
@@ -30,6 +31,7 @@ export default class AuthService {
         if (!response.ok) {
             throw new Error(`Could not fetch ${this._apiUrl}/accounts/logout, received ${response.status}`);
         }
+        
         localStorage.removeItem("token")
     };
 }
