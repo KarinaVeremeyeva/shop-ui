@@ -21,4 +21,17 @@ const setFilters = (filters) => {
     };
 };
 
-export { productsLoaded, categoriesLoaded, setFilters };
+const userDataLoaded = (userData) => {
+    return {
+        type: actionType.USER_DATA_LOADED,
+        payload: userData
+    };
+};
+
+const resetUserData = () => {
+    return {
+        type: actionType.RESET_USER_DATA,
+    };
+};
+
+export { productsLoaded, categoriesLoaded, setFilters, userDataLoaded, resetUserData };
