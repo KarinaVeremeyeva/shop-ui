@@ -1,13 +1,23 @@
 .cartItemImage {
     height: 100%;
     width: 100%;
-    padding: 10px;
 }
 
 .buttonIcon {
     margin: 0;
+    margin-left: 2px !important;
+    margin-right: 4px !important;
 }
 
 .buttonGroupContainer {
     margin: 10px 0 10px 0;
+}
+
+.cartItemContainer {
+    margin: 8px 0 8px 0;
+}
+
+.cartItemBorder {
+    border: 1px solid lightblue;
+    border-radius: 0.7rem;
 }

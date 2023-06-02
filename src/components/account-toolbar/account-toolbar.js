@@ -18,12 +18,7 @@ const AccountToolbar = ({ authService }) => {
     };
 
     const onCartClickHandler = () => {
-        if (isAuthorized) {
-            navigate('cart/');
-        }
-        else {
-            navigate('accounts/login');
-        }
+        isAuthorized ? navigate('cart') : navigate('accounts/login');
     }
 
     return (
