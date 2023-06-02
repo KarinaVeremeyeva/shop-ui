@@ -30,10 +30,10 @@ const AccountToolbar = ({ authService }) => {
         <div className={classes.toolbarWrapper}>
             <Button
                 onClick={onCartClickHandler}
-                sx={{ backgroundColor: "inherit", color: "white" }}
+                classes={{ root: classes.button }}
                 variant="text"
                 startIcon={<ShoppingCartIcon />}>
-                Buy
+                Cart
             </Button>
             {!isAuthorized && (<Link to={`accounts/login`} className={classes.link}>Login</Link>)}
             {isAuthorized && (<div onClick={onLogoutHandler} className={classes.link}>Logout</div>)}

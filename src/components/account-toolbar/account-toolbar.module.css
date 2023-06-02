@@ -9,3 +9,10 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+.button {
+    background-color: "inherit" !important;
+    color: white !important;
+    text-transform: none !important;
+    font-size: 16px !important;
+}

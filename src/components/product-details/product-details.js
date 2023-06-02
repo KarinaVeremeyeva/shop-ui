@@ -13,32 +13,26 @@ const ProductDetails = ({ product, onClick }) => {
     const setFormat = (type, value) => {
         return type === 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
     };
+    const photo = 'https://img.5element.by/import/images/ut/goods/good_bb7becb4-828d-11ed-bb97-0050560120e8/-1_600.jpg';
 
     return (
         <Grid container>
             <Typography variant="h6">{name}</Typography>
             <Grid container>
                 <Grid item xs={6}>
-                    <Box 
-                        component="img"
-                        sx={{
-                            height: '100%',
-                            width: '100%'
-                        }}
-                        alt="item-image"
-                        src={photoUrl}
-                    />
+                    <Box src={photo} component="img" className={classes.itemImage} alt="item-image" />
                 </Grid>
                 <Grid item xs={6} className={classes.descriptionContainer}>
                     <Grid container alignItems="center" spacing={3} wrap="nowrap">
                         <Grid item>
-                            <Typography variant="h6">${price}</Typography></Grid>
+                            <Typography variant="h6">${price}</Typography>
+                        </Grid>
                         <Grid item>
                             <Button
                                 onClick={() => onClick(id)}
                                 variant="contained"
                                 startIcon={<ShoppingCartIcon />}>
-                                Cart
+                                Buy
                             </Button>
                         </Grid>
                     </Grid>
