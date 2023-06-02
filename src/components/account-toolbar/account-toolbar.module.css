@@ -3,3 +3,9 @@
     color: white;
     cursor: pointer;
 }
+
+.toolbarWrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}

@@ -6,12 +6,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import classes from './product-details.module.css';
 
-const ProductDetails = ({ product }) => {
-    const { name, price, description, category, details, photoUrl } = product;
+const ProductDetails = ({ product, onClick }) => {
+    const {  id, name, price, description, category, details, photoUrl } = product;
     const { name: categoryName } = category;
 
     const setFormat = (type, value) => {
-        return type == 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
+        return type === 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
     };
 
     return (
@@ -34,7 +34,10 @@ const ProductDetails = ({ product }) => {
                         <Grid item>
                             <Typography variant="h6">${price}</Typography></Grid>
                         <Grid item>
-                            <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+                            <Button
+                                onClick={() => onClick(id)}
+                                variant="contained"
+                                startIcon={<ShoppingCartIcon />}>
                                 Cart
                             </Button>
                         </Grid>

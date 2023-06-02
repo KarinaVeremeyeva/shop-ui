@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import { withAuthService } from "../hoc";
-import Login from "../login/login";
+import Login from "../login";
 
 import classes from './products-page.module.css';
 

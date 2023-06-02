@@ -16,8 +16,6 @@ export default class AuthService {
             }
 
             const token = response.headers.get("authorization");
-            response.headers.forEach(x => console.log(x))
-
             if (token) {
                 localStorage.setItem("token", token);
             }
