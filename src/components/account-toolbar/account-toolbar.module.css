@@ -3,3 +3,15 @@
     color: white;
     cursor: pointer;
 }
+
+.toolbarWrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.button {
+    color: white !important;
+    text-transform: none !important;
+    font-size: 16px !important;
+}

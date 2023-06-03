@@ -34,4 +34,42 @@ const resetUserData = () => {
     };
 };
 
-export { productsLoaded, categoriesLoaded, setFilters, userDataLoaded, resetUserData };
+const cartItemsLoaded = (cartItems) => {
+    return {
+        type: actionType.CART_ITEMS_LOADED,
+        payload: cartItems
+    };
+};
+
+const productAddedToCart = (cartItem) => {
+    return {
+        type: actionType.ADD_PRODUCT_TO_CART,
+        payload: cartItem
+    };
+};
+
+const productRemovedFromCart = (productId) => {
+    return {
+        type: actionType.REMOVE_PRODUCT_FROM_CART,
+        payload: productId
+    };
+};
+
+const allProductsRemovedFromCart = (productId) => {
+    return {
+        type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART,
+        payload: productId
+    };
+};
+
+export {
+    productsLoaded, 
+    categoriesLoaded,
+    setFilters,
+    userDataLoaded,
+    resetUserData,
+    cartItemsLoaded,
+    productAddedToCart,
+    productRemovedFromCart,
+    allProductsRemovedFromCart
+};

@@ -20,12 +20,50 @@ export default class ShopService {
     getCategories = async () => {
         const data = await this.getResource(`categories`);
         return data;
-    }
+    };
 
     getProduct = async (productId) => {
         const data = await this.getResource(`products/${productId}`);
         return data;
     };
+
+    getCartItems = async () => {
+        const data = await this.getResource(`cart`);
+        return data;
+    };
+
+    addToCart = async (productId) => {
+        const response = await fetch(`${this._apiUrl}/cart/${productId}`, {
+            method: 'POST'
+        })
+        if (!response.ok) {
+            throw new Error(`Could not fetch ${this._apiUrl}/cart/${productId}, received ${response.status}`);
+        }
+        
+        return await response.json();
+    }
+
+    reduceProductCount = async (productId) => {
+        const response = await fetch(`${this._apiUrl}/cart/${productId}/reduce`, {
+            method: 'PUT'
+        })
+        if (!response.ok) {
+            throw new Error(`Could not fetch ${this._apiUrl}/cart/${productId}/reduce, received ${response.status}`);
+        }
+        
+        return response;
+    }
+
+    removeFromCart = async (productId) => {
+        const response = await fetch(`${this._apiUrl}/cart/${productId}`, {
+            method: 'DELETE'
+        })
+        if (!response.ok) {
+            throw new Error(`Could not fetch ${this._apiUrl}/cart/${productId}, received ${response.status}`);
+        }
+        
+        return response;
+    }
 
     getUserData = () => {
         return {

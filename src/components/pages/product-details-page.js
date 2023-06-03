@@ -6,7 +6,7 @@ import ProductDetails from "../product-details";
 import { withShopService, withRouter } from "../hoc";
 import { compose } from "../../utils";
 import CategoryList from "../category-list";
-import { categoriesLoaded } from "../../actions";
+import { categoriesLoaded, productAddedToCart } from "../../actions";
 import classes from './products-page.module.css';
 
 
@@ -29,6 +29,13 @@ class ProductDetailsPage extends Component {
             .then(categories => categoriesLoaded(categories));
     };
 
+    handleAddToCart = (productId) => {
+        const { shopService } = this.props;
+
+        shopService.addToCart(productId)
+            .then(cartItem => productAddedToCart(cartItem));
+    };
+
     render() {
         const { categories } = this.props;
         const { product } = this.state;
@@ -42,19 +49,20 @@ class ProductDetailsPage extends Component {
                     <CategoryList categories={categories}></CategoryList>
                 </Grid>
                 <Grid item xs={6}>
-                    <ProductDetails product={product}/>
+                    <ProductDetails product={product} onClick={() => this.handleAddToCart(product.id)}
+                />
                 </Grid>
             </Grid>
         );
     }
 };
 
-const mapStateToProps = ({ categories }) => {
-    return { categories };
+const mapStateToProps = ({ categories, productId }) => {
+    return { categories, productId };
 }
 
 const mapDispatchToProps = {
-    categoriesLoaded
+    categoriesLoaded, productAddedToCart
 };
 
 export default compose(
