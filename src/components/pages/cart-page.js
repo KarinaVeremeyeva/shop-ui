@@ -8,14 +8,14 @@ import classes from './products-page.module.css';
 import CategoryList from "../category-list";
 
 const CartPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.userData)
+    const isAuthorized = useSelector(state => !!state.userData);
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.categories)
+    const categories = useSelector(state => state.categories);
 
     useEffect(() => {
         shopService.getCategories()
             .then(categories => dispatch(categoriesLoaded(categories)));
-    }, []
+        }, []
     );
     
     const pageContent = isAuthorized

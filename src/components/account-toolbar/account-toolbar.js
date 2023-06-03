@@ -8,7 +8,7 @@ import { resetUserData } from "../../actions";
 import classes from './account-toolbar.module.css';
 
 const AccountToolbar = ({ authService }) => {
-    const isAuthorized = useSelector(state => !!state.userData)
+    const isAuthorized = useSelector(state => !!state.userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -18,8 +18,13 @@ const AccountToolbar = ({ authService }) => {
     };
 
     const onCartClickHandler = () => {
-        isAuthorized ? navigate('cart') : navigate('accounts/login');
-    }
+        if (isAuthorized) {
+            navigate('cart');
+        }
+        else {
+            navigate('accounts/login');
+        }
+    };
 
     return (
         <div className={classes.toolbarWrapper}>

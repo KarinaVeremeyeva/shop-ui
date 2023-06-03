@@ -6,8 +6,7 @@ const initialState = {
     filters: [],
     loading: true,
     userData: null,
-    cartItems: [],
-    productId: {}
+    cartItems: []
 };
 
 const reducer = (state = initialState, action) => {

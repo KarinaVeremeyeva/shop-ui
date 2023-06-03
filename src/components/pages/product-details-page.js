@@ -50,7 +50,7 @@ class ProductDetailsPage extends Component {
                 </Grid>
                 <Grid item xs={6}>
                     <ProductDetails product={product} onClick={() => this.handleAddToCart(product.id)}
-                    />
+                />
                 </Grid>
             </Grid>
         );
