@@ -3,12 +3,14 @@ import { useDispatch } from "react-redux";
 import { Button, ButtonGroup, Grid, Typography, Box, Card, CardContent } from "@mui/material";
 import { Add, Delete, Remove } from "@mui/icons-material";
 import { productAddedToCart, productRemovedFromCart, allProductsRemovedFromCart } from "../../actions";
-import classes from './shopping-cart-item.module.css';
 import { withShopService } from "../hoc";
+import classes from './shopping-cart-item.module.css';
+import image from '../../assets/no-image.jpg';
 
 const ShoppingCartItem = ({ cartItem, shopService }) => {
     const { product: { id, name, price, photoUrl, description }, quantity } = cartItem
-    const photo = 'https://img.5element.by/import/images/ut/goods/good_bb7becb4-828d-11ed-bb97-0050560120e8/-1_600.jpg';
+    const photo = photoUrl || image;
+    
     const dispatch = useDispatch();
 
     const handleIncreaseProductCount = (productId) => {
