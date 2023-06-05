@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import classes from './product-list-item.module.css';
 import image from '../../assets/no-image.jpg';
 
 const ProductListItem = ({ product }) => {
-    const { id, name, price, categoryName, photoUrl } = product;
+    const { id, name, price, category: { name: categoryName}, photoUrl } = product;
     const photo = photoUrl || image;
 
     return (
@@ -25,6 +26,9 @@ const ProductListItem = ({ product }) => {
                     </Typography>
                     <Typography variant="h6">${price}</Typography>
                     <Typography variant="body1">{categoryName}</Typography>
+                    <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+                        Buy
+                    </Button>
                 </CardContent>
             </Card>
         </Grid>
