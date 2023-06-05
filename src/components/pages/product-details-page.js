@@ -49,8 +49,7 @@ class ProductDetailsPage extends Component {
                     <CategoryList categories={categories}></CategoryList>
                 </Grid>
                 <Grid item xs={6}>
-                    <ProductDetails product={product} onClick={() => this.handleAddToCart(product.id)}
-                />
+                    <ProductDetails product={product} onClick={() => this.handleAddToCart(product.id)} />
                 </Grid>
             </Grid>
         );

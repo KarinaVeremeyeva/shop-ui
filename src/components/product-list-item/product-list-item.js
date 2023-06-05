@@ -5,7 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import classes from './product-list-item.module.css';
 import image from '../../assets/no-image.jpg';
 
-const ProductListItem = ({ product }) => {
+const ProductListItem = ({ product, onClick }) => {
     const { id, name, price, category: { name: categoryName}, photoUrl } = product;
     const photo = photoUrl || image;
 
@@ -13,12 +13,7 @@ const ProductListItem = ({ product }) => {
         <Grid item xs={12} md={4}>
             <Card classes={{ root: classes.productListItem }} square>
                 <CardContent>
-                    <Box
-                        component="img"
-                        className={classes.itemImage}
-                        alt="item-image"
-                        src={photo} />
-
+                    <Box src={photo} component="img" className={classes.itemImage} alt="item-image" />
                     <Typography variant="h6">
                         <Link to={`/products/${id}`} className={classes.link}>
                             {name}
@@ -26,7 +21,7 @@ const ProductListItem = ({ product }) => {
                     </Typography>
                     <Typography variant="h6">${price}</Typography>
                     <Typography variant="body1">{categoryName}</Typography>
-                    <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+                    <Button onClick={() => onClick(id)} variant="contained" startIcon={<ShoppingCartIcon />}>
                         Buy
                     </Button>
                 </CardContent>

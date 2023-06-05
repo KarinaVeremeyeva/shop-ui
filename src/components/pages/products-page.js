@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsLoaded, categoriesLoaded, setFilters } from "../../actions";
+import { productsLoaded, categoriesLoaded, setFilters, productAddedToCart } from "../../actions";
 import { compose } from "../../utils";
 import { withShopService, withRouter } from "../hoc";
 import Details from "../details";
@@ -43,6 +43,13 @@ class ProductsPage extends Component {
         }
     }
 
+    handleAddToCart = (productId) => {
+        const { shopService, productAddedToCart} = this.props;
+
+        shopService.addToCart(productId)
+            .then(cartItem => productAddedToCart(cartItem));
+    };
+
     render() {
         const { router, categories, products, filters, loading } = this.props;
         const id = router.params.categoryId;
@@ -62,7 +69,7 @@ class ProductsPage extends Component {
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
-                    <ProductList categoryId={id} products={products}/>
+                    <ProductList categoryId={id} products={products} onAddProduct={this.handleAddToCart} />
                 </Grid>
             </Grid>
     )};
@@ -73,7 +80,7 @@ const mapStateToProps = ({ products, categories, filters, loading }) => {
 }
 
 const mapDispatchToProps = {
-    productsLoaded, categoriesLoaded, setFilters
+    productsLoaded, categoriesLoaded, setFilters, productAddedToCart
 };
 
 export default compose(
