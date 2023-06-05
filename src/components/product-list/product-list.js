@@ -5,14 +5,14 @@ import { Grid } from "@mui/material";
 
 class ProductList extends Component {
     render() {
-        const { products } = this.props;
+        const { products, onAddProduct } = this.props;
 
         return (
             <Grid container spacing={3}>
                 {
                     products.map((product) => {
                         return (
-                            <ProductListItem key={product.id} product={product}/>
+                            <ProductListItem key={product.id} product={product} onClick={onAddProduct} />
                         );
                     })
                 }
