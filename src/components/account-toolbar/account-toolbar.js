@@ -9,6 +9,7 @@ import classes from './account-toolbar.module.css';
 
 const AccountToolbar = ({ authService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
+    const email = useSelector(state => state.userData?.email);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,6 +29,7 @@ const AccountToolbar = ({ authService }) => {
 
     return (
         <div className={classes.toolbarWrapper}>
+            {isAuthorized && (<div className={classes.link}>{email}</div>)}
             <Button
                 onClick={onCartClickHandler}
                 classes={{ root: classes.button }}

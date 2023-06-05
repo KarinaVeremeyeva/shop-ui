@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import classes from './product-list-item.module.css';
+import image from '../../assets/no-image.jpg';
 
 const ProductListItem = ({ product }) => {
-    const { id, name, price, categoryName, photoUrl } = product;
+    const { id, name, price, category: { name: categoryName}, photoUrl } = product;
+    const photo = photoUrl || image;
+
     return (
         <Grid item xs={12} md={4}>
             <Card classes={{ root: classes.productListItem }} square>
@@ -13,7 +17,7 @@ const ProductListItem = ({ product }) => {
                         component="img"
                         className={classes.itemImage}
                         alt="item-image"
-                        src={photoUrl} />
+                        src={photo} />
 
                     <Typography variant="h6">
                         <Link to={`/products/${id}`} className={classes.link}>
@@ -22,6 +26,9 @@ const ProductListItem = ({ product }) => {
                     </Typography>
                     <Typography variant="h6">${price}</Typography>
                     <Typography variant="body1">{categoryName}</Typography>
+                    <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+                        Buy
+                    </Button>
                 </CardContent>
             </Card>
         </Grid>

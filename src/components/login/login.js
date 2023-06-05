@@ -19,8 +19,8 @@ const Login = (props) => {
 
         props.authService.login(login, password)
             .then(() => {
-                const userData = props.shopService.getUserData();
-                return dispatch(userDataLoaded(userData));
+                return props.shopService.getUserData()
+                    .then((userData) => dispatch(userDataLoaded(userData)));
             })
             .then(() => navigate("/"))
             .catch(() => setError('Wrong username or password'));

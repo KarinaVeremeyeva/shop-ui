@@ -3,17 +3,17 @@ import { Button, Grid, Typography, Box } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-
 import classes from './product-details.module.css';
+import image from '../../assets/no-image.jpg';
 
 const ProductDetails = ({ product, onClick }) => {
     const {  id, name, price, description, category, details, photoUrl } = product;
     const { name: categoryName } = category;
+    const photo = photoUrl || image;
 
     const setFormat = (type, value) => {
         return type === 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
     };
-    const photo = 'https://img.5element.by/import/images/ut/goods/good_bb7becb4-828d-11ed-bb97-0050560120e8/-1_600.jpg';
 
     return (
         <Grid container>

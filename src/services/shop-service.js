@@ -28,14 +28,25 @@ export default class ShopService {
     };
 
     getCartItems = async () => {
-        const data = await this.getResource(`cart`);
-        return data;
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/cart`, {
+            headers: {
+                'Authorization': token
+            }
+        });
+        const jsonData = await response.json();
+
+        return jsonData;
     };
 
     addToCart = async (productId) => {
+        const token = localStorage.getItem("token");
         const response = await fetch(`${this._apiUrl}/cart/${productId}`, {
-            method: 'POST'
-        })
+            method: 'POST',
+            headers: {
+                'Authorization': token
+            }
+        });
         if (!response.ok) {
             throw new Error(`Could not fetch ${this._apiUrl}/cart/${productId}, received ${response.status}`);
         }
@@ -44,9 +55,13 @@ export default class ShopService {
     }
 
     reduceProductCount = async (productId) => {
+        const token = localStorage.getItem("token");
         const response = await fetch(`${this._apiUrl}/cart/${productId}/reduce`, {
-            method: 'PUT'
-        })
+            method: 'PUT',
+            headers: {
+                'Authorization': token
+            }
+        });
         if (!response.ok) {
             throw new Error(`Could not fetch ${this._apiUrl}/cart/${productId}/reduce, received ${response.status}`);
         }
@@ -55,9 +70,13 @@ export default class ShopService {
     }
 
     removeFromCart = async (productId) => {
+        const token = localStorage.getItem("token");
         const response = await fetch(`${this._apiUrl}/cart/${productId}`, {
-            method: 'DELETE'
-        })
+            method: 'DELETE',
+            headers: {
+                'Authorization': token
+            }
+        });
         if (!response.ok) {
             throw new Error(`Could not fetch ${this._apiUrl}/cart/${productId}, received ${response.status}`);
         }
@@ -65,10 +84,14 @@ export default class ShopService {
         return response;
     }
 
-    getUserData = () => {
-        return {
-            email: "user1@gmail.com",
-            role: "User"
-        };
+    getUserData = async () => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/cart/user-data`, {
+            headers: {
+                'Authorization': token
+            }
+        });
+
+        return await response.json();
     };
 };
