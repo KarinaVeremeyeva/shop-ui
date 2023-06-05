@@ -20,6 +20,12 @@ const ShoppingCart = ({ shopService }) => {
         0
     );
 
+    if (cartItems.length === 0) {
+        return (
+            <div>Shopping cart is empty.</div>
+        );
+    };
+
     return (
         <Grid container direction="row">
             <Typography variant="h6">Shopping cart</Typography>

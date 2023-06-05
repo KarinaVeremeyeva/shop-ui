@@ -29,7 +29,6 @@ export default class ShopService {
 
     getCartItems = async () => {
         const token = localStorage.getItem("token");
-        console.log(token);
         const response = await fetch(`${this._apiUrl}/cart`, {
             headers: {
                 'Authorization': token
