@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { connect } from "react-redux";
 
 import { withShopService, withRouter } from "../hoc";
@@ -23,7 +23,9 @@ class HomePage extends Component {
                 <Grid item xs={3}>
                     <CategoryList categories={categories}></CategoryList>
                 </Grid>
-                <Grid item xs={6} />
+                <Grid item xs={6}>
+                    <Typography variant="h6">Select product category</Typography>
+                </Grid>
             </Grid>
         );
     }
