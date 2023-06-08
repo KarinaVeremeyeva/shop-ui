@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart } from "../../actions";
+import { productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart, requestAddProductToCart } from "../../actions";
 import { compose } from "../../utils";
 import { withShopService, withRouter } from "../hoc";
 import { Filters } from "../filters";
@@ -45,8 +45,9 @@ class ProductsPage extends Component {
     }
 
     handleAddToCart = (productId) => {
-        const { shopService, productAddedToCart} = this.props;
+        const { shopService, productAddedToCart, requestAddProductToCart } = this.props;
 
+        requestAddProductToCart();
         shopService.addToCart(productId)
             .then(cartItem => productAddedToCart(cartItem));
     };
@@ -79,7 +80,7 @@ const mapStateToProps = ({ products, categories, filters, loading }) => {
 }
 
 const mapDispatchToProps = {
-    productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart
+    productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart,  requestAddProductToCart
 };
 
 export default compose(

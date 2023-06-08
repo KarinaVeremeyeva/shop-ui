@@ -1,15 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Button, Grid, Typography, Box } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import classes from './product-details.module.css';
 import image from '../../assets/no-image.jpg';
+import SpinnerButton from "../spinner/spinner-button";
+import { ADD_PRODUCT_TO_CART } from "../../reducers/constants";
 
 const ProductDetails = ({ product, onClick }) => {
     const {  id, name, price, description, category, details, photoUrl } = product;
     const { name: categoryName } = category;
     const photo = photoUrl || image;
+    const loading = useSelector(state => state.loading[ADD_PRODUCT_TO_CART]);
 
     const setFormat = (type, value) => {
         return type === 'boolean' ? value ? <CheckIcon /> : <CloseIcon /> : value;
@@ -28,12 +32,17 @@ const ProductDetails = ({ product, onClick }) => {
                             <Typography variant="h6">${price}</Typography>
                         </Grid>
                         <Grid item>
-                            <Button
-                                onClick={() => onClick(id)}
-                                variant="contained"
-                                startIcon={<ShoppingCartIcon />}>
-                                Buy
-                            </Button>
+                            <SpinnerButton loading={loading}>
+                                {(loading) => (
+                                    <Button
+                                        onClick={() => onClick(id)}
+                                        disabled={loading}
+                                        variant="contained"
+                                        startIcon={<ShoppingCartIcon />}>
+                                        Buy
+                                    </Button>
+                                )}
+                            </SpinnerButton>
                         </Grid>
                     </Grid>
                     <Grid className={classes.detailsContainer}>

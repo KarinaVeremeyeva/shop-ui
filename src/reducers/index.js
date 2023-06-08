@@ -1,4 +1,5 @@
 import * as actionType from '../actions/actionTypes';
+import * as loadingType from '../reducers/constants';
 
 const initialState = {
     products: [],
@@ -18,7 +19,7 @@ const reducer = (state = initialState, action) => {
                 products: [],
                 loading: {
                     ...state.loading,
-                    'products': true
+                    [loadingType.PRODUCTS]: true
                 },
                 error: null
             };
@@ -28,7 +29,7 @@ const reducer = (state = initialState, action) => {
                 products: action.payload,
                 loading: {
                     ...state.loading,
-                    'products': false
+                    [loadingType.PRODUCTS]: false
                 },
                 error: null
             };
@@ -38,7 +39,7 @@ const reducer = (state = initialState, action) => {
                 products: [],
                 loading: {
                     ...state.loading,
-                    'products': false
+                    [loadingType.PRODUCTS]: false
                 },
                 error: action.payload,
             };
@@ -48,7 +49,7 @@ const reducer = (state = initialState, action) => {
                 categories: action.payload,
                 loading: {
                     ...state.loading,
-                    'categories': true
+                    [loadingType.CATEGORIES]: true
                 },
             };
         case actionType.CATEGORIES_LOADED:
@@ -57,7 +58,7 @@ const reducer = (state = initialState, action) => {
                 categories: action.payload,
                 loading: {
                     ...state.loading,
-                    'categories': false
+                    [loadingType.CATEGORIES]: false
                 },
             };
         case actionType.CATEGORIES_FAILURE:
@@ -66,7 +67,7 @@ const reducer = (state = initialState, action) => {
                 categories: action.payload,
                 loading: {
                     ...state.loading,
-                    'categories': false
+                    [loadingType.CATEGORIES]: false
                 },
             };
         case actionType.SET_FILTERS:
@@ -90,7 +91,7 @@ const reducer = (state = initialState, action) => {
                 cartItems: [],
                 loading: {
                     ...state.loading,
-                    'cart-items': true
+                    [loadingType.CART_ITEMS]: true
                 },
                 error: null
             };
@@ -100,7 +101,7 @@ const reducer = (state = initialState, action) => {
                 cartItems: action.payload,
                 loading: {
                     ...state.loading,
-                    'cart-items': false
+                    [loadingType.CART_ITEMS]: false
                 },
                 error: null
             };
@@ -110,11 +111,21 @@ const reducer = (state = initialState, action) => {
                 cartItems: [],
                 loading: {
                     ...state.loading,
-                    'cart-items': false
+                    [loadingType.CART_ITEMS]: false
                 },
                 error: action.payload,
             };
-        case actionType.ADD_PRODUCT_TO_CART:
+        case actionType.ADD_PRODUCT_TO_CART_REQUESTED:
+            {
+                return {
+                    ...state,
+                    loading: {
+                        ...state.loading,
+                        [loadingType.ADD_PRODUCT_TO_CART]: true
+                    }
+                };
+            }
+        case actionType.ADD_PRODUCT_TO_CART_SUCCESS:
             {
                 let cartItems = [...state.cartItems];
                 const cartItem = cartItems.find(c => c.product.id === action.payload.product.id);
@@ -127,10 +138,22 @@ const reducer = (state = initialState, action) => {
                 }
                 return {
                     ...state,
-                    cartItems
+                    cartItems,
+                    loading: {
+                        ...state.loading,
+                        [loadingType.ADD_PRODUCT_TO_CART]: false
+                    }
                 };
             }
-        case actionType.REMOVE_PRODUCT_FROM_CART:
+        case actionType.REMOVE_PRODUCT_FROM_CART_REQUESTED:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.REDUCE_PRODUCT]: true
+                }
+            };
+        case actionType.REMOVE_PRODUCT_FROM_CART_SUCCESS:
             {
                 let cartItems = [...state.cartItems];
                 const cartItem = cartItems.find(c => c.product.id === action.payload);
@@ -146,15 +169,33 @@ const reducer = (state = initialState, action) => {
                 }
                 return {
                     ...state,
-                    cartItems
+                    cartItems,
+                    loading: {
+                        ...state.loading,
+                        [loadingType.REDUCE_PRODUCT]: false
+                    }
                 };
             }
-        case actionType.ALL_PRODUCTS_REMOVED_FROM_CART:
+        case actionType.ALL_PRODUCTS_REMOVED_FROM_CART_REQUESTED:
+            {
+                return {
+                    ...state,
+                    loading: {
+                        ...state.loading,
+                        [loadingType.REMOVE_PRODUCTS]: true
+                    }
+                };
+            }
+        case actionType.ALL_PRODUCTS_REMOVED_FROM_CART_SUCCESS:
             {
                 const cartItems = state.cartItems.filter(c => c.product.id !== action.payload);
                 return {
                     ...state,
-                    cartItems
+                    cartItems,
+                    loading: {
+                        ...state.loading,
+                        [loadingType.REMOVE_PRODUCTS]: false
+                    }
                 };
             }
         default:

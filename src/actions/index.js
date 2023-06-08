@@ -80,23 +80,41 @@ const cartItemsError = (error) => {
     };
 };
 
+const requestAddProductToCart = () => {
+    return {
+        type: actionType.ADD_PRODUCT_TO_CART_REQUESTED,
+    };
+};
+
 const productAddedToCart = (cartItem) => {
     return {
-        type: actionType.ADD_PRODUCT_TO_CART,
+        type: actionType.ADD_PRODUCT_TO_CART_SUCCESS,
         payload: cartItem
+    };
+};
+
+const requestRemoveProductFromCart = () => {
+    return {
+        type: actionType.REMOVE_PRODUCT_FROM_CART_REQUESTED,
     };
 };
 
 const productRemovedFromCart = (productId) => {
     return {
-        type: actionType.REMOVE_PRODUCT_FROM_CART,
+        type: actionType.REMOVE_PRODUCT_FROM_CART_SUCCESS,
         payload: productId
+    };
+};
+
+const requestRemoveAllProductsFromCart = () => {
+    return {
+        type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_REQUESTED,
     };
 };
 
 const allProductsRemovedFromCart = (productId) => {
     return {
-        type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART,
+        type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_SUCCESS,
         payload: productId
     };
 };
@@ -114,7 +132,10 @@ export {
     cartItemsRequested,
     cartItemsLoaded,
     cartItemsError,
+    requestAddProductToCart,
     productAddedToCart,
+    requestRemoveProductFromCart,
     productRemovedFromCart,
+    requestRemoveAllProductsFromCart,
     allProductsRemovedFromCart
 };
