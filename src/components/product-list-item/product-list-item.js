@@ -12,25 +12,21 @@ const ProductListItem = ({ product, onClick }) => {
     return (
         <Grid item xs={12} md={4}>
             <Card classes={{ root: classes.productListItem }} square>
-                <Link to={`/products/${id}`} className={classes.link}>
-                    <CardActionArea>
-                        <CardContent>
-                            <Box src={photo} component="img" className={classes.itemImage} alt="item-image" />
-                            <Tooltip title={name}>
-                                <Typography variant="h6" className={classes.productNameContainer}>
-                                    <Link to={`/products/${id}`} className={classes.link}>
-                                        {name}
-                                    </Link>
-                                </Typography>
-                            </Tooltip>
-                            <Typography variant="h6">${price}</Typography>
-                            <Typography variant="body1">{categoryName}</Typography>
-                            <Button onClick={() => onClick(id)} variant="contained" startIcon={<ShoppingCartIcon />}>
-                                Buy
-                            </Button>
-                        </CardContent>
-                    </CardActionArea>
-                </Link>
+                <CardActionArea component={Link} to={`/products/${id}`}>
+                    <CardContent>
+                        <Box src={photo} component="img" className={classes.itemImage} alt="item-image" />
+                        <Tooltip title={name}>
+                            <Typography variant="h6" className={classes.productNameContainer}>
+                                {name}
+                            </Typography>
+                        </Tooltip>
+                        <Typography variant="h6">${price}</Typography>
+                        <Typography variant="body1">{categoryName}</Typography>
+                        <Button onClick={() => onClick(id)} variant="contained" startIcon={<ShoppingCartIcon />}>
+                            Buy
+                        </Button>
+                    </CardContent>
+                </CardActionArea>
             </Card>
         </Grid>
     );
