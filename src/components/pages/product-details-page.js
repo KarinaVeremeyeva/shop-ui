@@ -43,10 +43,12 @@ class ProductDetailsPage extends Component {
             return null;
         }
 
+        const { category: { id: categoryId } } = product;
+
         return (
             <Grid container spacing={1} className={classes.pageContainer}>
                 <Grid item xs={3}>
-                    <CategoryList categories={categories}></CategoryList>
+                    <CategoryList categories={categories} currentCategoryId={categoryId} />
                 </Grid>
                 <Grid item xs={6}>
                     <ProductDetails product={product} onClick={() => this.handleAddToCart(product.id)} />

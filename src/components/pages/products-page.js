@@ -62,7 +62,7 @@ class ProductsPage extends Component {
             <Grid container spacing={2} className={classes.pageContainer}>
                 <Grid item xs={3}>
                     <Grid item xs={12}>
-                        <CategoryList categories={categories}/>
+                        <CategoryList categories={categories} currentCategoryId={categoryId} />
                     </Grid>
                     {products.length > 1 && (
                         <Grid item xs={12}>

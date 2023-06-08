@@ -44,7 +44,7 @@ const ProductDetails = ({ product, onClick }) => {
                 </Grid>
             </Grid>
             <Grid item xs={12} className={classes.detailsGridWrapper}>
-                <Typography variant="body1">Details</Typography>
+                {!!details.length && (<Typography variant="body1">Details</Typography>)}
                 {
                     details.map(detail => {
                         const { id, name: detailName, type, value } = detail;
