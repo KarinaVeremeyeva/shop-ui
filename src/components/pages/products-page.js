@@ -7,7 +7,7 @@ import CategoryList from "../category-list";
 import { productsLoaded, categoriesLoaded, setFilters, productAddedToCart } from "../../actions";
 import { compose } from "../../utils";
 import { withShopService, withRouter } from "../hoc";
-import Details from "../details";
+import { Filters } from "../filters";
 import { makeFilters } from "../../utils";
 import Spinner from "../spinner";
 import classes from './products-page.module.css';
@@ -52,10 +52,14 @@ class ProductsPage extends Component {
 
     render() {
         const { router, categories, products, filters, loading } = this.props;
-        const id = router.params.categoryId;
+        const { categoryId } = router.params;
 
         if (loading) {
             return <Spinner />;
+        }
+
+        if (products.length <= 1) {
+            return null;
         }
 
         return (
@@ -65,11 +69,11 @@ class ProductsPage extends Component {
                         <CategoryList categories={categories}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <Details filters={filters} products={products}/>
+                        <Filters filters={filters} products={products}/>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
-                    <ProductList categoryId={id} products={products} onAddProduct={this.handleAddToCart} />
+                    <ProductList categoryId={categoryId} products={products} onAddProduct={this.handleAddToCart} />
                 </Grid>
             </Grid>
     )};
