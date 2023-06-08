@@ -1,0 +1,1 @@
+export const getIsPermittedForUser = state => state.userData?.role === 'User';

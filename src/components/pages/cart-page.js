@@ -6,19 +6,21 @@ import { withShopService } from "../hoc";
 import { categoriesLoaded } from "../../actions";
 import classes from './products-page.module.css';
 import CategoryList from "../category-list";
+import { getIsPermittedForUser } from '../../selectors/selectors';
 
 const CartPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
+    const isUserPermited = useSelector(getIsPermittedForUser);
     const dispatch = useDispatch();
     const categories = useSelector(state => state.categories);
 
     useEffect(() => {
         shopService.getCategories()
             .then(categories => dispatch(categoriesLoaded(categories)));
-        }, []
+        }, [shopService, dispatch]
     );
     
-    const pageContent = isAuthorized
+    const pageContent = isAuthorized && isUserPermited
         ? <ShoppingCart shopService={shopService} />
         : 'Permission denied';
 
