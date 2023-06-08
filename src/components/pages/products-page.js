@@ -4,12 +4,11 @@ import { Grid } from "@mui/material";
 
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsLoaded, categoriesLoaded, setFilters, productAddedToCart } from "../../actions";
+import { productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart } from "../../actions";
 import { compose } from "../../utils";
 import { withShopService, withRouter } from "../hoc";
 import { Filters } from "../filters";
 import { makeFilters } from "../../utils";
-import Spinner from "../spinner";
 import classes from './products-page.module.css';
 
 class ProductsPage extends Component {
@@ -23,16 +22,18 @@ class ProductsPage extends Component {
     };
 
     initializeProducts() {
-        const { shopService, router, productsLoaded, setFilters } = this.props;
+        const { shopService, router, productsRequested, productsLoaded, productsError, setFilters } = this.props;
         const { categoryId } = router.params;
 
+        productsRequested();
         shopService.getProducts(categoryId)
             .then(products => {
                 productsLoaded(products);
                 
                 const selectedFilters = makeFilters(products);
                 setFilters(selectedFilters);
-            });
+            })
+            .catch((error) => productsError(error));
     }
 
     componentDidUpdate(prevProps) {
@@ -51,12 +52,8 @@ class ProductsPage extends Component {
     };
 
     render() {
-        const { router, categories, products, filters, loading } = this.props;
+        const { router, categories, products, filters } = this.props;
         const { categoryId } = router.params;
-
-        if (loading) {
-            return <Spinner />;
-        }
 
         return (
             <Grid container spacing={2} className={classes.pageContainer}>
@@ -82,7 +79,7 @@ const mapStateToProps = ({ products, categories, filters, loading }) => {
 }
 
 const mapDispatchToProps = {
-    productsLoaded, categoriesLoaded, setFilters, productAddedToCart
+    productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart
 };
 
 export default compose(

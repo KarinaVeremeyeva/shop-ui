@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import { withShopService } from "../hoc";
 import { useDispatch, useSelector } from "react-redux";
-import { cartItemsLoaded } from "../../actions";
+import { cartItemsRequested, cartItemsLoaded, cartItemsError } from "../../actions";
 import { Grid, Typography } from "@mui/material";
 import ShoppingCartItem from "../shopping-cart-item";
+import Spinner from "../spinner";
 
 const ShoppingCart = ({ shopService }) => {
     const cartItems = useSelector(state => state.cartItems);
+    const loading = useSelector(state => state.loading['cart-items']);
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(cartItemsRequested());
         shopService.getCartItems()
-            .then((cartItems) => dispatch(cartItemsLoaded(cartItems)));
+            .then((cartItems) => dispatch(cartItemsLoaded(cartItems)))
+            .catch((error) => dispatch(cartItemsError(error)))
         }, [dispatch, shopService]
     );
 
@@ -19,6 +23,10 @@ const ShoppingCart = ({ shopService }) => {
         (total, cartItem) => total + cartItem.product.price * cartItem.quantity,
         0
     );
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     if (cartItems.length === 0) {
         return (

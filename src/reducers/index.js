@@ -4,24 +4,70 @@ const initialState = {
     products: [],
     categories: [],
     filters: [],
-    loading: true,
+    loading: {},
+    error: null,
     userData: null,
     cartItems: []
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-
+        case actionType.PRODUCTS_REQUESTED:
+            return {
+                ...state,
+                products: [],
+                loading: {
+                    ...state.loading,
+                    'products': true
+                },
+                error: null
+            };
         case actionType.PRODUCTS_LOADED:
             return {
                 ...state,
                 products: action.payload,
-                loading: false
+                loading: {
+                    ...state.loading,
+                    'products': false
+                },
+                error: null
+            };
+        case actionType.PRODUCTS_FAILURE:
+            return {
+                ...state,
+                products: [],
+                loading: {
+                    ...state.loading,
+                    'products': false
+                },
+                error: action.payload,
+            };
+        case actionType.CATEGORIES_REQUESTED:
+            return {
+                ...state,
+                categories: action.payload,
+                loading: {
+                    ...state.loading,
+                    'categories': true
+                },
             };
         case actionType.CATEGORIES_LOADED:
             return {
                 ...state,
-                categories: action.payload
+                categories: action.payload,
+                loading: {
+                    ...state.loading,
+                    'categories': false
+                },
+            };
+        case actionType.CATEGORIES_FAILURE:
+            return {
+                ...state,
+                categories: action.payload,
+                loading: {
+                    ...state.loading,
+                    'categories': false
+                },
             };
         case actionType.SET_FILTERS:
             return {
@@ -38,10 +84,35 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userData: null
             };
+        case actionType.CART_ITEMS_REQUESTED:
+            return {
+                ...state,
+                cartItems: [],
+                loading: {
+                    ...state.loading,
+                    'cart-items': true
+                },
+                error: null
+            };
         case actionType.CART_ITEMS_LOADED:
             return {
                 ...state,
-                cartItems: action.payload
+                cartItems: action.payload,
+                loading: {
+                    ...state.loading,
+                    'cart-items': false
+                },
+                error: null
+            };
+        case actionType.CART_ITEMS_FAILURE:
+            return {
+                ...state,
+                cartItems: [],
+                loading: {
+                    ...state.loading,
+                    'cart-items': false
+                },
+                error: action.payload,
             };
         case actionType.ADD_PRODUCT_TO_CART:
             {

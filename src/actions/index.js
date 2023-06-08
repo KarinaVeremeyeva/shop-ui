@@ -1,5 +1,11 @@
 import * as actionType from '../actions/actionTypes';
 
+const productsRequested = () => {
+    return {
+        type: actionType.PRODUCTS_REQUESTED,
+    };
+};
+
 const productsLoaded = (products) => {
     return {
         type: actionType.PRODUCTS_LOADED,
@@ -7,10 +13,30 @@ const productsLoaded = (products) => {
     };
 };
 
+const productsError = (error) => {
+    return {
+        type: actionType.PRODUCTS_FAILURE,
+        payload: error
+    };
+};
+
+const categoriesRequested = () => {
+    return {
+        type: actionType.CATEGORIES_REQUESTED,
+    };
+};
+
 const categoriesLoaded = (categories) => {
     return {
         type: actionType.CATEGORIES_LOADED,
         payload: categories
+    };
+};
+
+const categoriesError = (error) => {
+    return {
+        type: actionType.CATEGORIES_FAILURE,
+        payload: error
     };
 };
 
@@ -34,10 +60,23 @@ const resetUserData = () => {
     };
 };
 
+const cartItemsRequested = () => {
+    return {
+        type: actionType.CART_ITEMS_REQUESTED,
+    };
+};
+
 const cartItemsLoaded = (cartItems) => {
     return {
         type: actionType.CART_ITEMS_LOADED,
         payload: cartItems
+    };
+};
+
+const cartItemsError = (error) => {
+    return {
+        type: actionType.CART_ITEMS_FAILURE,
+        payload: error
     };
 };
 
@@ -63,12 +102,18 @@ const allProductsRemovedFromCart = (productId) => {
 };
 
 export {
+    productsRequested,
     productsLoaded, 
+    productsError,
+    categoriesRequested,
     categoriesLoaded,
+    categoriesError,
     setFilters,
     userDataLoaded,
     resetUserData,
+    cartItemsRequested,
     cartItemsLoaded,
+    cartItemsError,
     productAddedToCart,
     productRemovedFromCart,
     allProductsRemovedFromCart

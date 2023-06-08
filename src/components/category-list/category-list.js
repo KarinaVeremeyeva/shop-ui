@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import { TreeView, TreeItem , useTreeItem } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import clsx from "clsx";
 import classes from './category-list.module.css';
+import Spinner from "../spinner";
 
 const ROOT_NODE_KEY = 'root';
 
@@ -65,6 +67,7 @@ const getPath = (categories, categoryId) => {
 
 const CategoryList = ({ categories, currentCategoryId }) => {
     const [expanded, setExpanded] = useState([]);
+    const loading = useSelector(state => state.loading['categories']);
 
     useEffect(() => {
         if (!expanded.length && currentCategoryId && categories.length) {
@@ -73,6 +76,10 @@ const CategoryList = ({ categories, currentCategoryId }) => {
         }
 
     }, [currentCategoryId, categories, expanded, setExpanded])
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     if (!categories.length) {
         return null;
