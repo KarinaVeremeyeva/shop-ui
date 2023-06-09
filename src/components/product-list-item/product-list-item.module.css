@@ -29,3 +29,12 @@
     max-height: 32px;
     overflow: hidden;
 }
+
+.btnContainer {
+    padding: 10px;
+}
+
+.btnWrapper {
+    width: 100%;
+}
+

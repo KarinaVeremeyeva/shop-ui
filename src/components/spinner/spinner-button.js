@@ -1,21 +1,13 @@
 import React from "react";
 import { Box, CircularProgress } from "@mui/material";
+import classes from './spinner.module.css';
 
 const SpinnerButton = ({ loading, children }) => {
     return (
-        <Box sx={{ m: 1, position: 'relative' }}>
+        <Box className={classes.spinnerBtnContainer}>
             {children (loading)}
             {loading && (
-                <CircularProgress
-                    size={24}
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        marginTop: '-12px',
-                        marginLeft: '-12px',
-                    }}
-                />
+                <CircularProgress size={24} classes={{ root: classes.spinnerBtn}} />
             )}
         </Box>
     );

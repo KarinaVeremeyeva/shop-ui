@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Box, Button, Card, CardContent, Grid, Typography, Tooltip, CardActionArea, CircularProgress } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Typography, Tooltip, CardActionArea } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ADD_PRODUCT_TO_CART } from "../../reducers/constants";
 import classes from './product-list-item.module.css';
 import image from '../../assets/no-image.jpg';
+import SpinnerButton from "../spinner/spinner-button";
 
 const ProductListItem = ({ product, onClick }) => {
     const { id, name, price, category: { name: categoryName}, photoUrl } = product;
@@ -27,23 +28,15 @@ const ProductListItem = ({ product, onClick }) => {
                         <Typography variant="body1">{categoryName}</Typography>
                     </CardContent>
                 </CardActionArea>
-                <Box>
-                    <Button disabled={loading} onClick={() => onClick(id)} variant="contained" startIcon={<ShoppingCartIcon />}>
-                        Buy
-                    </Button>
-                    {loading && (
-                        <CircularProgress
-                            size={24}
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                marginTop: '-12px',
-                                marginLeft: '-12px',
-                            }}
-                        />
-                    )}
-                </Box>
+                <div className={classes.btnContainer}>
+                    <SpinnerButton loading={loading}>
+                        {(loading) => (
+                            <Button className={classes.btnWrapper} disabled={loading} onClick={() => onClick(id)} variant="contained" startIcon={<ShoppingCartIcon />}>
+                                Buy
+                            </Button>
+                        )}
+                    </SpinnerButton>
+                </div>
             </Card>
         </Grid>
     );
