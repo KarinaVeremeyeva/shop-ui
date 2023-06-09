@@ -1,46 +1,32 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Grid, Typography } from "@mui/material";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { withShopService, withRouter } from "../hoc";
-import { compose } from "../../utils";
+import { withShopService } from "../hoc";
 import CategoryList from "../category-list";
 import { categoriesLoaded } from "../../actions";
 import classes from './products-page.module.css';
 
-class HomePage extends Component {
-    componentDidMount() {
-        const { shopService, categoriesLoaded } = this.props; 
+const HomePage = ({ shopService }) => {
+    const categories = useSelector(state => state.categories);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
         shopService.getCategories()
-            .then(categories => categoriesLoaded(categories));
-    };
+            .then(categories => dispatch(categoriesLoaded(categories)))
+        }, [shopService, dispatch]
+    );
     
-    render() {
-        const { categories } = this.props;
-
-        return (
-            <Grid container spacing={1} className={classes.pageContainer}>
-                <Grid item xs={3}>
-                    <CategoryList categories={categories}></CategoryList>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="h6">Select product category</Typography>
-                </Grid>
+    return (
+        <Grid container spacing={1} className={classes.pageContainer}>
+            <Grid item xs={3}>
+                <CategoryList categories={categories}></CategoryList>
             </Grid>
-        );
-    }
+            <Grid item xs={6}>
+                <Typography variant="h6">Select product category</Typography>
+            </Grid>
+        </Grid>
+    );
 };
 
-const mapStateToProps = ({ categories }) => {
-    return { categories };
-}
-
-const mapDispatchToProps = {
-    categoriesLoaded
-};
-
-export default compose(
-    withShopService(),
-    withRouter,
-    connect(mapStateToProps, mapDispatchToProps)
-)(HomePage);
+export default withShopService()(HomePage);

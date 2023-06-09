@@ -11,8 +11,8 @@ import { getIsPermittedForUser } from '../../selectors/selectors';
 const CartPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const isUserPermited = useSelector(getIsPermittedForUser);
-    const dispatch = useDispatch();
     const categories = useSelector(state => state.categories);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         shopService.getCategories()
