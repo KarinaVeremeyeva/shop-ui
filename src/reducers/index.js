@@ -116,15 +116,13 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
             };
         case actionType.ADD_PRODUCT_TO_CART_REQUESTED:
-            {
-                return {
-                    ...state,
-                    loading: {
-                        ...state.loading,
-                        [loadingType.ADD_PRODUCT_TO_CART]: true
-                    }
-                };
-            }
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.ADD_PRODUCT_TO_CART]: true
+                }
+            };
         case actionType.ADD_PRODUCT_TO_CART_SUCCESS:
             {
                 let cartItems = [...state.cartItems];
@@ -144,7 +142,16 @@ const reducer = (state = initialState, action) => {
                         [loadingType.ADD_PRODUCT_TO_CART]: false
                     }
                 };
-            }
+            };
+        case actionType.ADD_PRODUCT_TO_CART_FAILURE:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.ADD_PRODUCT_TO_CART]: false
+                },
+                error: action.payload,
+            };
         case actionType.REMOVE_PRODUCT_FROM_CART_REQUESTED:
             return {
                 ...state,
@@ -175,17 +182,24 @@ const reducer = (state = initialState, action) => {
                         [loadingType.REDUCE_PRODUCT]: false
                     }
                 };
-            }
+            };
+        case actionType.REMOVE_PRODUCT_FROM_CART_FAILURE:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.REDUCE_PRODUCT]: false
+                },
+                error: action.payload,
+            };
         case actionType.ALL_PRODUCTS_REMOVED_FROM_CART_REQUESTED:
-            {
-                return {
-                    ...state,
-                    loading: {
-                        ...state.loading,
-                        [loadingType.REMOVE_PRODUCTS]: true
-                    }
-                };
-            }
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.REMOVE_PRODUCTS]: true
+                }
+            };
         case actionType.ALL_PRODUCTS_REMOVED_FROM_CART_SUCCESS:
             {
                 const cartItems = state.cartItems.filter(c => c.product.id !== action.payload);
@@ -197,7 +211,16 @@ const reducer = (state = initialState, action) => {
                         [loadingType.REMOVE_PRODUCTS]: false
                     }
                 };
-            }
+            };
+        case actionType.ALL_PRODUCTS_REMOVED_FROM_CART_FAILURE:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.REMOVE_PRODUCTS]: false
+                },
+                error: action.payload,
+            };
         default:
             return state;
     }

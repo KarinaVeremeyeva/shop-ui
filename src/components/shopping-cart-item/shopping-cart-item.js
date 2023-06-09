@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Grid, Typography, Box, Card, CardContent } from "@mui/material";
 import { Add, Delete, Remove } from "@mui/icons-material";
 import { productAddedToCart, productRemovedFromCart, allProductsRemovedFromCart, requestAddProductToCart,
-requestRemoveProductFromCart, requestRemoveAllProductsFromCart } from "../../actions";
+requestRemoveProductFromCart, requestRemoveAllProductsFromCart, addProductToCartError, removeProductFromCartError, removeAllProductsFromCartError } from "../../actions";
 import { withShopService } from "../hoc";
 import classes from './shopping-cart-item.module.css';
 import image from '../../assets/no-image.jpg';
@@ -23,19 +23,22 @@ const ShoppingCartItem = ({ cartItem, shopService }) => {
     const handleIncreaseProductCount = (productId) => {
         dispatch(requestAddProductToCart());
         shopService.addToCart(productId)
-            .then(cartItem => dispatch(productAddedToCart(cartItem)));  
+            .then(cartItem => dispatch(productAddedToCart(cartItem)))
+            .catch(error => dispatch(addProductToCartError(error)));  
     };
 
     const handleDecreaseProductCount = (productId) => {
         dispatch(requestRemoveProductFromCart());
         shopService.reduceProductCount(productId)
-            .then(() => dispatch(productRemovedFromCart(productId)));
+            .then(() => dispatch(productRemovedFromCart(productId)))
+            .catch(error => dispatch(removeProductFromCartError(error)));
     };
 
     const handleRemoveProductFromCart = (productId) => {
         dispatch(requestRemoveAllProductsFromCart());
         shopService.removeFromCart(productId)
-            .then(() => dispatch(allProductsRemovedFromCart(productId)));
+            .then(() => dispatch(allProductsRemovedFromCart(productId)))
+            .catch(error => dispatch(removeAllProductsFromCartError(error)));
     };
 
     return (

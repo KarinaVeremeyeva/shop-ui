@@ -93,6 +93,13 @@ const productAddedToCart = (cartItem) => {
     };
 };
 
+const addProductToCartError = (error) => {
+    return {
+        type: actionType.ADD_PRODUCT_TO_CART_FAILURE,
+        payload: error
+    };
+};
+
 const requestRemoveProductFromCart = () => {
     return {
         type: actionType.REMOVE_PRODUCT_FROM_CART_REQUESTED,
@@ -106,6 +113,13 @@ const productRemovedFromCart = (productId) => {
     };
 };
 
+const removeProductFromCartError = (error) => {
+    return {
+        type: actionType.REMOVE_PRODUCT_FROM_CART_FAILURE,
+        payload: error
+    };
+};
+
 const requestRemoveAllProductsFromCart = () => {
     return {
         type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_REQUESTED,
@@ -116,6 +130,13 @@ const allProductsRemovedFromCart = (productId) => {
     return {
         type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_SUCCESS,
         payload: productId
+    };
+};
+
+const removeAllProductsFromCartError = (error) => {
+    return {
+        type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_FAILURE,
+        payload: error
     };
 };
 
@@ -134,8 +155,11 @@ export {
     cartItemsError,
     requestAddProductToCart,
     productAddedToCart,
+    addProductToCartError,
     requestRemoveProductFromCart,
     productRemovedFromCart,
+    removeProductFromCartError,
     requestRemoveAllProductsFromCart,
-    allProductsRemovedFromCart
+    allProductsRemovedFromCart,
+    removeAllProductsFromCartError
 };
