@@ -17,10 +17,24 @@
 }
 
 .link:hover {
-    color: rgb(70, 200, 150);
+    color: #1976d2
 }
 
 .itemImage {
     height: 100%;
     width: 100%;
 }
+
+.productNameContainer {
+    max-height: 32px;
+    overflow: hidden;
+}
+
+.btnContainer {
+    padding: 10px;
+}
+
+.btnWrapper {
+    width: 100%;
+}
+

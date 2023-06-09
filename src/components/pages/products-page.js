@@ -1,90 +1,64 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
-
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsLoaded, categoriesLoaded, setFilters, productAddedToCart } from "../../actions";
-import { compose } from "../../utils";
-import { withShopService, withRouter } from "../hoc";
-import Details from "../details";
+import { productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
+import { withShopService } from "../hoc";
+import { Filters } from "../filters";
 import { makeFilters } from "../../utils";
-import Spinner from "../spinner";
 import classes from './products-page.module.css';
 
-class ProductsPage extends Component {
-    componentDidMount() {
-        const { shopService, categoriesLoaded } = this.props;
+const ProductsPage = ({ shopService }) => {
+    const categories = useSelector(state => state.categories);
+    const products = useSelector(state => state.products);
+    const filters = useSelector(state => state.filters);
+    const dispatch = useDispatch();
+    const { categoryId } = useParams();
 
+    useEffect(() => {
         shopService.getCategories()
-            .then(categories => categoriesLoaded(categories));
-        
-        this.initializeProducts();
-    };
-
-    initializeProducts() {
-        const { shopService, router, productsLoaded, setFilters } = this.props;
-        const { categoryId } = router.params;
-
+            .then(categories => dispatch(categoriesLoaded(categories)));
+        }, [dispatch, shopService]
+    );
+    
+    useEffect(() => {
+        dispatch(productsRequested());
         shopService.getProducts(categoryId)
             .then(products => {
-                productsLoaded(products);
+                dispatch(productsLoaded(products));
                 
                 const selectedFilters = makeFilters(products);
-                setFilters(selectedFilters);
-            });
-    }
+                dispatch(setFilters(selectedFilters));
+            })
+            .catch((error) => dispatch(productsError(error)));
+        }, [categoryId, dispatch, shopService]
+    );
 
-    componentDidUpdate(prevProps) {
-        const categoryId = this.props.router.params.categoryId;
-
-        if (categoryId !== prevProps.router.params.categoryId) {
-            this.initializeProducts();
-        }
-    }
-
-    handleAddToCart = (productId) => {
-        const { shopService, productAddedToCart} = this.props;
-
+    const handleAddToCart = (productId) => {
+        dispatch(requestAddProductToCart());
         shopService.addToCart(productId)
-            .then(cartItem => productAddedToCart(cartItem));
+            .then(cartItem => dispatch(productAddedToCart(cartItem)))
+            .catch(error => dispatch(addProductToCartError(error)));
     };
 
-    render() {
-        const { router, categories, products, filters, loading } = this.props;
-        const id = router.params.categoryId;
-
-        if (loading) {
-            return <Spinner />;
-        }
-
-        return (
-            <Grid container spacing={2} className={classes.pageContainer}>
-                <Grid item xs={3}>
-                    <Grid item xs={12}>
-                        <CategoryList categories={categories}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Details filters={filters} products={products}/>
-                    </Grid>
+    return (
+        <Grid container spacing={2} className={classes.pageContainer}>
+            <Grid item xs={3}>
+                <Grid item xs={12}>
+                    <CategoryList categories={categories} currentCategoryId={categoryId} />
                 </Grid>
-                <Grid item xs={6}>
-                    <ProductList categoryId={id} products={products} onAddProduct={this.handleAddToCart} />
-                </Grid>
+                {products.length > 1 && (
+                    <Grid item xs={12}>
+                        <Filters filters={filters} products={products}/>
+                    </Grid>)}
             </Grid>
-    )};
+            <Grid item xs={6}>
+                <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
+            </Grid>
+        </Grid>
+    );
 };
 
-const mapStateToProps = ({ products, categories, filters, loading }) => {
-    return { products, categories, filters, loading };
-}
-
-const mapDispatchToProps = {
-    productsLoaded, categoriesLoaded, setFilters, productAddedToCart
-};
-
-export default compose(
-    withShopService(),
-    withRouter,
-    connect(mapStateToProps, mapDispatchToProps)
-)(ProductsPage);
+export default withShopService()(ProductsPage);
