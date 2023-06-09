@@ -8,6 +8,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import clsx from "clsx";
 import classes from './category-list.module.css';
 import Spinner from "../spinner";
+import { CATEGORIES } from "../../reducers/constants";
 
 const ROOT_NODE_KEY = 'root';
 
@@ -37,7 +38,7 @@ const CustomContent = React.forwardRef(function CustomContent(props, ref) {
     return (
         <div
             className={clsx(className, classes.root, {
-            [classes.expanded]: expanded
+                [classes.expanded]: expanded
             })}
             onMouseDown={preventSelection}
             ref={ref}
@@ -67,14 +68,13 @@ const getPath = (categories, categoryId) => {
 
 const CategoryList = ({ categories, currentCategoryId }) => {
     const [expanded, setExpanded] = useState([]);
-    const loading = useSelector(state => state.loading['categories']);
+    const loading = useSelector(state => state.loading[CATEGORIES]);
 
     useEffect(() => {
         if (!expanded.length && currentCategoryId && categories.length) {
             const pathToCategory = getPath(categories, currentCategoryId);
             setExpanded(pathToCategory);
         }
-
     }, [currentCategoryId, categories, expanded, setExpanded])
 
     if (loading) {
