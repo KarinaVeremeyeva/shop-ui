@@ -11,22 +11,25 @@ import { ShopServiceProvider} from './components/shop-service-context';
 import CssBaseline from '@mui/material/CssBaseline';
 import AuthService from './services/auth-service';
 import { AuthServiceProvider } from './components/auth-service-context';
+import LoadingData from './components/loading-data';
 
 const shopService = new ShopService();
 const authService = new AuthService();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <CssBaseline />
-    <ErrorBoundry>
-      <AuthServiceProvider value={authService}>
-        <ShopServiceProvider value={shopService}>
-          <Router>
-            <App />
-          </Router>
-        </ShopServiceProvider>
-      </AuthServiceProvider>
-    </ErrorBoundry>
-  </Provider>
+    <Provider store={store}>
+        <CssBaseline />
+        <ErrorBoundry>
+            <AuthServiceProvider value={authService}>
+                <ShopServiceProvider value={shopService}>
+                    <LoadingData>
+                        <Router>
+                            <App />
+                        </Router>
+                    </LoadingData>
+                </ShopServiceProvider>
+            </AuthServiceProvider>
+        </ErrorBoundry>
+    </Provider>
 );

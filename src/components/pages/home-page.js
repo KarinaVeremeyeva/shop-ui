@@ -1,22 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { withShopService } from "../hoc";
 import CategoryList from "../category-list";
-import { categoriesLoaded } from "../../actions";
 import classes from './products-page.module.css';
 
-const HomePage = ({ shopService }) => {
+const HomePage = () => {
     const categories = useSelector(state => state.categories);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        shopService.getCategories()
-            .then(categories => dispatch(categoriesLoaded(categories)))
-        }, [shopService, dispatch]
-    );
-    
     return (
         <Grid container spacing={1} className={classes.pageContainer}>
             <Grid item xs={3}>

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsRequested, productsLoaded, productsError, categoriesLoaded, setFilters, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
+import { productsRequested, productsLoaded, productsError, setFilters, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
 import { withShopService } from "../hoc";
 import { Filters } from "../filters";
 import { makeFilters } from "../../utils";
@@ -16,12 +16,6 @@ const ProductsPage = ({ shopService }) => {
     const filters = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const { categoryId } = useParams();
-
-    useEffect(() => {
-        shopService.getCategories()
-            .then(categories => dispatch(categoriesLoaded(categories)));
-        }, [dispatch, shopService]
-    );
     
     useEffect(() => {
         dispatch(productsRequested());
