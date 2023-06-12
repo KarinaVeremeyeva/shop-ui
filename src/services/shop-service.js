@@ -12,9 +12,11 @@ export default class ShopService {
         return jsonData;
     };
 
-    getProducts = async (categoryId) => {
-        const data = await this.getResource(`products/category/${categoryId}`);
-        return data;
+    getProducts = async (categoryId, params) => {
+        const response = await fetch(`${this._apiUrl}/products/category/${categoryId}?` + new URLSearchParams(params));
+        const jsonData = await response.json();
+
+        return jsonData;
     };
 
     getCategories = async () => {
