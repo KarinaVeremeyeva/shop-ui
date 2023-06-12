@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { useParams, useSearchParams } from "react-router-dom";
+import { Grid, Pagination } from "@mui/material";
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
 import { productsRequested, productsLoaded, productsError, setFilters, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
@@ -12,22 +12,30 @@ import classes from './products-page.module.css';
 
 const ProductsPage = ({ shopService }) => {
     const categories = useSelector(state => state.categories);
-    const products = useSelector(state => state.products);
+    const products = useSelector(state => state.products.products);
     const filters = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const { categoryId } = useParams();
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const count = useSelector(state => state.products.totalPages);
+
+    const handleChange = (event, value) => {
+        setSearchParams({ pageNumber: +value });
+    };
+
+    const pageNumber = +searchParams.get('pageNumber') || 1;
+
     useEffect(() => {
         dispatch(productsRequested());
-        shopService.getProducts(categoryId)
+        shopService.getProducts(categoryId, { pageNumber: pageNumber })
             .then(products => {
                 dispatch(productsLoaded(products));
                 
-                const selectedFilters = makeFilters(products);
+                const selectedFilters = makeFilters(products.products);
                 dispatch(setFilters(selectedFilters));
             })
             .catch((error) => dispatch(productsError(error)));
-        }, [categoryId, dispatch, shopService]
+        }, [categoryId, dispatch, shopService, pageNumber]
     );
 
     const handleAddToCart = (productId) => {
@@ -48,9 +56,11 @@ const ProductsPage = ({ shopService }) => {
                         <Filters filters={filters} products={products}/>
                     </Grid>)}
             </Grid>
-            <Grid item xs={6}>
-                <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
-            </Grid>
+            {products.length > 0 && (
+                <Grid item xs={6}>
+                    <Pagination count={count} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>
+                    <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
+                </Grid>)}        
         </Grid>
     );
 };

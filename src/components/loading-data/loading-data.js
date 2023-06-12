@@ -7,8 +7,11 @@ const LoadingData = ({ children, shopService }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        shopService.getUserData()
-            .then(userData => dispatch(userDataLoaded(userData)));
+        const hasToken = !!localStorage.getItem("token");
+        if (hasToken) {
+            shopService.getUserData()
+                .then(userData => dispatch(userDataLoaded(userData)));
+        }
 
         shopService.getCategories()
             .then(categories => dispatch(categoriesLoaded(categories)));

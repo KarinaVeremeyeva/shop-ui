@@ -2,7 +2,7 @@ import * as actionType from '../actions/actionTypes';
 import * as loadingType from '../reducers/constants';
 
 const initialState = {
-    products: [],
+    products: { products: [] },
     categories: [],
     filters: [],
     loading: {},
@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
         case actionType.PRODUCTS_REQUESTED:
             return {
                 ...state,
-                products: [],
+                products: { products: [] },
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: true
@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
         case actionType.PRODUCTS_FAILURE:
             return {
                 ...state,
-                products: [],
+                products: { products: [] },
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: false

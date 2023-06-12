@@ -1,3 +1,7 @@
 .pageContainer {
     padding: 24px
 }
+
+.paginationWrapper {
+    margin-bottom: 10px;
+}
