@@ -3,6 +3,7 @@ import * as loadingType from '../reducers/constants';
 
 const initialState = {
     products: { products: [] },
+    totalPages: 0,
     categories: [],
     filters: [],
     loading: {},
@@ -17,6 +18,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: { products: [] },
+                totalPages: 0,
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: true
@@ -37,6 +39,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: { products: [] },
+                totalPages: 0,
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: false

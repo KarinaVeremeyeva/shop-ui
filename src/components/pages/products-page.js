@@ -17,7 +17,7 @@ const ProductsPage = ({ shopService }) => {
     const dispatch = useDispatch();
     const { categoryId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const count = useSelector(state => state.products.totalPages);
+    const totalCount = useSelector(state => state.products.totalPages);
 
     const handleChange = (event, value) => {
         setSearchParams({ pageNumber: +value });
@@ -27,7 +27,7 @@ const ProductsPage = ({ shopService }) => {
 
     useEffect(() => {
         dispatch(productsRequested());
-        shopService.getProducts(categoryId, { pageNumber: pageNumber })
+        shopService.getProducts(categoryId, { pageNumber })
             .then(products => {
                 dispatch(productsLoaded(products));
                 
@@ -58,7 +58,7 @@ const ProductsPage = ({ shopService }) => {
             </Grid>
             {products.length > 0 && (
                 <Grid item xs={6}>
-                    <Pagination count={count} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>
+                    <Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>
                     <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
                 </Grid>)}        
         </Grid>
