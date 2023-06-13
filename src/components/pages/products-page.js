@@ -4,20 +4,20 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Grid, Pagination } from "@mui/material";
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsRequested, productsLoaded, productsError, setFilters, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
+import { productsRequested, productsLoaded, productsError, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
 import { withShopService } from "../hoc";
 import { Filters } from "../filters";
-import { makeFilters } from "../../utils";
 import classes from './products-page.module.css';
 
 const ProductsPage = ({ shopService }) => {
     const categories = useSelector(state => state.categories);
-    const products = useSelector(state => state.products.products);
-    const filters = useSelector(state => state.filters);
+    const products = useSelector(state => state.productsInfo.products);
+    const filters = useSelector(state => state.productsInfo.filters);
+    const totalCount = useSelector(state => state.productsInfo.totalPages);
+
     const dispatch = useDispatch();
     const { categoryId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const totalCount = useSelector(state => state.products.totalPages);
 
     const handleChange = (event, value) => {
         setSearchParams({ pageNumber: +value });
@@ -30,9 +30,6 @@ const ProductsPage = ({ shopService }) => {
         shopService.getProducts(categoryId, { pageNumber })
             .then(products => {
                 dispatch(productsLoaded(products));
-                
-                const selectedFilters = makeFilters(products.products);
-                dispatch(setFilters(selectedFilters));
             })
             .catch((error) => dispatch(productsError(error)));
         }, [categoryId, dispatch, shopService, pageNumber]
@@ -53,7 +50,7 @@ const ProductsPage = ({ shopService }) => {
                 </Grid>
                 {products.length > 1 && (
                     <Grid item xs={12}>
-                        <Filters filters={filters} products={products}/>
+                        <Filters filters={filters} />
                     </Grid>)}
             </Grid>
             {products.length > 0 && (

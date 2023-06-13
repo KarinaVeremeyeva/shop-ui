@@ -2,10 +2,8 @@ import * as actionType from '../actions/actionTypes';
 import * as loadingType from '../reducers/constants';
 
 const initialState = {
-    products: { products: [] },
-    totalPages: 0,
+    productsInfo: { products: [], totalPages: 0, filters: [] },
     categories: [],
-    filters: [],
     loading: {},
     error: null,
     userData: null,
@@ -17,8 +15,7 @@ const reducer = (state = initialState, action) => {
         case actionType.PRODUCTS_REQUESTED:
             return {
                 ...state,
-                products: { products: [] },
-                totalPages: 0,
+                productsInfo: { products: [], totalPages: 0, filters: [] },
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: true
@@ -28,7 +25,7 @@ const reducer = (state = initialState, action) => {
         case actionType.PRODUCTS_LOADED:
             return {
                 ...state,
-                products: action.payload,
+                productsInfo: action.payload,
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: false
@@ -38,8 +35,7 @@ const reducer = (state = initialState, action) => {
         case actionType.PRODUCTS_FAILURE:
             return {
                 ...state,
-                products: { products: [] },
-                totalPages: 0,
+                productsInfo: { products: [], totalPages: 0, filters: [] },
                 loading: {
                     ...state.loading,
                     [loadingType.PRODUCTS]: false
@@ -72,11 +68,6 @@ const reducer = (state = initialState, action) => {
                     ...state.loading,
                     [loadingType.CATEGORIES]: false
                 },
-            };
-        case actionType.SET_FILTERS:
-            return {
-                ...state,
-                filters: action.payload
             };
         case actionType.USER_DATA_LOADED:
             return {
