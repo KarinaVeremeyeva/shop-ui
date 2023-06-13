@@ -11,9 +11,9 @@ import classes from './products-page.module.css';
 
 const ProductsPage = ({ shopService }) => {
     const categories = useSelector(state => state.categories);
-    const products = useSelector(state => state.products.products);
-    const filters = useSelector(state => state.products.filters);
-    const totalCount = useSelector(state => state.products.totalPages);
+    const products = useSelector(state => state.productsInfo.products);
+    const filters = useSelector(state => state.productsInfo.filters);
+    const totalCount = useSelector(state => state.productsInfo.totalPages);
 
     const dispatch = useDispatch();
     const { categoryId } = useParams();
