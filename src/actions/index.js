@@ -40,13 +40,6 @@ const categoriesError = (error) => {
     };
 };
 
-const setFilters = (filters) => {
-    return {
-        type: actionType.SET_FILTERS,
-        payload: filters
-    };
-};
-
 const userDataLoaded = (userData) => {
     return {
         type: actionType.USER_DATA_LOADED,
@@ -147,7 +140,6 @@ export {
     categoriesRequested,
     categoriesLoaded,
     categoriesError,
-    setFilters,
     userDataLoaded,
     resetUserData,
     cartItemsRequested,

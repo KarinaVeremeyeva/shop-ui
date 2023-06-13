@@ -53,16 +53,8 @@ const makeFilters = (handleStringFilterChange, handleNumberFilterChange, handleB
     );
 };
 
-const Filters = ({ filters, products }) => {
+const Filters = ({ filters }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
-
-    const priceFilter = {
-        id: 'price',
-        name: 'Price',
-        type: 1,
-        values: products.map(p => p.price)
-    };
-    const filtersExtended = [priceFilter, ...filters];
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];
@@ -97,7 +89,7 @@ const Filters = ({ filters, products }) => {
 
     return (
         <div className={classes.filterContainer}>
-            { filtersExtended.map(({ id, name, type, values }) => filterMaker(type, id, values, name, selectedFilters)) }
+            { filters.map(({ detailId, name, type, values }) => filterMaker(type, detailId, values, name, selectedFilters)) }
         </div>
     );
 };
