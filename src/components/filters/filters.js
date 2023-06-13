@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { StringFilter, NumberFilter, BooleanFilter } from ".";
 import classes from './filters.module.css';
@@ -53,8 +53,12 @@ const makeFilters = (handleStringFilterChange, handleNumberFilterChange, handleB
     );
 };
 
-const Filters = ({ filters }) => {
+const Filters = ({ filters, onFiltersUpdated }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
+    
+    useEffect(() => {
+        onFiltersUpdated(selectedFilters);
+    }, [selectedFilters, onFiltersUpdated]);
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];

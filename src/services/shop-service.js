@@ -12,8 +12,16 @@ export default class ShopService {
         return jsonData;
     };
 
-    getProducts = async (categoryId, params) => {
-        const response = await fetch(`${this._apiUrl}/products/category/${categoryId}?` + new URLSearchParams(params));
+    getProducts = async (categoryId, params, selectedFilters = {}) => {
+        const body = Object.keys(selectedFilters).map(key => ({
+            values: selectedFilters[key].map(value => `${value}`),
+            detailId: key
+        }));
+        const response = await fetch(`${this._apiUrl}/products/category/${categoryId}?` + new URLSearchParams(params), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
         const jsonData = await response.json();
 
         return jsonData;
