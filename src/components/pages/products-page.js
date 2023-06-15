@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Grid, Pagination } from "@mui/material";
@@ -42,22 +42,27 @@ const ProductsPage = ({ shopService }) => {
             .catch(error => dispatch(addProductToCartError(error)));
     };
 
+    const onFiltersUpdated = useCallback((selectedFilters) => {
+        dispatch(productsRequested());
+        shopService.getProducts(categoryId, { pageNumber }, selectedFilters)
+            .then(products => dispatch(productsLoaded(products)))
+            .catch((error) => dispatch(productsError(error)));
+    }, [categoryId, dispatch, pageNumber, shopService])
+    
     return (
         <Grid container spacing={2} className={classes.pageContainer}>
             <Grid item xs={3}>
                 <Grid item xs={12}>
                     <CategoryList categories={categories} currentCategoryId={categoryId} />
                 </Grid>
-                {products.length > 1 && (
-                    <Grid item xs={12}>
-                        <Filters filters={filters} />
-                    </Grid>)}
+                <Grid item xs={12}>
+                    <Filters key={`filters_for_${categoryId}`} filters={filters} onFiltersUpdated={onFiltersUpdated} />
+                </Grid>
             </Grid>
-            {products.length > 0 && (
                 <Grid item xs={6}>
-                    <Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>
+                    {products.length > 0 && (<Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>)}
                     <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
-                </Grid>)}        
+                </Grid>
         </Grid>
     );
 };

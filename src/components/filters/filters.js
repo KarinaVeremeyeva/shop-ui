@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { StringFilter, NumberFilter, BooleanFilter } from ".";
 import classes from './filters.module.css';
+import { Button } from "@mui/material";
 
 const filterTypes = {
     STRING: 0,
@@ -53,7 +54,7 @@ const makeFilters = (handleStringFilterChange, handleNumberFilterChange, handleB
     );
 };
 
-const Filters = ({ filters }) => {
+const Filters = ({ filters, onFiltersUpdated }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
 
     const handleStringFilterChange = (id, checkedValue) => {
@@ -85,10 +86,15 @@ const Filters = ({ filters }) => {
         });
     };
 
+    const handleOnClick = () => {
+        onFiltersUpdated(selectedFilters);
+    };
+
     const filterMaker = makeFilters(handleStringFilterChange, handleNumberFilterChange, handleBooleanFilterChange);
 
     return (
         <div className={classes.filterContainer}>
+            {filters.length > 0 && (<Button onClick={handleOnClick} className={classes.btnWrapper} variant="outlined">Apply filters</Button>)}
             { filters.map(({ detailId, name, type, values }) => filterMaker(type, detailId, values, name, selectedFilters)) }
         </div>
     );
