@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { StringFilter, NumberFilter, BooleanFilter } from ".";
 import classes from './filters.module.css';
+import { Button } from "@mui/material";
 
 const filterTypes = {
     STRING: 0,
@@ -55,10 +56,6 @@ const makeFilters = (handleStringFilterChange, handleNumberFilterChange, handleB
 
 const Filters = ({ filters, onFiltersUpdated }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
-    
-    useEffect(() => {
-        onFiltersUpdated(selectedFilters);
-    }, [selectedFilters, onFiltersUpdated]);
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];
@@ -89,11 +86,16 @@ const Filters = ({ filters, onFiltersUpdated }) => {
         });
     };
 
+    const handleOnClick = () => {
+        onFiltersUpdated(selectedFilters);
+    };
+
     const filterMaker = makeFilters(handleStringFilterChange, handleNumberFilterChange, handleBooleanFilterChange);
 
     return (
         <div className={classes.filterContainer}>
             { filters.map(({ detailId, name, type, values }) => filterMaker(type, detailId, values, name, selectedFilters)) }
+            {filters.length > 0 && (<Button onClick={handleOnClick} className={classes.btnWrapper} variant="outlined">Apply filters</Button>)}
         </div>
     );
 };
