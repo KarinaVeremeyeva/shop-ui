@@ -94,8 +94,8 @@ const Filters = ({ filters, onFiltersUpdated }) => {
 
     return (
         <div className={classes.filterContainer}>
-            { filters.map(({ detailId, name, type, values }) => filterMaker(type, detailId, values, name, selectedFilters)) }
             {filters.length > 0 && (<Button onClick={handleOnClick} className={classes.btnWrapper} variant="outlined">Apply filters</Button>)}
+            { filters.map(({ detailId, name, type, values }) => filterMaker(type, detailId, values, name, selectedFilters)) }
         </div>
     );
 };

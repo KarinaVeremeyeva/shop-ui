@@ -71,7 +71,7 @@ const CategoryList = ({ categories, currentCategoryId }) => {
     const loading = useSelector(state => state.loading[CATEGORIES]);
 
     useEffect(() => {
-        if (!expanded?.length && currentCategoryId && categories?.length) {
+        if (!expanded.length && currentCategoryId && categories?.length) {
             const pathToCategory = getPath(categories, currentCategoryId);
             setExpanded(pathToCategory);
         }
