@@ -5,10 +5,11 @@ import { cartItemsRequested, cartItemsLoaded, cartItemsError } from "../../actio
 import { Grid, Typography } from "@mui/material";
 import ShoppingCartItem from "../shopping-cart-item";
 import Spinner from "../spinner";
+import { CART_ITEMS } from "../../reducers/constants";
 
 const ShoppingCart = ({ shopService }) => {
     const cartItems = useSelector(state => state.cartItems);
-    const loading = useSelector(state => state.loading['cart-items']);
+    const loading = useSelector(state => state.loading[CART_ITEMS]);
     const dispatch = useDispatch();
 
     useEffect(() => {

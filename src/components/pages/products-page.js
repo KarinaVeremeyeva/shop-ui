@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Grid, Pagination } from "@mui/material";
@@ -8,7 +8,6 @@ import { productsRequested, productsLoaded, productsError, productAddedToCart, r
 import { withShopService } from "../hoc";
 import { Filters } from "../filters";
 import classes from './products-page.module.css';
-import { useCallback } from "react";
 
 const ProductsPage = ({ shopService }) => {
     const categories = useSelector(state => state.categories);
@@ -60,11 +59,10 @@ const ProductsPage = ({ shopService }) => {
                     <Filters key={`filters_for_${categoryId}`} filters={filters} onFiltersUpdated={onFiltersUpdated} />
                 </Grid>
             </Grid>
-            {products.length > 0 && (
                 <Grid item xs={6}>
-                    <Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>
+                    {products.length > 0 && (<Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>)}
                     <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
-                </Grid>)}
+                </Grid>
         </Grid>
     );
 };

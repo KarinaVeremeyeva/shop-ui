@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { categoriesLoaded, userDataLoaded } from "../../actions";
+import { categoriesRequested, categoriesLoaded, userDataLoaded } from "../../actions";
 import { withShopService } from "../hoc";
 
 const LoadingData = ({ children, shopService }) => {
@@ -13,6 +13,7 @@ const LoadingData = ({ children, shopService }) => {
                 .then(userData => dispatch(userDataLoaded(userData)));
         }
 
+        dispatch(categoriesRequested());
         shopService.getCategories()
             .then(categories => dispatch(categoriesLoaded(categories)));
         }, [shopService, dispatch]
