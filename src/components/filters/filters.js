@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { StringFilter, NumberFilter, BooleanFilter } from ".";
 import classes from './filters.module.css';
@@ -54,8 +54,25 @@ const makeFilters = (handleStringFilterChange, handleNumberFilterChange, handleB
     );
 };
 
+const debounce = (func, timeout = 300) => {
+    let timer;
+
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout)
+    };
+};
+
 const Filters = ({ filters, onFiltersUpdated }) => {
     const [selectedFilters, setSelectedFilters] = useState({});
+
+    const debounceOnFiltersUpdated = useCallback((onFiltersUpdated) => debounce(onFiltersUpdated, 1000), [debounce]); 
+    const debounceCallback = debounceOnFiltersUpdated(onFiltersUpdated);
+    const debounceFunction = useCallback((selectedFilters) => debounceCallback(selectedFilters), [debounceCallback]);
+    
+    useEffect(() => {
+        debounceFunction(selectedFilters);
+    }, [selectedFilters, debounceFunction]);
 
     const handleStringFilterChange = (id, checkedValue) => {
         let filterToChange = selectedFilters[id] || [];
