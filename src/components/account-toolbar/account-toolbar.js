@@ -5,11 +5,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from "@mui/material";
 import { withAuthService } from "../hoc";
 import { resetUserData } from "../../actions";
+import { getIsPermittedForAdmin } from "../../selectors/selectors";
 import classes from './account-toolbar.module.css';
 
 const AccountToolbar = ({ authService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const email = useSelector(state => state.userData?.email);
+    const isUserPermited = useSelector(getIsPermittedForAdmin);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ const AccountToolbar = ({ authService }) => {
 
     return (
         <div className={classes.toolbarWrapper}>
+            {isAuthorized && isUserPermited && (<Link to={'admin'} className={classes.link}>Admin Panel</Link>)}
             {isAuthorized && (<div className={classes.link}>{email}</div>)}
             <Button
                 onClick={onCartClickHandler}

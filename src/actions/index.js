@@ -133,6 +133,26 @@ const removeAllProductsFromCartError = (error) => {
     };
 };
 
+const detailsRequested = () => {
+    return {
+        type: actionType.DETAILS_REQUESTED,
+    };
+};
+
+const detailsLoaded = (details) => {
+    return {
+        type: actionType.DETAILS_LOADED,
+        payload: details
+    };
+};
+
+const detailsError = (error) => {
+    return {
+        type: actionType.DETAILS_FAILURE,
+        payload: error
+    };
+};
+
 export {
     productsRequested,
     productsLoaded, 
@@ -153,5 +173,8 @@ export {
     removeProductFromCartError,
     requestRemoveAllProductsFromCart,
     allProductsRemovedFromCart,
-    removeAllProductsFromCartError
+    removeAllProductsFromCartError,
+    detailsRequested,
+    detailsLoaded,
+    detailsError
 };
