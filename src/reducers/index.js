@@ -8,8 +8,7 @@ const initialState = {
     error: null,
     userData: null,
     cartItems: [],
-    details: [],
-    detail: {}
+    details: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -71,10 +70,22 @@ const reducer = (state = initialState, action) => {
                     [loadingType.CATEGORIES]: false
                 },
             };
+        case actionType.USER_DATA_REQUESTED:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.USER_DATA]: true
+                }
+            };
         case actionType.USER_DATA_LOADED:
             return {
                 ...state,
-                userData: action.payload
+                userData: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.USER_DATA]: false
+                }
             };
         case actionType.RESET_USER_DATA:
             return {

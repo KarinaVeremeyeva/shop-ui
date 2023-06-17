@@ -5,16 +5,17 @@ import { getIsPermittedForAdmin } from "../../selectors/selectors";
 import { withShopService } from "../hoc";
 import DetailList from "../detail-list";
 import AccessDenied from "../access-denied";
-import CategoryList from "../category-list";
 import classes from './products-page.module.css';
 import { useEffect } from "react";
 import { detailsLoaded, detailsRequested, detailsError, addDetailRequested, detailAdded, addDetailError, updateDetailRequested, detailUpdated, updateDetailError,
     removeDetailRequested, removeDetailError, detailRemoved } from "../../actions";
+import Spinner from "../spinner";
+import { DETAILS, USER_DATA } from "../../reducers/constants";
 
 const AdminPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
-    const categories = useSelector(state => state.categories);
+    const loading = useSelector(state => state.loading[DETAILS] || state.loading[USER_DATA]);
     const details = useSelector(state => state.details);
 
     const dispatch = useDispatch();
@@ -47,15 +48,17 @@ const AdminPage = ({ shopService }) => {
             .catch(error => dispatch(removeDetailError(error)));
     };
 
+    if (loading) {
+        return <Spinner />;
+    }
+
     const pageContent = isAuthorized && isUserPermited
         ? <DetailList details={details} onAddDetail={handleAddDetail} onEditDetail={handleEditDetail} onRemoveDetail={handleRemoveDetail}/>
         : <AccessDenied />;
 
     return (
         <Grid container className={classes.pageContainer}>
-            <Grid item xs={3}>
-                <CategoryList categories={categories} />
-            </Grid>
+            <Grid item xs={3} />
             <Grid item xs={6}>{pageContent}</Grid>
         </Grid>
     );

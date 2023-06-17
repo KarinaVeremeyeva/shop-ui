@@ -5,13 +5,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from "@mui/material";
 import { withAuthService } from "../hoc";
 import { resetUserData } from "../../actions";
-import { getIsPermittedForAdmin } from "../../selectors/selectors";
+import { getIsPermittedForAdmin, getIsPermittedForUser } from "../../selectors/selectors";
 import classes from './account-toolbar.module.css';
 
 const AccountToolbar = ({ authService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const email = useSelector(state => state.userData?.email);
-    const isUserPermited = useSelector(getIsPermittedForAdmin);
+    const isAdminPermited = useSelector(getIsPermittedForAdmin);
+    const isUserPermited = useSelector(getIsPermittedForUser);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -20,28 +22,32 @@ const AccountToolbar = ({ authService }) => {
             .then(() => dispatch(resetUserData()));
     };
 
-    const onCartClickHandler = () => {
-        if (isAuthorized) {
-            navigate('cart');
-        }
-        else {
-            navigate('accounts/login');
-        }
-    };
+    const onCartClickHandler = () => navigate('cart');
+
+    if (!isAuthorized) {
+        return (
+            <div className={classes.toolbarWrapper}>
+                <Link to={'accounts/login'} className={classes.link}>Login</Link>
+            </div>
+        );
+    }
 
     return (
         <div className={classes.toolbarWrapper}>
-            {isAuthorized && isUserPermited && (<Link to={'admin'} className={classes.link}>Admin Panel</Link>)}
-            {isAuthorized && (<div className={classes.link}>{email}</div>)}
-            <Button
-                onClick={onCartClickHandler}
-                classes={{ root: classes.button }}
-                variant="text"
-                startIcon={<ShoppingCartIcon />}>
-                Cart
-            </Button>
-            {!isAuthorized && (<Link to={`accounts/login`} className={classes.link}>Login</Link>)}
-            {isAuthorized && (<div onClick={onLogoutHandler} className={classes.link}>Logout</div>)}
+            {isAdminPermited && (
+                <Link to={'admin'} className={classes.link}>Admin Panel</Link>
+            )}
+            <div className={classes.link}>{email}</div>
+            {isUserPermited && (
+                <Button
+                    onClick={onCartClickHandler}
+                    classes={{ root: classes.button }}
+                    variant="text"
+                    startIcon={<ShoppingCartIcon />}>
+                    Cart
+                </Button>
+            )}
+            <div onClick={onLogoutHandler} className={classes.link}>Logout</div>
         </div>
     );
 };

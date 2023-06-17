@@ -40,6 +40,12 @@ const categoriesError = (error) => {
     };
 };
 
+const userDataRequested = () => {
+    return {
+        type: actionType.USER_DATA_REQUESTED,
+    };
+};
+
 const userDataLoaded = (userData) => {
     return {
         type: actionType.USER_DATA_LOADED,
@@ -220,6 +226,7 @@ export {
     categoriesRequested,
     categoriesLoaded,
     categoriesError,
+    userDataRequested,
     userDataLoaded,
     resetUserData,
     cartItemsRequested,

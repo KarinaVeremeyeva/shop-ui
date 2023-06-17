@@ -6,18 +6,13 @@ import { DETAILS } from "../../reducers/constants";
 import Spinner from "../spinner";
 import DetailFormDialog from "../detail-form-dialog";
 import ConfirmDialog from "../confirm-dialog";
+import { types } from './detail-types';
 import classes from './detail-list.module.css';
 
 const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState();
-    
-    const types = [
-        { name: 'string', value: 0 },
-        { name: 'number', value: 1 },
-        { name: 'boolean', value: 2 }
-    ];
 
     const handleClose = () => {
         setOpen(false);
@@ -59,19 +54,19 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
         <>
             <Grid container>
                 <Button onClick={() => handleOpen()} variant="outlined" color="success" className={classes.btnWrapper}>Add detail</Button>
-                {details.map((detail) => <DetailListItem key={detail.id} detail={detail} handleOpen={handleOpen} handleOpenConfirm={handleOpenConfirm} />)}
+                {details.map((detail) => <DetailListItem key={detail.id} detail={detail} onOpen={handleOpen} onOpenConfirm={handleOpenConfirm} />)}
             </Grid>
             {open && (<DetailFormDialog
                 open={open}
                 types={types}
                 detail={selectedDetail}
-                handleClose={handleClose}
-                handleSubmit={handleOnUpdate}
+                onClose={handleClose}
+                onSubmit={handleOnUpdate}
             />)}
             {openConfirm && (<ConfirmDialog
                 open={openConfirm}
-                handleClose={handleCloseConfirm}
-                handleSubmit={() => handleOnRemove(selectedDetail.id)}
+                onClose={handleCloseConfirm}
+                onSubmit={() => handleOnRemove(selectedDetail.id)}
                 title="Confirm detail deleting"
             >
                 Are you sure you want to delete a detail "{selectedDetail.name}"?

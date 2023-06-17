@@ -2,26 +2,23 @@ import React from "react";
 import { Button, Card, CardContent, Grid } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { types } from '../detail-list/detail-types';
 import classes from './detail-list-item.module.css';
 
 const displayDetailType = (type) => {
-    switch (type) {
-        case 0: return 'String';
-        case 1: return 'Number';
-        case 2: return 'Boolean';
-        default: return null
-    }
+    const typeName = types.find(t => t.value === type).name;
+    return typeName;
 };
 
-const DetailListItem = ({ detail, handleOpen, handleOpenConfirm }) => {
+const DetailListItem = ({ detail, onOpen, onOpenConfirm }) => {
     const { id, name, type } = detail;
 
     const handleUpdateDetail = () => {
-        handleOpen(id);
+        onOpen(id);
     };
 
     const handleRemoveDetail = () => {
-        handleOpenConfirm(id);
+        onOpenConfirm(id);
     };
 
     return (

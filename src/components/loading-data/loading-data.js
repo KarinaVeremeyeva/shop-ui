@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { categoriesRequested, categoriesLoaded, userDataLoaded } from "../../actions";
+import { categoriesRequested, categoriesLoaded, userDataLoaded, userDataRequested } from "../../actions";
 import { withShopService } from "../hoc";
 
 const LoadingData = ({ children, shopService }) => {
@@ -9,6 +9,7 @@ const LoadingData = ({ children, shopService }) => {
     useEffect(() => {
         const hasToken = !!localStorage.getItem("token");
         if (hasToken) {
+            dispatch(userDataRequested());
             shopService.getUserData()
                 .then(userData => dispatch(userDataLoaded(userData)));
         }
