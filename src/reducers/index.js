@@ -253,7 +253,7 @@ const reducer = (state = initialState, action) => {
             };
         case actionType.ADD_DETAIL_SUCCESS:
             {
-                const details = [...state.details, action.payload];
+                const details = [action.payload, ...state.details];
                 return {
                     ...state,
                     details,

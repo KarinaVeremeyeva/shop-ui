@@ -48,7 +48,7 @@ const AdminPage = ({ shopService }) => {
     };
 
     const pageContent = isAuthorized && isUserPermited
-        ? <DetailList details={details} handleAdd={handleAddDetail} handleEdit={handleEditDetail} handleRemove={handleRemoveDetail}/>
+        ? <DetailList details={details} onAddDetail={handleAddDetail} onEditDetail={handleEditDetail} onRemoveDetail={handleRemoveDetail}/>
         : <AccessDenied />;
 
     return (

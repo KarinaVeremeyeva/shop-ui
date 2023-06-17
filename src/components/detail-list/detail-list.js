@@ -5,9 +5,12 @@ import { useSelector } from "react-redux";
 import { DETAILS } from "../../reducers/constants";
 import Spinner from "../spinner";
 import DetailFormDialog from "../detail-form-dialog";
+import ConfirmDialog from "../confirm-dialog";
+import classes from './detail-list.module.css';
 
-const DetailList = ({ details, handleEdit, handleAdd, handleRemove }) => {
+const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
     const [open, setOpen] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState();
     
     const types = [
@@ -26,6 +29,27 @@ const DetailList = ({ details, handleEdit, handleAdd, handleRemove }) => {
         setOpen(true);
     };
 
+    const handleCloseConfirm = () => {
+        setOpenConfirm(false);
+    };
+
+    const handleOpenConfirm = (detailId) => {
+        const detail = details.find(d => d.id === detailId);
+        setSelectedDetail(detail);
+        setOpenConfirm(true);
+    };
+
+    const handleOnRemove = (detailId) => {
+        onRemoveDetail(detailId);
+        handleCloseConfirm();
+    };
+
+    const handleOnUpdate = (detail) => {
+        const handleUpdate = selectedDetail ? onEditDetail : onAddDetail;
+        handleUpdate(detail);
+        handleClose();
+    }
+
     const loading = useSelector(state => state.loading[DETAILS]);
     if (loading){
         return <Spinner />;
@@ -34,16 +58,24 @@ const DetailList = ({ details, handleEdit, handleAdd, handleRemove }) => {
     return (
         <>
             <Grid container>
-                <Button onClick={() => handleOpen()} variant="outlined" color="success">Add detail</Button>
-                { details.map((detail) => <DetailListItem key={detail.id} detail={detail} handleOpen={handleOpen} handleRemove={handleRemove} />)}
+                <Button onClick={() => handleOpen()} variant="outlined" color="success" className={classes.btnWrapper}>Add detail</Button>
+                {details.map((detail) => <DetailListItem key={detail.id} detail={detail} handleOpen={handleOpen} handleOpenConfirm={handleOpenConfirm} />)}
             </Grid>
             {open && (<DetailFormDialog
                 open={open}
                 types={types}
                 detail={selectedDetail}
                 handleClose={handleClose}
-                handleSubmit={selectedDetail ? handleEdit : handleAdd}
+                handleSubmit={handleOnUpdate}
             />)}
+            {openConfirm && (<ConfirmDialog
+                open={openConfirm}
+                handleClose={handleCloseConfirm}
+                handleSubmit={() => handleOnRemove(selectedDetail.id)}
+                title="Confirm detail deleting"
+            >
+                Are you sure you want to delete a detail "{selectedDetail.name}"?
+            </ConfirmDialog>)}
         </>
     );
 };

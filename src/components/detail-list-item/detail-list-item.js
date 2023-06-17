@@ -13,35 +13,45 @@ const displayDetailType = (type) => {
     }
 };
 
-const DetailListItem = ({ detail, handleOpen, handleRemove }) => {
+const DetailListItem = ({ detail, handleOpen, handleOpenConfirm }) => {
     const { id, name, type } = detail;
 
     const handleUpdateDetail = () => {
         handleOpen(id);
     };
 
+    const handleRemoveDetail = () => {
+        handleOpenConfirm(id);
+    };
+
     return (
         <Grid item xs={12} className={classes.detailItem}>
             <Card>
                 <CardContent>
-                    <div>{name}</div>
-                    <div>{displayDetailType(type)}</div>
-                    <div>
-                        <Button
-                            onClick={() => handleRemove(id)}
-                            variant="outlined"
-                            color="error"
-                            classes={{ startIcon: classes.buttonIcon}}
-                            startIcon={<DeleteIcon />}
-                        />
-                        <Button
-                            onClick={() => handleUpdateDetail(detail)}
-                            variant="outlined"
-                            color="warning"
-                            classes={{ startIcon: classes.buttonIcon}}
-                            startIcon={<EditIcon />}
-                        />
-                    </div>
+                    <Grid container>
+                        <Grid item xs={9}>
+                            <div>{name}</div>
+                            <div>{displayDetailType(type)}</div>
+                        </Grid>
+                        <Grid item xs={3} classes={{ root: classes.gridItemWrapper}}>
+                            <div className={classes.btnContainer}>
+                                <Button
+                                    onClick={() => handleRemoveDetail(id)}
+                                    variant="outlined"
+                                    color="error"
+                                    classes={{ startIcon: classes.btnIcon, root: classes.btnWrapper}}
+                                    startIcon={<DeleteIcon />}
+                                />
+                                <Button
+                                    onClick={() => handleUpdateDetail(detail)}
+                                    variant="outlined"
+                                    color="warning"
+                                    classes={{ startIcon: classes.btnIcon}}
+                                    startIcon={<EditIcon />}
+                                />
+                            </div>
+                        </Grid>
+                    </Grid>
                 </CardContent>
             </Card>
         </Grid>
