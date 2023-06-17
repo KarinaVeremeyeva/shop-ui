@@ -8,29 +8,47 @@ import AccessDenied from "../access-denied";
 import CategoryList from "../category-list";
 import classes from './products-page.module.css';
 import { useEffect } from "react";
-import { detailsError, detailsLoaded, detailsRequested } from "../../actions";
+import { detailsLoaded, detailsRequested, detailsError, addDetailRequested, detailAdded, addDetailError, updateDetailRequested, detailUpdated, updateDetailError,
+    removeDetailRequested, removeDetailError, detailRemoved } from "../../actions";
 
 const AdminPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
     const categories = useSelector(state => state.categories);
     const details = useSelector(state => state.details);
-    
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(detailsRequested());
         shopService.getDetails()
             .then(details => dispatch(detailsLoaded(details)))
-            .catch((error => dispatch(detailsError(error))))
+            .catch((error => dispatch(detailsError(error))));
     }, [dispatch, shopService]);
 
-    const handleAddDetail = () => { console.log('click')};
+    const handleAddDetail = (detail) => {
+        dispatch(addDetailRequested());
+        shopService.addDetail(detail)
+            .then(detail => dispatch(detailAdded(detail)))
+            .catch(error => dispatch(addDetailError(error)));
+    };
 
-    const handleEditDetail = () => { console.log('click')};
+    const handleEditDetail = (detail) => {
+        dispatch(updateDetailRequested());
+        shopService.updateDetail(detail)
+            .then(detail => dispatch(detailUpdated(detail)))
+            .catch(error => dispatch(updateDetailError(error)));
+    };
+
+    const handleRemoveDetail = (detailId) => {
+        dispatch(removeDetailRequested());
+        shopService.deleteDetail(detailId)
+            .then(() => dispatch(detailRemoved(detailId)))
+            .catch(error => dispatch(removeDetailError(error)));
+    };
 
     const pageContent = isAuthorized && isUserPermited
-        ? <DetailList details={details} handleAdd={handleAddDetail} handleEdit={handleEditDetail} />
+        ? <DetailList details={details} handleAdd={handleAddDetail} handleEdit={handleEditDetail} handleRemove={handleRemoveDetail}/>
         : <AccessDenied />;
 
     return (

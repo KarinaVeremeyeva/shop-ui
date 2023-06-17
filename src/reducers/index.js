@@ -8,7 +8,8 @@ const initialState = {
     error: null,
     userData: null,
     cartItems: [],
-    details: []
+    details: [],
+    detail: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -244,6 +245,63 @@ const reducer = (state = initialState, action) => {
                     ...state.loading,
                     [loadingType.DETAILS]: false
                 },
+            };
+        case actionType.ADD_DETAIL_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.ADD_DETAIL_SUCCESS:
+            {
+                const details = [...state.details, action.payload];
+                return {
+                    ...state,
+                    details,
+                    error: null
+                };
+            }
+        case actionType.ADD_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.UPDATE_DETAIL_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.UPDATE_DETAIL_SUCCESS:
+            {
+                const details = [...state.details];
+                const index = details.findIndex(d => d.id === action.payload.id)
+                details[index] = action.payload;
+                return {
+                    ...state,
+                    details,
+                    error: null
+                };
+            }
+        case actionType.UPDATE_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.REMOVE_DETAIL_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.REMOVE_DETAIL_SUCCESS:
+            const details = state.details.filter(d => d.id !== action.payload);
+            return {
+                ...state,
+                details,
+                error: null
+            };
+        case actionType.REMOVE_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
             };
         default:
             return state;

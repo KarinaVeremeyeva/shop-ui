@@ -114,7 +114,6 @@ export default class ShopService {
         });
 
         const jsonData = await response.json();
-        console.log(jsonData);
         
         return jsonData;
     };
@@ -147,7 +146,6 @@ export default class ShopService {
         });
 
         const jsonData = await response.json();
-        
         return jsonData;
     };
 
@@ -160,8 +158,6 @@ export default class ShopService {
             }
         });
 
-        const jsonData = await response.json();
-        
-        return jsonData;
+        return response;
     };
 };

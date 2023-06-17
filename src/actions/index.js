@@ -153,6 +153,66 @@ const detailsError = (error) => {
     };
 };
 
+const addDetailRequested = () => {
+    return {
+        type: actionType.ADD_DETAIL_REQUESTED
+    };
+};
+
+const detailAdded = (detail) => {
+    return {
+        type: actionType.ADD_DETAIL_SUCCESS,
+        payload: detail
+    };
+};
+
+const addDetailError = (error) => {
+    return {
+        type: actionType.ADD_DETAIL_FAILURE,
+        payload: error
+    };
+};
+
+const updateDetailRequested = () => {
+    return {
+        type: actionType.UPDATE_DETAIL_REQUESTED,
+    };
+};
+
+const detailUpdated = (detail) => {
+    return {
+        type: actionType.UPDATE_DETAIL_SUCCESS,
+        payload: detail
+    };
+};
+
+const updateDetailError = (error) => {
+    return {
+        type: actionType.UPDATE_DETAIL_FAILURE,
+        payload: error
+    };
+};
+
+const removeDetailRequested = () => {
+    return {
+        type: actionType.REMOVE_DETAIL_REQUESTED,
+    };
+};
+
+const detailRemoved = (detailId) => {
+    return {
+        type: actionType.REMOVE_DETAIL_SUCCESS,
+        payload: detailId
+    };
+};
+
+const removeDetailError = (error) => {
+    return {
+        type: actionType.REMOVE_DETAIL_FAILURE,
+        payload: error
+    };
+};
+
 export {
     productsRequested,
     productsLoaded, 
@@ -176,5 +236,14 @@ export {
     removeAllProductsFromCartError,
     detailsRequested,
     detailsLoaded,
-    detailsError
+    detailsError,
+    addDetailRequested,
+    detailAdded,
+    addDetailError,
+    updateDetailRequested,
+    detailUpdated,
+    updateDetailError,
+    removeDetailRequested,
+    detailRemoved,
+    removeDetailError
 };

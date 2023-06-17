@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Card, CardContent, Grid } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import classes from './detail-list-item.module.css';
 
 const displayDetailType = (type) => {
     switch (type) {
@@ -12,35 +13,32 @@ const displayDetailType = (type) => {
     }
 };
 
-const DetailListItem = ({ detail, handleOpen }) => {
+const DetailListItem = ({ detail, handleOpen, handleRemove }) => {
     const { id, name, type } = detail;
-
-    const handleRemoveDetail = (detailId) => {
-        console.log(detail.id)
-    };
 
     const handleUpdateDetail = () => {
         handleOpen(id);
-        console.log(id);
     };
 
     return (
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.detailItem}>
             <Card>
                 <CardContent>
                     <div>{name}</div>
                     <div>{displayDetailType(type)}</div>
                     <div>
                         <Button
-                            onClick={() => handleRemoveDetail(detail.id)}
+                            onClick={() => handleRemove(id)}
                             variant="outlined"
                             color="error"
+                            classes={{ startIcon: classes.buttonIcon}}
                             startIcon={<DeleteIcon />}
                         />
                         <Button
                             onClick={() => handleUpdateDetail(detail)}
                             variant="outlined"
                             color="warning"
+                            classes={{ startIcon: classes.buttonIcon}}
                             startIcon={<EditIcon />}
                         />
                     </div>

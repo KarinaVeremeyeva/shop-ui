@@ -6,7 +6,7 @@ import { DETAILS } from "../../reducers/constants";
 import Spinner from "../spinner";
 import DetailFormDialog from "../detail-form-dialog";
 
-const DetailList = ({ details, handleEdit, handleAdd }) => {
+const DetailList = ({ details, handleEdit, handleAdd, handleRemove }) => {
     const [open, setOpen] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState();
     
@@ -21,7 +21,6 @@ const DetailList = ({ details, handleEdit, handleAdd }) => {
     };
 
     const handleOpen = (detailId) => {
-        console.log(detailId);
         const detail = details.find(d => d.id === detailId);
         setSelectedDetail(detail);
         setOpen(true);
@@ -36,7 +35,7 @@ const DetailList = ({ details, handleEdit, handleAdd }) => {
         <>
             <Grid container>
                 <Button onClick={() => handleOpen()} variant="outlined" color="success">Add detail</Button>
-                { details.map((detail) => <DetailListItem key={detail.id} detail={detail} handleOpen={handleOpen} />)}
+                { details.map((detail) => <DetailListItem key={detail.id} detail={detail} handleOpen={handleOpen} handleRemove={handleRemove} />)}
             </Grid>
             {open && (<DetailFormDialog
                 open={open}
