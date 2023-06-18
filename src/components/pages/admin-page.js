@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsPermittedForAdmin } from "../../selectors/selectors";
@@ -6,9 +6,20 @@ import { withShopService } from "../hoc";
 import DetailList from "../detail-list";
 import AccessDenied from "../access-denied";
 import classes from './products-page.module.css';
-import { useEffect } from "react";
-import { detailsLoaded, detailsRequested, detailsError, addDetailRequested, detailAdded, addDetailError, updateDetailRequested, detailUpdated, updateDetailError,
-    removeDetailRequested, removeDetailError, detailRemoved } from "../../actions";
+import {
+    detailsLoaded,
+    detailsRequested,
+    detailsError,
+    addDetailRequested,
+    detailAdded,
+    addDetailError,
+    updateDetailRequested,
+    detailUpdated,
+    updateDetailError,
+    removeDetailRequested,
+    removeDetailError,
+    detailRemoved
+} from "../../actions";
 import Spinner from "../spinner";
 import { DETAILS, USER_DATA } from "../../reducers/constants";
 

@@ -33,14 +33,14 @@ const DetailListItem = ({ detail, onOpen, onOpenConfirm }) => {
                         <Grid item xs={3} classes={{ root: classes.gridItemWrapper}}>
                             <div className={classes.btnContainer}>
                                 <Button
-                                    onClick={() => handleRemoveDetail(id)}
+                                    onClick={handleRemoveDetail}
                                     variant="outlined"
                                     color="error"
                                     classes={{ startIcon: classes.btnIcon, root: classes.btnWrapper}}
                                     startIcon={<DeleteIcon />}
                                 />
                                 <Button
-                                    onClick={() => handleUpdateDetail(detail)}
+                                    onClick={handleUpdateDetail}
                                     variant="outlined"
                                     color="warning"
                                     classes={{ startIcon: classes.btnIcon}}

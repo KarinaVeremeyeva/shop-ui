@@ -13,6 +13,7 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState();
+    const loading = useSelector(state => state.loading[DETAILS]);
 
     const handleClose = () => {
         setOpen(false);
@@ -45,7 +46,6 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
         handleClose();
     }
 
-    const loading = useSelector(state => state.loading[DETAILS]);
     if (loading){
         return <Spinner />;
     }
@@ -53,24 +53,43 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
     return (
         <>
             <Grid container>
-                <Button onClick={() => handleOpen()} variant="outlined" color="success" className={classes.btnWrapper}>Add detail</Button>
-                {details.map((detail) => <DetailListItem key={detail.id} detail={detail} onOpen={handleOpen} onOpenConfirm={handleOpenConfirm} />)}
+                <Button
+                    onClick={() => handleOpen()}
+                    variant="outlined"
+                    color="success"
+                    className={classes.btnWrapper}>
+                        Add detail
+                </Button>
+                {
+                    details.map((detail) => (
+                        <DetailListItem
+                            key={detail.id}
+                            detail={detail}
+                            onOpen={handleOpen}
+                            onOpenConfirm={handleOpenConfirm}
+                        />
+                    ))
+                }
             </Grid>
-            {open && (<DetailFormDialog
-                open={open}
-                types={types}
-                detail={selectedDetail}
-                onClose={handleClose}
-                onSubmit={handleOnUpdate}
-            />)}
-            {openConfirm && (<ConfirmDialog
-                open={openConfirm}
-                onClose={handleCloseConfirm}
-                onSubmit={() => handleOnRemove(selectedDetail.id)}
-                title="Confirm detail deleting"
-            >
-                Are you sure you want to delete a detail "{selectedDetail.name}"?
-            </ConfirmDialog>)}
+            {open && (
+                <DetailFormDialog
+                    open={open}
+                    types={types}
+                    detail={selectedDetail}
+                    onClose={handleClose}
+                    onSubmit={handleOnUpdate}
+                />
+            )}
+            {openConfirm && (
+                <ConfirmDialog
+                    open={openConfirm}
+                    onClose={handleCloseConfirm}
+                    onSubmit={() => handleOnRemove(selectedDetail.id)}
+                    title="Confirm detail deleting"
+                >
+                    Are you sure you want to delete a detail "{selectedDetail.name}"?
+                </ConfirmDialog>
+            )}
         </>
     );
 };

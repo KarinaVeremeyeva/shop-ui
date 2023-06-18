@@ -46,7 +46,6 @@ const reducer = (state = initialState, action) => {
         case actionType.CATEGORIES_REQUESTED:
             return {
                 ...state,
-                categories: action.payload,
                 loading: {
                     ...state.loading,
                     [loadingType.CATEGORIES]: true
@@ -64,7 +63,7 @@ const reducer = (state = initialState, action) => {
         case actionType.CATEGORIES_FAILURE:
             return {
                 ...state,
-                categories: action.payload,
+                error: action.payload,
                 loading: {
                     ...state.loading,
                     [loadingType.CATEGORIES]: false
@@ -231,7 +230,6 @@ const reducer = (state = initialState, action) => {
         case actionType.DETAILS_REQUESTED:
             return {
                 ...state,
-                details: action.payload,
                 loading: {
                     ...state.loading,
                     [loadingType.DETAILS]: true
