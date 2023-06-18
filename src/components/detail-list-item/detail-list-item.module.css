@@ -1,0 +1,22 @@
+.detailItem {
+    margin-top: 3px !important;
+}
+
+.btnContainer {
+    margin-left: auto;
+    width: fit-content;
+}
+
+.btnIcon {
+    margin-left: 2px !important;
+    margin-right: 4px !important;
+}
+
+.gridItemWrapper {
+    align-items: center;
+    display: flex;
+}
+
+.btnWrapper {
+    margin-right: 3px !important;
+}

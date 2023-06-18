@@ -104,4 +104,60 @@ export default class ShopService {
 
         return await response.json();
     };
+
+    getDetails = async () => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/details`, {
+            headers: {
+                'Authorization': token
+            }
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    addDetail = async (detail) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/details`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            body: JSON.stringify(detail)
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    updateDetail = async (detail) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/details`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            body: JSON.stringify(detail)
+        });
+
+        const jsonData = await response.json();
+        return jsonData;
+    };
+
+    deleteDetail = async (detailId) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/details/${detailId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': token,
+            }
+        });
+
+        return response;
+    };
 };

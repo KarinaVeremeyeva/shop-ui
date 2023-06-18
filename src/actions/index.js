@@ -40,6 +40,12 @@ const categoriesError = (error) => {
     };
 };
 
+const userDataRequested = () => {
+    return {
+        type: actionType.USER_DATA_REQUESTED,
+    };
+};
+
 const userDataLoaded = (userData) => {
     return {
         type: actionType.USER_DATA_LOADED,
@@ -133,6 +139,86 @@ const removeAllProductsFromCartError = (error) => {
     };
 };
 
+const detailsRequested = () => {
+    return {
+        type: actionType.DETAILS_REQUESTED,
+    };
+};
+
+const detailsLoaded = (details) => {
+    return {
+        type: actionType.DETAILS_LOADED,
+        payload: details
+    };
+};
+
+const detailsError = (error) => {
+    return {
+        type: actionType.DETAILS_FAILURE,
+        payload: error
+    };
+};
+
+const addDetailRequested = () => {
+    return {
+        type: actionType.ADD_DETAIL_REQUESTED
+    };
+};
+
+const detailAdded = (detail) => {
+    return {
+        type: actionType.ADD_DETAIL_SUCCESS,
+        payload: detail
+    };
+};
+
+const addDetailError = (error) => {
+    return {
+        type: actionType.ADD_DETAIL_FAILURE,
+        payload: error
+    };
+};
+
+const updateDetailRequested = () => {
+    return {
+        type: actionType.UPDATE_DETAIL_REQUESTED,
+    };
+};
+
+const detailUpdated = (detail) => {
+    return {
+        type: actionType.UPDATE_DETAIL_SUCCESS,
+        payload: detail
+    };
+};
+
+const updateDetailError = (error) => {
+    return {
+        type: actionType.UPDATE_DETAIL_FAILURE,
+        payload: error
+    };
+};
+
+const removeDetailRequested = () => {
+    return {
+        type: actionType.REMOVE_DETAIL_REQUESTED,
+    };
+};
+
+const detailRemoved = (detailId) => {
+    return {
+        type: actionType.REMOVE_DETAIL_SUCCESS,
+        payload: detailId
+    };
+};
+
+const removeDetailError = (error) => {
+    return {
+        type: actionType.REMOVE_DETAIL_FAILURE,
+        payload: error
+    };
+};
+
 export {
     productsRequested,
     productsLoaded, 
@@ -140,6 +226,7 @@ export {
     categoriesRequested,
     categoriesLoaded,
     categoriesError,
+    userDataRequested,
     userDataLoaded,
     resetUserData,
     cartItemsRequested,
@@ -153,5 +240,17 @@ export {
     removeProductFromCartError,
     requestRemoveAllProductsFromCart,
     allProductsRemovedFromCart,
-    removeAllProductsFromCartError
+    removeAllProductsFromCartError,
+    detailsRequested,
+    detailsLoaded,
+    detailsError,
+    addDetailRequested,
+    detailAdded,
+    addDetailError,
+    updateDetailRequested,
+    detailUpdated,
+    updateDetailError,
+    removeDetailRequested,
+    detailRemoved,
+    removeDetailError
 };

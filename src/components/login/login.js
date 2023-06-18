@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, CardContent, FormGroup, FormHelperText, TextField } from "@mui/material";
 import classes from './login.module.css';
 import { withShopService } from "../hoc";
-import { userDataLoaded } from "../../actions";
+import { userDataLoaded, userDataRequested } from "../../actions";
 import { useDispatch } from "react-redux";
 
 const Login = (props) => {
@@ -17,6 +17,7 @@ const Login = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        dispatch(userDataRequested());
         props.authService.login(login, password)
             .then(() => {
                 return props.shopService.getUserData()

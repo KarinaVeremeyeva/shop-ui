@@ -7,7 +7,8 @@ const initialState = {
     loading: {},
     error: null,
     userData: null,
-    cartItems: []
+    cartItems: [],
+    details: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,7 +46,6 @@ const reducer = (state = initialState, action) => {
         case actionType.CATEGORIES_REQUESTED:
             return {
                 ...state,
-                categories: action.payload,
                 loading: {
                     ...state.loading,
                     [loadingType.CATEGORIES]: true
@@ -63,16 +63,28 @@ const reducer = (state = initialState, action) => {
         case actionType.CATEGORIES_FAILURE:
             return {
                 ...state,
-                categories: action.payload,
+                error: action.payload,
                 loading: {
                     ...state.loading,
                     [loadingType.CATEGORIES]: false
                 },
             };
+        case actionType.USER_DATA_REQUESTED:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.USER_DATA]: true
+                }
+            };
         case actionType.USER_DATA_LOADED:
             return {
                 ...state,
-                userData: action.payload
+                userData: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.USER_DATA]: false
+                }
             };
         case actionType.RESET_USER_DATA:
             return {
@@ -214,6 +226,91 @@ const reducer = (state = initialState, action) => {
                     [loadingType.REMOVE_PRODUCTS]: false
                 },
                 error: action.payload,
+            };
+        case actionType.DETAILS_REQUESTED:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.DETAILS]: true
+                },
+                error: null
+            };
+        case actionType.DETAILS_LOADED:
+            return {
+                ...state,
+                details: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.DETAILS]: false
+                },
+                error: null
+            };
+        case actionType.DETAILS_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.DETAILS]: false
+                },
+            };
+        case actionType.ADD_DETAIL_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.ADD_DETAIL_SUCCESS:
+            {
+                const details = [action.payload, ...state.details];
+                return {
+                    ...state,
+                    details,
+                    error: null
+                };
+            }
+        case actionType.ADD_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.UPDATE_DETAIL_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.UPDATE_DETAIL_SUCCESS:
+            {
+                const details = [...state.details];
+                const index = details.findIndex(d => d.id === action.payload.id)
+                details[index] = action.payload;
+                return {
+                    ...state,
+                    details,
+                    error: null
+                };
+            }
+        case actionType.UPDATE_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.REMOVE_DETAIL_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.REMOVE_DETAIL_SUCCESS:
+            const details = state.details.filter(d => d.id !== action.payload);
+            return {
+                ...state,
+                details,
+                error: null
+            };
+        case actionType.REMOVE_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
             };
         default:
             return state;
