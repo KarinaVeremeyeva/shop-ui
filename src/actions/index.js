@@ -219,6 +219,86 @@ const removeDetailError = (error) => {
     };
 };
 
+const categoriesListRequested = () => {
+    return {
+        type: actionType.CATEGORIES_LIST_REQUESTED
+    };
+};
+
+const categoriesListLoaded = (categoriesList) => {
+    return {
+        type: actionType.CATEGORIES_LIST_SUCCESS,
+        payload: categoriesList
+    };
+};
+
+const categoriesListError = (error) => {
+    return {
+        type: actionType.CATEGORIES_LIST_FAILURE,
+        payload: error
+    };
+};
+
+const addCategoryRequested = () => {
+    return {
+        type: actionType.ADD_CATEGORY_REQUESTED
+    };
+};
+
+const categoryAdded = (category) => {
+    return {
+        type: actionType.ADD_CATEGORY_SUCCESS,
+        payload: category
+    };
+};
+
+const addCategoryError = (error) => {
+    return {
+        type: actionType.ADD_CATEGORY_FAILURE,
+        payload: error
+    };
+};
+
+const updateCategoryRequested = () => {
+    return {
+        type: actionType.UPDATE_CATEGORY_REQUESTED,
+    };
+};
+
+const categoryUpdated = (category) => {
+    return {
+        type: actionType.UPDATE_CATEGORY_SUCCESS,
+        payload: category
+    };
+};
+
+const updateCategoryError = (error) => {
+    return {
+        type: actionType.UPDATE_CATEGORY_FAILURE,
+        payload: error
+    };
+};
+
+const removeCategoryRequested = () => {
+    return {
+        type: actionType.REMOVE_CATEGORY_REQUESTED,
+    };
+};
+
+const categoryRemoved = (categoryId) => {
+    return {
+        type: actionType.REMOVE_CATEGORY_SUCCESS,
+        payload: categoryId
+    };
+};
+
+const removeCategoryError = (error) => {
+    return {
+        type: actionType.REMOVE_CATEGORY_FAILURE,
+        payload: error
+    };
+};
+
 export {
     productsRequested,
     productsLoaded, 
@@ -252,5 +332,17 @@ export {
     updateDetailError,
     removeDetailRequested,
     detailRemoved,
-    removeDetailError
+    removeDetailError,
+    categoriesListRequested,
+    categoriesListLoaded,
+    categoriesListError,
+    addCategoryRequested,
+    categoryAdded,
+    addCategoryError,
+    updateCategoryRequested,
+    categoryUpdated,
+    updateCategoryError,
+    removeCategoryRequested,
+    categoryRemoved,
+    removeCategoryError
 };

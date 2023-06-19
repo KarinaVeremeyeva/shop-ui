@@ -1,11 +1,11 @@
 import React, { useState} from "react";
+import { useSelector } from "react-redux";
 import { Grid, Button } from "@mui/material";
 import DetailListItem from "../detail-list-item";
-import { useSelector } from "react-redux";
 import { DETAILS } from "../../reducers/constants";
 import Spinner from "../spinner";
-import DetailFormDialog from "../detail-form-dialog";
-import ConfirmDialog from "../confirm-dialog";
+import DetailFormDialog from "../dialogs/detail-form-dialog";
+import ConfirmDialog from "../dialogs/confirm-dialog";
 import { types } from './detail-types';
 import classes from './detail-list.module.css';
 
@@ -44,7 +44,7 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
         const handleUpdate = selectedDetail ? onEditDetail : onAddDetail;
         handleUpdate(detail);
         handleClose();
-    }
+    };
 
     if (loading){
         return <Spinner />;
@@ -57,8 +57,9 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
                     onClick={() => handleOpen()}
                     variant="outlined"
                     color="success"
-                    className={classes.btnWrapper}>
-                        Add detail
+                    className={classes.btnWrapper}
+                >
+                    Add detail
                 </Button>
                 {
                     details.map((detail) => (

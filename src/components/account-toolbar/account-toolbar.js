@@ -35,7 +35,10 @@ const AccountToolbar = ({ authService }) => {
     return (
         <div className={classes.toolbarWrapper}>
             {isAdminPermited && (
-                <Link to={'admin'} className={classes.link}>Admin Panel</Link>
+                <>
+                    <Link to={'details/admin'} className={classes.link}>Manage Details</Link>
+                    <Link to={'categories/admin'} className={classes.link}>Manage Categories</Link>
+                </>
             )}
             <div className={classes.link}>{email}</div>
             {isUserPermited && (

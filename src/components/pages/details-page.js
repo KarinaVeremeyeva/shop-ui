@@ -23,7 +23,7 @@ import {
 import Spinner from "../spinner";
 import { DETAILS, USER_DATA } from "../../reducers/constants";
 
-const AdminPage = ({ shopService }) => {
+const DetailsPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
     const loading = useSelector(state => state.loading[DETAILS] || state.loading[USER_DATA]);
@@ -75,4 +75,4 @@ const AdminPage = ({ shopService }) => {
     );
 };
 
-export default withShopService()(AdminPage);
+export default withShopService()(DetailsPage);

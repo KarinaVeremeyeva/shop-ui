@@ -107,7 +107,7 @@ export default class ShopService {
 
     getDetails = async () => {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${this._apiUrl}/details`, {
+        const response = await fetch(`${this._apiUrl}/details/admin`, {
             headers: {
                 'Authorization': token
             }
@@ -120,7 +120,7 @@ export default class ShopService {
 
     addDetail = async (detail) => {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${this._apiUrl}/details`, {
+        const response = await fetch(`${this._apiUrl}/details/admin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export default class ShopService {
 
     updateDetail = async (detail) => {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${this._apiUrl}/details`, {
+        const response = await fetch(`${this._apiUrl}/details/admin`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -151,7 +151,63 @@ export default class ShopService {
 
     deleteDetail = async (detailId) => {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${this._apiUrl}/details/${detailId}`, {
+        const response = await fetch(`${this._apiUrl}/details/${detailId}/admin`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': token,
+            }
+        });
+
+        return response;
+    };
+
+    getCategoriesList = async () => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/categories/admin`, {
+            headers: {
+                'Authorization': token
+            }
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    addCategory = async (category) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/categories/admin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            body: JSON.stringify(category)
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    updateCategory = async (category) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/categories/admin`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            body: JSON.stringify(category)
+        });
+
+        const jsonData = await response.json();
+        return jsonData;
+    };
+
+    deleteCategory = async (categoryId) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/categories/${categoryId}/admin`, {
             method: 'DELETE',
             headers: {
                 'Authorization': token,
