@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormHelperText, MenuItem, TextField } from "@mui/material";
+import classes from './category-form-dialog.module.css';
 
 const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }) => {
     const [name, setName] = useState(category?.name || '');
@@ -36,11 +37,14 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
                         onChange={(e) => setParentCategoryId(e.target.value)}
                         select
                         label="Parent Category"
-                        sx={{ width: 220 }}
+                        className={classes.textField}
                     >
+                        <MenuItem value={""}>
+                            <em>None</em>
+                        </MenuItem>
                         {
                             allCategories.map(category => (
-                                <MenuItem key={category.id} value={category.parentCategoryId}>
+                                <MenuItem key={category.id} value={category.id}>
                                     {category.name}
                                 </MenuItem>
                             ))
@@ -54,7 +58,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
             <DialogActions>
                 <Button onClick={onClose} variant="outlined">Cancel</Button>
                 <Button
-                    onClick={() => onSubmit({ id: category?.id, name, description, parentCategoryId: category?.parentCategoryId })}
+                    onClick={() => onSubmit({ id: category?.id, name, description, parentCategoryId: parentCategoryId || null })}
                     variant="contained"
                     disabled={!name}
                 >

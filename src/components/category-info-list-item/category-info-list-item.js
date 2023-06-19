@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, Card, CardContent, Grid } from "@mui/material";
+import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import classes from './category-info-list-item.module.css';
 
-const CategoryInfoListItem = ({ category, onOpen, onOpenConfirm }) => {
-    const { id, name, description } = category;
+const CategoryInfoListItem = ({ category, onOpen, onOpenConfirm, categories }) => {
+    const { id, name, description, parentCategoryId } = category;
+    const parentCategory = categories.find(c => c.id === parentCategoryId);
     
     const handleUpdateCategory = () => {
         onOpen(id);
@@ -22,7 +23,8 @@ const CategoryInfoListItem = ({ category, onOpen, onOpenConfirm }) => {
                     <Grid container>
                         <Grid item xs={9}>
                             <div>{name}</div>
-                            <div>{description}</div>
+                            <Typography variant="body2">{parentCategory?.name}</Typography>
+                            <Typography variant="body2">{description}</Typography>
                         </Grid>
                         <Grid item xs={3} classes={{ root: classes.gridItemWrapper}}>
                             <div className={classes.btnContainer}>

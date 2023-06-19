@@ -8,10 +8,20 @@ import Spinner from "../spinner";
 import { CATEGORIES_LIST } from "../../reducers/constants";
 import classes from './category-info-list.module.css';
 
+const getChildren = (categories, id) => {
+    const currentCategory = categories.find(c => c.id === id);
+    const childrenCategories = categories.filter(c => c.parentCategoryId === id);
+    const nestedChildren = childrenCategories.map(c => getChildren(categories, c.id)).flat();
+
+    return [currentCategory, ...nestedChildren]
+};
+
 const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveCategory }) => {
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState();
+    const [availableParents, setAvailableParents] = useState([]);
+
     const loading = useSelector(state => state.loading[CATEGORIES_LIST]);
 
     const handleClose = () => {
@@ -21,6 +31,15 @@ const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveC
     const handleOpen = (categoryId) => {
         const category = categories.find(c => c.id === categoryId);
         setSelectedCategory(category);
+        if (categoryId) {
+            const categoryChildren = getChildren(categories, categoryId);
+            const availableParents = categories.filter(c => !categoryChildren.includes(c));
+            setAvailableParents(availableParents);
+        }
+        else {
+            setAvailableParents(categories);
+        }
+        
         setOpen(true);
     };
 
@@ -67,6 +86,7 @@ const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveC
                             category={category}
                             onOpen={handleOpen}
                             onOpenConfirm={handleOpenConfirm}
+                            categories={categories}
                         />
                     ))
                 }
@@ -74,7 +94,7 @@ const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveC
             {open && (
                 <CategoryFormDialog
                     open={open}
-                    allCategories={categories}
+                    allCategories={availableParents}
                     category={selectedCategory}
                     onClose={handleClose}
                     onSubmit={handleOnUpdate}
