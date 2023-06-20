@@ -8,7 +8,8 @@ const initialState = {
     error: null,
     userData: null,
     cartItems: [],
-    details: []
+    details: [],
+    categoriesList: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -308,6 +309,91 @@ const reducer = (state = initialState, action) => {
                 error: null
             };
         case actionType.REMOVE_DETAIL_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.CATEGORIES_LIST_REQUESTED:
+            return {
+                ...state,
+                error: null,
+                loading: {
+                    ...state.loading,
+                    [loadingType.CATEGORIES_LIST]: true
+                }
+            };
+        case actionType.CATEGORIES_LIST_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                categoriesList: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.CATEGORIES_LIST]: false
+                }
+            };
+        case actionType.CATEGORIES_LIST_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.CATEGORIES_LIST]: false
+                }
+            };
+        case actionType.ADD_CATEGORY_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.ADD_CATEGORY_SUCCESS:
+            {
+                const categoriesList = [action.payload, ...state.categoriesList];
+                return {
+                    ...state,
+                    categoriesList,
+                    error: null
+                };
+            }
+        case actionType.ADD_CATEGORY_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.UPDATE_CATEGORY_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.UPDATE_CATEGORY_SUCCESS:
+            {
+                const categoriesList = [...state.categoriesList];
+                const index = categoriesList.findIndex(c => c.id === action.payload.id)
+                categoriesList[index] = action.payload;
+                return {
+                    ...state,
+                    categoriesList,
+                    error: null
+                };
+            }
+        case actionType.UPDATE_CATEGORY_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.REMOVE_CATEGORY_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.REMOVE_CATEGORY_SUCCESS:
+            const categoriesList = state.categoriesList.filter(c => c.id !== action.payload);
+            return {
+                ...state,
+                categoriesList,
+                error: null
+            };
+        case actionType.REMOVE_CATEGORY_FAILURE:
             return {
                 ...state,
                 error: action.payload

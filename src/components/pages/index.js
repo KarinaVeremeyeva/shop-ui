@@ -3,7 +3,8 @@ import ProductsPage from "./products-page";
 import ProductDetailsPage from "./product-details-page";
 import AuthPage from "./auth-page";
 import CartPage from "./cart-page";
-import AdminPage from "./admin-page";
+import DetailsPage from "./details-page";
+import CategoriesPage from "./categories-page";
 
 export {
     HomePage,
@@ -11,5 +12,6 @@ export {
     ProductDetailsPage,
     AuthPage,
     CartPage,
-    AdminPage
+    DetailsPage,
+    CategoriesPage
 };

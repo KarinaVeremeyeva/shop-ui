@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogContent, DialogActions, DialogTitle, MenuItem, Select, TextField, FormHelperText } from "@mui/material";
+import { Button, Dialog, DialogContent, DialogActions, DialogTitle, MenuItem, TextField, FormHelperText } from "@mui/material";
 
 const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
     const [type, setType] = useState(detail?.type || 0);
@@ -22,12 +22,18 @@ const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
-                <TextField value={name} onChange={handleNameChange} />
-                <Select value={type} onChange={(e) => setType(e.target.value)}>
+                <TextField margin="dense" required label="Name" value={name} onChange={handleNameChange} />
+                <TextField
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                    select
+                    label="Type"
+                    margin="dense"
+                >
                     {
                         types.map(type => <MenuItem key={type.value} value={type.value}>{type.name}</MenuItem>)
                     }
-                </Select>
+                </TextField>
                 <FormHelperText error={!!errorText}>
                     {errorText}
                 </FormHelperText>
@@ -39,7 +45,7 @@ const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
                     variant="contained"
                     disabled={!name}
                 >
-                        Submit
+                    Submit
                 </Button>
             </DialogActions>
         </Dialog>
