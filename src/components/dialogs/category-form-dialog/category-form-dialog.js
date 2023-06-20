@@ -20,15 +20,29 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
         }
     };
 
+    const handleOnSubmit = () => {
+        onSubmit({ id: category?.id, name, description, parentCategoryId: parentCategoryId || null });
+    };
+
     return(
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <div>
-                    <TextField margin="dense" required value={name} label="Name" onChange={handleNameChange} />
+                    <TextField
+                        margin="dense"
+                        required value={name}
+                        label="Name"
+                        onChange={handleNameChange}
+                    />
                 </div>
                 <div>
-                    <TextField margin="dense" value={description} label="Description" onChange={(e) => setDescription(e.target.value)} />
+                    <TextField
+                        margin="dense"
+                        value={description}
+                        label="Description"
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
                 </div>
                 <div>
                     <TextField
@@ -58,7 +72,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
             <DialogActions>
                 <Button onClick={onClose} variant="outlined">Cancel</Button>
                 <Button
-                    onClick={() => onSubmit({ id: category?.id, name, description, parentCategoryId: parentCategoryId || null })}
+                    onClick={handleOnSubmit}
                     variant="contained"
                     disabled={!name}
                 >

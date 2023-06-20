@@ -20,12 +20,15 @@ import {
     updateCategoryRequested
 } from "../../actions";
 import classes from './products-page.module.css';
+import { CATEGORIES_LIST, USER_DATA } from "../../reducers/constants";
+import Spinner from "../spinner";
 
 const CategoriesPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
     const categories = useSelector(state => state.categoriesList);
-    
+    const loading = useSelector(state => state.loading[CATEGORIES_LIST] || state.loading[USER_DATA]);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -56,6 +59,10 @@ const CategoriesPage = ({ shopService }) => {
             .catch(error => dispatch(removeCategoryError(error)));
     };
 
+    if (loading) {
+        return <Spinner />;
+    }
+    
     const pageContent = isAuthorized && isUserPermited
         ? (<CategoryInfoList
                 categories={categories}
