@@ -299,6 +299,86 @@ const removeCategoryError = (error) => {
     };
 };
 
+const productsListRequested = () => {
+    return {
+        type: actionType.PRODUCTS_LIST_REQUESTED
+    };
+};
+
+const productsListLoaded = (productsList) => {
+    return {
+        type: actionType.PRODUCTS_LIST_SUCCESS,
+        payload: productsList
+    };
+};
+
+const productsListError = (error) => {
+    return {
+        type: actionType.PRODUCTS_LIST_FAILURE,
+        payload: error
+    };
+};
+
+const addProductRequested = () => {
+    return {
+        type: actionType.ADD_PRODUCT_REQUESTED
+    };
+};
+
+const productAdded = (product) => {
+    return {
+        type: actionType.ADD_PRODUCT_SUCCESS,
+        payload: product
+    };
+};
+
+const addProductError = (error) => {
+    return {
+        type: actionType.ADD_PRODUCT_FAILURE,
+        payload: error
+    };
+};
+
+const updateProductRequested = () => {
+    return {
+        type: actionType.UPDATE_PRODUCT_REQUESTED
+    };
+};
+
+const productUpdated = (product) => {
+    return {
+        type: actionType.UPDATE_PRODUCT_SUCCESS,
+        payload: product
+    };
+};
+
+const updateProductError = (error) => {
+    return {
+        type: actionType.UPDATE_PRODUCT_FAILURE,
+        payload: error
+    };
+};
+
+const removeProductRequested = () => {
+    return {
+        type: actionType.REMOVE_PRODUCT_REQUESTED,
+    };
+};
+
+const productRemoved = (productId) => {
+    return {
+        type: actionType.REMOVE_PRODUCT_SUCCESS,
+        payload: productId
+    };
+};
+
+const removeProductError = (error) => {
+    return {
+        type: actionType.REMOVE_PRODUCT_FAILURE,
+        payload: error
+    };
+};
+
 export {
     productsRequested,
     productsLoaded, 
@@ -344,5 +424,17 @@ export {
     updateCategoryError,
     removeCategoryRequested,
     categoryRemoved,
-    removeCategoryError
+    removeCategoryError,
+    productsListRequested,
+    productsListLoaded,
+    productsListError,
+    addProductRequested,
+    productAdded,
+    addProductError,
+    updateProductRequested,
+    productUpdated,
+    updateProductError,
+    removeProductRequested,
+    productRemoved,
+    removeProductError
 };

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormHelperText, MenuItem, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
 import classes from '../dialogs.module.css';
 
-const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }) => {
-    const [name, setName] = useState(category?.name || '');
-    const [description, setDescription] = useState(category?.description || '');
-    const [parentCategoryId, setParentCategoryId] = useState(category?.parentCategoryId || '');
+const ProductFormDialog = ({ product, open, onClose, onSubmit, categories }) => {
+    const [name, setName] = useState(product?.name || '');
+    const [description, setDescription] = useState(product?.description || '');
+    const [categoryId, setCategoryId] = useState(product?.categoryId || '');
     const [errorText, setError] = useState();
-
-    const dialogTitle = typeof category === 'undefined' ? 'Add category' : 'Edit category';
+    
+    const dialogTitle = typeof product === 'undefined' ? 'Add product' : 'Edit product';
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -21,44 +21,42 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
     };
 
     const handleOnSubmit = () => {
-        onSubmit({ id: category?.id, name, description, parentCategoryId: parentCategoryId || null });
+        return onSubmit({ id: product?.id, description, name, categoryId: categoryId || null });
     };
 
-    return(
+    return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <div>
                     <TextField
                         margin="dense"
-                        required
-                        value={name}
                         label="Name"
+                        value={name}
                         onChange={handleNameChange}
                     />
                 </div>
                 <div>
                     <TextField
                         margin="dense"
-                        value={description}
                         label="Description"
+                        value={description}
+                        multiline
+                        className={classes.textField}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
                 <div>
                     <TextField
                         margin="dense"
-                        value={parentCategoryId}
-                        onChange={(e) => setParentCategoryId(e.target.value)}
+                        value={categoryId}
+                        label="Category"
+                        onChange={(e) => setCategoryId(e.target.value)}
                         select
-                        label="Parent Category"
                         className={classes.textField}
                     >
-                        <MenuItem value={""}>
-                            <em>None</em>
-                        </MenuItem>
                         {
-                            allCategories.map(category => (
+                            categories.map(category => (
                                 <MenuItem key={category.id} value={category.id}>
                                     {category.name}
                                 </MenuItem>
@@ -84,4 +82,4 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
     );
 };
 
-export default CategoryFormDialog;
+export default ProductFormDialog;

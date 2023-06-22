@@ -10,6 +10,7 @@ const initialState = {
     cartItems: [],
     details: [],
     categoriesList: [],
+    productsList: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -394,6 +395,91 @@ const reducer = (state = initialState, action) => {
                 error: null
             };
         case actionType.REMOVE_CATEGORY_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.PRODUCTS_LIST_REQUESTED:
+            return {
+                ...state,
+                error: null,
+                loading: {
+                    ...state.loading,
+                    [loadingType.PRODUCTS_LIST]: true
+                }
+            };
+        case actionType.PRODUCTS_LIST_SUCCESS:
+            return {
+                ...state,
+                productsList: action.payload,
+                error: null,
+                loading: {
+                    ...state.loading,
+                    [loadingType.PRODUCTS_LIST]: false
+                }
+            };
+        case actionType.PRODUCTS_LIST_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                loading: {
+                    ...state.loading,
+                    [loadingType.PRODUCTS_LIST]: false
+                }
+            };
+        case actionType.ADD_PRODUCT_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.ADD_PRODUCT_SUCCESS:
+            {
+                const productsList = [action.payload, ...state.productsList];
+                return {
+                    ...state,
+                    productsList,
+                    error: null
+                };
+            }
+        case actionType.ADD_PRODUCT_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.UPDATE_PRODUCT_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.UPDATE_PRODUCT_SUCCESS:
+            {
+                const productsList = [...state.productsList];
+                const index = productsList.findIndex(p => p.id === action.payload.id);
+                productsList[index] = action.payload;
+                return {
+                    ...state,
+                    productsList,
+                    error: null
+                };
+            }
+        case actionType.UPDATE_PRODUCT_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case actionType.REMOVE_PRODUCT_REQUESTED:
+            return {
+                ...state,
+                error: null
+            };
+        case actionType.REMOVE_PRODUCT_SUCCESS:
+            const productsList = state.productsList.filter(p => p.id !== action.payload);
+            return {
+                ...state,
+                productsList,
+                error: null
+            };
+        case actionType.REMOVE_PRODUCT_FAILURE:
             return {
                 ...state,
                 error: action.payload

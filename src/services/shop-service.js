@@ -216,4 +216,61 @@ export default class ShopService {
 
         return response;
     };
+
+    getProductsList = async () => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/products/admin`, {
+            headers: {
+                'Authorization': token
+            }
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    addProduct = async (product) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/products/admin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            body: JSON.stringify(product)
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    updateProduct = async (product) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/products/admin`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            body: JSON.stringify(product)
+        });
+
+        const jsonData = await response.json();
+        
+        return jsonData;
+    };
+
+    deleteProduct = async (productId) => {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${this._apiUrl}/products/${productId}/admin`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': token,
+            }
+        });
+        
+        return response;
+    };
 };
