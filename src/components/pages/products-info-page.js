@@ -13,6 +13,9 @@ import {
     categoriesListError,
     categoriesListLoaded,
     categoriesListRequested,
+    detailsError,
+    detailsLoaded,
+    detailsRequested,
     productAdded,
     productRemoved,
     productUpdated,
@@ -32,18 +35,23 @@ const ProductsInfoPage = ({ shopService }) => {
     const products = useSelector(state => state.productsList);
     const loading = useSelector(state => state.loading[PRODUCTS_LIST] || state.loading[USER_DATA]);
     const categories = useSelector(state => state.categoriesList);
+    const details = useSelector(state => state.details);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(productsListRequested());
         dispatch(categoriesListRequested());
+        dispatch(detailsRequested());
         shopService.getProductsList()
             .then(products => dispatch(productsListLoaded(products)))
             .catch(error => dispatch(productsListError(error)));
         shopService.getCategoriesList()
             .then(categories => dispatch(categoriesListLoaded(categories)))
             .catch(error => dispatch(categoriesListError(error)));
+        shopService.getDetails()
+            .then(details => dispatch(detailsLoaded(details)))
+            .catch(error => dispatch(detailsError(error)));
     }, [dispatch, shopService]);
 
     const handleAddProduct = (product) => {
@@ -78,6 +86,7 @@ const ProductsInfoPage = ({ shopService }) => {
                 onEditProduct={handleEditProduct}
                 onRemoveProduct={handleRemoveProduct}
                 categories={categories}
+                details={details}
             />)
         : <AccessDenied />;
 

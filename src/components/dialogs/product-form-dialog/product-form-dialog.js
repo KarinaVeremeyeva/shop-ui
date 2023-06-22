@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
 import classes from '../dialogs.module.css';
 
-const ProductFormDialog = ({ product, open, onClose, onSubmit, categories }) => {
+const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
     const [name, setName] = useState(product?.name || '');
     const [description, setDescription] = useState(product?.description || '');
     const [categoryId, setCategoryId] = useState(product?.categoryId || '');
+    const [productDetails, setProductDetails] = useState(product?.productDetails || []);
     const [errorText, setError] = useState();
-    
+
     const dialogTitle = typeof product === 'undefined' ? 'Add product' : 'Edit product';
 
     const handleNameChange = (e) => {
@@ -20,8 +21,39 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories }) => 
         }
     };
 
+    const handleAddDetail = () => {
+        setProductDetails([...productDetails, {}]);
+    };
+
+    const handleDetailId = (index, detailId) => {
+        const newProductDetails = [...productDetails];
+        const productDetail = {
+            ...newProductDetails[index],
+            detailId
+        };
+        
+        newProductDetails[index] = productDetail;
+        setProductDetails(newProductDetails);
+    };
+
+    const handleDetailValue = (index, value) => {
+        const newProductDetails = [...productDetails];
+        const productDetail = {
+            ...newProductDetails[index],
+            value
+        }
+        newProductDetails[index] = productDetail;
+        setProductDetails(newProductDetails);
+    };
+
     const handleOnSubmit = () => {
-        return onSubmit({ id: product?.id, description, name, categoryId: categoryId || null });
+        return onSubmit({
+            id: product?.id,
+            description,
+            name,
+            categoryId: categoryId,
+            productDetails
+        });
     };
 
     return (
@@ -42,6 +74,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories }) => 
                         label="Description"
                         value={description}
                         multiline
+                        rows={3}
                         className={classes.textField}
                         onChange={(e) => setDescription(e.target.value)}
                     />
@@ -63,6 +96,41 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories }) => 
                             ))
                         }
                     </TextField>
+                </div>
+                <div>
+                    <Button
+                        variant="outlined"
+                        onClick={() => handleAddDetail()}
+                    >
+                        Add detail
+                    </Button>
+                    {
+                        productDetails.map((pd, index) => (
+                            <div key={index}>
+                                <TextField
+                                    margin="dense"
+                                    value={pd.detailId}
+                                    label="Detail id"
+                                    onChange={(e) => handleDetailId(index, e.target.value)}
+                                    select
+                                >
+                                {
+                                    details.map(detail => (
+                                        <MenuItem key={detail.id} value={detail.id}>
+                                            {detail.name}
+                                        </MenuItem>
+                                    ))
+                                }
+                                </TextField>
+                                <TextField
+                                    margin="dense"
+                                    label="Value"
+                                    value={pd.value}
+                                    onChange={(e) => handleDetailValue(index, e.target.value)}
+                                />
+                            </div>
+                        ))
+                    }
                 </div>
                 <FormHelperText error={!!errorText}>
                     {errorText}

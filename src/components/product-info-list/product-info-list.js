@@ -8,7 +8,7 @@ import ProductFormDialog from "../dialogs/product-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
 import classes from './product-info-list.module.css';
 
-const ProductInfoList = ({ products, onAddProduct, onEditProduct, onRemoveProduct, categories }) => {
+const ProductInfoList = ({ products, onAddProduct, onEditProduct, onRemoveProduct, categories, details }) => {
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState();
@@ -78,6 +78,7 @@ const ProductInfoList = ({ products, onAddProduct, onEditProduct, onRemoveProduc
                     onClose={handleClose}
                     onSubmit={handleOnUpdate}
                     categories={categories}
+                    details={details}
                 />
             )}
             {openConfirm && (
