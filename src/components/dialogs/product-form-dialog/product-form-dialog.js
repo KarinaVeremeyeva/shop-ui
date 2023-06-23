@@ -6,6 +6,7 @@ import classes from '../dialogs.module.css';
 const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
     const [name, setName] = useState(product?.name || '');
     const [description, setDescription] = useState(product?.description || '');
+    const [price, setPrice] = useState(product?.price || 0);
     const [categoryId, setCategoryId] = useState(product?.categoryId || '');
     const [productDetails, setProductDetails] = useState(product?.productDetails || []);
     const [availableDetais, setAvailableDetails] = useState([productDetails]);
@@ -29,6 +30,16 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
         }
     };
 
+    const handlePriceChange = (e) => {
+        setPrice(e.target.value);
+        if(e.target.value <= 0) {
+            setError('Price must be greater than 0');
+        }
+        else {
+            setError('');
+        }
+    };
+
     const handleAddDetail = () => {
         setProductDetails([...productDetails, {}]);
     };
@@ -38,7 +49,6 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
         var index = newProductDetails.indexOf(detailId)
         newProductDetails.splice(index, 1);
         setProductDetails(newProductDetails);
-        console.log(newProductDetails);
     };
 
     const handleDetailId = (index, detailId) => {
@@ -65,8 +75,9 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
     const handleOnSubmit = () => {
         return onSubmit({
             id: product?.id,
-            description,
             name,
+            description,
+            price,
             categoryId: categoryId,
             productDetails
         });
@@ -94,6 +105,16 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         rows={3}
                         fullWidth
                         onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        margin="dense"
+                        label="Price"
+                        value={price}
+                        type="number"
+                        onChange={handlePriceChange}
+                        fullWidth
                     />
                 </div>
                 <div>
@@ -175,7 +196,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                 <Button
                     onClick={handleOnSubmit}
                     variant="contained"
-                    disabled={!name}
+                    disabled={!name || !price}
                 >
                     Submit
                 </Button>

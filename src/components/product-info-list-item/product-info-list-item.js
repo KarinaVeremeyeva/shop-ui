@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import classes from './product-info-list-item.module.css';
 
 const ProductInfoListItem = ({ product, onOpen, onOpenConfirm }) => {
-    const { id, name, description, category: { name: categoryName } } = product;
+    const { id, name, description, price, category: { name: categoryName } } = product;
     
     const handleUpdateProduct = () => {
         onOpen(id);
@@ -24,6 +24,7 @@ const ProductInfoListItem = ({ product, onOpen, onOpenConfirm }) => {
                             <div>{name}</div>
                             <div>{description}</div>
                             <div>{categoryName}</div>
+                            <div>${price}</div>
                         </Grid>
                         <Grid item xs={3} classes={{ root: classes.gridItemWrapper }}>
                             <div className={classes.btnContainer}>
