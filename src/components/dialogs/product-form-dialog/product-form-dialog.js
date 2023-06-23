@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import classes from '../dialogs.module.css';
 
 const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
@@ -30,6 +31,14 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
 
     const handleAddDetail = () => {
         setProductDetails([...productDetails, {}]);
+    };
+
+    const handleRemoveDetail = (detailId) => {
+        const newProductDetails = [...productDetails];
+        var index = newProductDetails.indexOf(detailId)
+        newProductDetails.splice(index, 1);
+        setProductDetails(newProductDetails);
+        console.log(newProductDetails);
     };
 
     const handleDetailId = (index, detailId) => {
@@ -73,6 +82,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         label="Name"
                         value={name}
                         onChange={handleNameChange}
+                        fullWidth
                     />
                 </div>
                 <div>
@@ -82,7 +92,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         value={description}
                         multiline
                         rows={3}
-                        className={classes.textField}
+                        fullWidth
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
@@ -93,7 +103,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         label="Category"
                         onChange={(e) => setCategoryId(e.target.value)}
                         select
-                        className={classes.textField}
+                        fullWidth
                     >
                         {
                             categories.map(category => (
@@ -108,18 +118,20 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                     <Button
                         variant="outlined"
                         onClick={() => handleAddDetail()}
+                        classes={{ root: classes.addBtnWrapper }}
                     >
                         Add detail
                     </Button>
                     {
                         productDetails.map((pd, index) => (
-                            <div key={index}>
+                            <div key={index} className={classes.align}>
                                 <TextField
                                     margin="dense"
                                     value={pd.detailId}
                                     label="Detail Name"
                                     onChange={(e) => handleDetailId(index, e.target.value)}
                                     select
+                                    className={classes.textFieldWrapper}
                                 >
                                     {pd.detailId && (
                                         <MenuItem
@@ -142,6 +154,13 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                                     label="Value"
                                     value={pd.value}
                                     onChange={(e) => handleDetailValue(index, e.target.value)}
+                                />
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={() => handleRemoveDetail(pd.detailId)}
+                                    startIcon={<CloseIcon />}
+                                    classes={{ startIcon: classes.btnIcon, root: classes.btnSize }}
                                 />
                             </div>
                         ))
