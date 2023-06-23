@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
 import classes from '../dialogs.module.css';
 
@@ -7,9 +7,16 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
     const [description, setDescription] = useState(product?.description || '');
     const [categoryId, setCategoryId] = useState(product?.categoryId || '');
     const [productDetails, setProductDetails] = useState(product?.productDetails || []);
+    const [availableDetais, setAvailableDetails] = useState([productDetails]);
+
     const [errorText, setError] = useState();
 
     const dialogTitle = typeof product === 'undefined' ? 'Add product' : 'Edit product';
+
+    useEffect(() => {
+        const availableDetais = details.filter(d => !productDetails.find(pd => pd.detailId === d.id));
+        setAvailableDetails(availableDetais);
+    }, [setAvailableDetails, details, productDetails]);
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -110,17 +117,25 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                                 <TextField
                                     margin="dense"
                                     value={pd.detailId}
-                                    label="Detail id"
+                                    label="Detail Name"
                                     onChange={(e) => handleDetailId(index, e.target.value)}
                                     select
                                 >
-                                {
-                                    details.map(detail => (
-                                        <MenuItem key={detail.id} value={detail.id}>
-                                            {detail.name}
+                                    {pd.detailId && (
+                                        <MenuItem
+                                            key={pd.detailId}
+                                            value={pd.detailId}
+                                        >
+                                            {details.find(d => d.id === pd.detailId)?.name}
                                         </MenuItem>
-                                    ))
-                                }
+                                    )}
+                                    {
+                                        availableDetais.map(detail => (
+                                            <MenuItem key={detail.id} value={detail.id}>
+                                                {detail.name}
+                                            </MenuItem>
+                                        ))
+                                    }
                                 </TextField>
                                 <TextField
                                     margin="dense"
