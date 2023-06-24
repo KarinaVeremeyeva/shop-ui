@@ -54,7 +54,7 @@ const ProductInfoList = ({ products, onAddProduct, onEditProduct, onRemoveProduc
         <>
             <Grid container>
                 <Button
-                    onClick={() => handleOpen()}
+                    onClick={handleOpen}
                     variant="outlined"
                     color="success"
                     className={classes.btnWrapper}

@@ -80,14 +80,16 @@ const ProductsInfoPage = ({ shopService }) => {
     }
 
     const pageContent = isAuthorized && isUserPermited
-        ? (<ProductInfoList
+        ? (
+        <ProductInfoList
                 products={products}
                 onAddProduct={handleAddProduct}
                 onEditProduct={handleEditProduct}
                 onRemoveProduct={handleRemoveProduct}
                 categories={categories}
                 details={details}
-            />)
+        />
+        )
         : <AccessDenied />;
 
     return (
