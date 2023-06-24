@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormHelperText, MenuItem, TextField } from "@mui/material";
-import classes from './category-form-dialog.module.css';
+import classes from '../dialogs.module.css';
 
 const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }) => {
     const [name, setName] = useState(category?.name || '');
@@ -8,7 +8,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
     const [parentCategoryId, setParentCategoryId] = useState(category?.parentCategoryId || '');
     const [errorText, setError] = useState();
 
-    const dialogTitle = typeof category === 'undefined' ? 'Add category' : 'Edit category';
+    const dialogTitle = category ? 'Edit category' : 'Add category';
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -31,7 +31,8 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
                 <div>
                     <TextField
                         margin="dense"
-                        required value={name}
+                        required
+                        value={name}
                         label="Name"
                         onChange={handleNameChange}
                     />

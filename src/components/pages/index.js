@@ -5,6 +5,7 @@ import AuthPage from "./auth-page";
 import CartPage from "./cart-page";
 import DetailsPage from "./details-page";
 import CategoriesPage from "./categories-page";
+import ProductsInfoPage from "./products-info-page";
 
 export {
     HomePage,
@@ -13,5 +14,6 @@ export {
     AuthPage,
     CartPage,
     DetailsPage,
-    CategoriesPage
+    CategoriesPage,
+    ProductsInfoPage
 };

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Button, Dialog, DialogContent, DialogActions, DialogTitle, MenuItem, TextField, FormHelperText } from "@mui/material";
+import classes from '../dialogs.module.css';
 
 const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
     const [type, setType] = useState(detail?.type || 0);
     const [name, setName] = useState(detail?.name || '');
     const [errorText, setError] = useState();
 
-    const dialogTitle = typeof detail === 'undefined' ? 'Add detail' : 'Edit detail';
+    const dialogTitle = detail ? 'Edit detail' : 'Add detail';
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -22,7 +23,13 @@ const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
-                <TextField margin="dense" required label="Name" value={name} onChange={handleNameChange} />
+                <TextField
+                    margin="dense"
+                    required
+                    label="Name"
+                    value={name}
+                    onChange={handleNameChange}
+                    className={classes.textFieldWrapper}/>
                 <TextField
                     value={type}
                     onChange={(e) => setType(e.target.value)}

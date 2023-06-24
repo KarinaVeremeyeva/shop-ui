@@ -38,6 +38,7 @@ const AccountToolbar = ({ authService }) => {
                 <>
                     <Link to={'details/admin'} className={classes.link}>Manage Details</Link>
                     <Link to={'categories/admin'} className={classes.link}>Manage Categories</Link>
+                    <Link to={'products/admin'} className={classes.link}>Manage Products</Link>
                 </>
             )}
             <div className={classes.link}>{email}</div>

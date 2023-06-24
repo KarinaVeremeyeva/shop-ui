@@ -1,0 +1,23 @@
+.textField {
+    width: 220px
+}
+
+.addBtnWrapper {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.productDetailsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textFieldWrapper {
+    width: 220px;
+    margin-right: 8px !important;
+}
+
+.deleteIcon {
+    margin-left: 8px !important;
+}

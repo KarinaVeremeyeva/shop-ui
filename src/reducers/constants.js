@@ -7,3 +7,4 @@ export const REMOVE_PRODUCTS = 'remove-products';
 export const DETAILS = 'details';
 export const USER_DATA = 'user-data';
 export const CATEGORIES_LIST = 'categories-list';
+export const PRODUCTS_LIST = 'products-list';

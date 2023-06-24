@@ -1,7 +1,16 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { HomePage, ProductDetailsPage, ProductsPage, AuthPage, CartPage, DetailsPage, CategoriesPage } from "../pages";
 import Header from "../header";
+import {
+    HomePage,
+    ProductDetailsPage,
+    ProductsPage,
+    AuthPage,
+    CartPage,
+    DetailsPage,
+    CategoriesPage,
+    ProductsInfoPage
+} from "../pages";
 
 const App = () => {
     return (
@@ -15,6 +24,7 @@ const App = () => {
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/details/admin" element={<DetailsPage />} />
                 <Route path="/categories/admin" element={<CategoriesPage />} />
+                <Route path="/products/admin" element={<ProductsInfoPage />} />
             </Routes>
         </div>
     );
