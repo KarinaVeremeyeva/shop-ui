@@ -1,7 +1,62 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem, IconButton } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { filterTypes } from '../../filters/filters';
 import classes from '../dialogs.module.css';
+
+const CheckDetailValueType = ({ type, value, onChange }) => {
+    switch(type) {
+        case filterTypes.STRING:
+            return (
+                <TextField
+                    margin="dense"
+                    type="text"
+                    value={value}
+                    onChange={(e) => onChange(`${e.target.value}`)}
+                />
+            );
+        case filterTypes.NUMBER:
+            return (
+                <TextField
+                    margin="dense"
+                    type="number"
+                    value={value}
+                    onChange={(e) => onChange(`${e.target.value}`)}
+                />
+            );
+        case filterTypes.BOOLEAN:
+            const booleanValue = value.toLowerCase() === 'true';
+            return (
+                <Checkbox
+                    checked={booleanValue}
+                    onChange={(e) => onChange(`${e.target.checked}`)}
+                />
+            );
+        default:
+            break;
+    };
+};
+
+const checkForErrors = (name, price, categoryId, productDetails) => {
+    let errors = [];
+    if (!name) {
+        errors.push('Name should not be empty');
+    }
+    if (price <= 0 ) {
+        errors.push('Price must be greater than 0');
+    }
+    if (!categoryId) {
+        errors.push('Category should not be empty');
+    }
+    if (!productDetails.every(pd => pd.detailId)) {
+        errors.push('Product detail is not selected');
+    }
+    if (!productDetails.every(pd => pd.value)) {
+        errors.push('Product detail value is empty');
+    }
+
+    return errors.reduce((resultError, currentError) => resultError + '. ' + currentError, '');
+}
 
 const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
     const [name, setName] = useState(product?.name || '');
@@ -11,33 +66,26 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
     const [productDetails, setProductDetails] = useState(product?.productDetails || []);
     const [availableDetais, setAvailableDetails] = useState([productDetails]);
 
-    const [errorText, setError] = useState();
+    const [errorText, setError] = useState('');
 
-    const dialogTitle = typeof product === 'undefined' ? 'Add product' : 'Edit product';
+    const dialogTitle = product ? 'Edit product' : 'Add product';
 
     useEffect(() => {
         const availableDetais = details.filter(d => !productDetails.find(pd => pd.detailId === d.id));
         setAvailableDetails(availableDetais);
     }, [setAvailableDetails, details, productDetails]);
 
+    useEffect(() => {
+        const error = checkForErrors(name, price, categoryId, productDetails);
+        setError(error);
+    }, [name, price, categoryId, productDetails, setError]);
+
     const handleNameChange = (e) => {
         setName(e.target.value);
-        if(!e.target.value) {
-            setError('Name should not be empty');
-        }
-        else {
-            setError('');
-        }
     };
 
     const handlePriceChange = (e) => {
         setPrice(e.target.value);
-        if(e.target.value <= 0) {
-            setError('Price must be greater than 0');
-        }
-        else {
-            setError('');
-        }
     };
 
     const handleAddDetail = () => {
@@ -51,7 +99,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
         setProductDetails(newProductDetails);
     };
 
-    const handleDetailId = (index, detailId) => {
+    const handleDetailIdChange = (index, detailId) => {
         const newProductDetails = [...productDetails];
         const productDetail = {
             ...newProductDetails[index],
@@ -62,7 +110,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
         setProductDetails(newProductDetails);
     };
 
-    const handleDetailValue = (index, value) => {
+    const handleDetailValueChange = (index, value) => {
         const newProductDetails = [...productDetails];
         const productDetail = {
             ...newProductDetails[index],
@@ -84,12 +132,13 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
     };
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <div>
                     <TextField
                         margin="dense"
+                        required
                         label="Name"
                         value={name}
                         onChange={handleNameChange}
@@ -110,6 +159,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                 <div>
                     <TextField
                         margin="dense"
+                        required
                         label="Price"
                         value={price}
                         type="number"
@@ -121,6 +171,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                     <TextField
                         margin="dense"
                         value={categoryId}
+                        required
                         label="Category"
                         onChange={(e) => setCategoryId(e.target.value)}
                         select
@@ -145,18 +196,18 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                     </Button>
                     {
                         productDetails.map((pd, index) => (
-                            <div key={index} className={classes.align}>
+                            <div key={`product_detail_${index}`} className={classes.productDetailsContainer}>
                                 <TextField
                                     margin="dense"
-                                    value={pd.detailId}
+                                    value={pd.detailId || ''}
                                     label="Detail Name"
-                                    onChange={(e) => handleDetailId(index, e.target.value)}
+                                    onChange={(e) => handleDetailIdChange(index, e.target.value)}
                                     select
                                     className={classes.textFieldWrapper}
                                 >
                                     {pd.detailId && (
                                         <MenuItem
-                                            key={pd.detailId}
+                                            key={`product_detail_select_detail_${pd.detailId}`}
                                             value={pd.detailId}
                                         >
                                             {details.find(d => d.id === pd.detailId)?.name}
@@ -164,25 +215,23 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                                     )}
                                     {
                                         availableDetais.map(detail => (
-                                            <MenuItem key={detail.id} value={detail.id}>
+                                            <MenuItem key={`product_detail_select_detail_${detail.id}`} value={detail.id}>
                                                 {detail.name}
                                             </MenuItem>
                                         ))
                                     }
                                 </TextField>
-                                <TextField
-                                    margin="dense"
-                                    label="Value"
-                                    value={pd.value}
-                                    onChange={(e) => handleDetailValue(index, e.target.value)}
+                                <CheckDetailValueType
+                                    type={details.find(d => d.id === pd.detailId)?.type}
+                                    value={pd.value || ''}
+                                    onChange={(value) => handleDetailValueChange(index, value)}
                                 />
-                                <Button
-                                    variant="outlined"
-                                    color="error"
+                                <IconButton
                                     onClick={() => handleRemoveDetail(pd.detailId)}
-                                    startIcon={<CloseIcon />}
-                                    classes={{ startIcon: classes.btnIcon, root: classes.btnSize }}
-                                />
+                                    className={classes.deleteIcon}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
                             </div>
                         ))
                     }
@@ -196,7 +245,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                 <Button
                     onClick={handleOnSubmit}
                     variant="contained"
-                    disabled={!name || !price}
+                    disabled={!!errorText}
                 >
                     Submit
                 </Button>

@@ -8,7 +8,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
     const [parentCategoryId, setParentCategoryId] = useState(category?.parentCategoryId || '');
     const [errorText, setError] = useState();
 
-    const dialogTitle = typeof category === 'undefined' ? 'Add category' : 'Edit category';
+    const dialogTitle = category ? 'Edit category' : 'Add category';
 
     const handleNameChange = (e) => {
         setName(e.target.value);

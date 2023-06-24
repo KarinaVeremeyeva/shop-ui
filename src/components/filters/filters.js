@@ -4,7 +4,7 @@ import { StringFilter, NumberFilter, BooleanFilter } from ".";
 import classes from './filters.module.css';
 import { Button } from "@mui/material";
 
-const filterTypes = {
+export const filterTypes = {
     STRING: 0,
     NUMBER: 1,
     BOOLEAN: 2
