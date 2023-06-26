@@ -6,7 +6,7 @@ import Spinner from "../spinner";
 import { PRODUCTS } from "../../reducers/constants";
 
 const ProductList = ({ products, onAddProduct }) => {
-    const loading = useSelector(state => state.loading[PRODUCTS]);
+    const loading = useSelector(state => state.shop.loading[PRODUCTS]);
     if (loading) {
         return <Spinner />;
     }

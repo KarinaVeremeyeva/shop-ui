@@ -8,8 +8,8 @@ import Spinner from "../spinner";
 import { CART_ITEMS } from "../../reducers/constants";
 
 const ShoppingCart = ({ shopService }) => {
-    const cartItems = useSelector(state => state.cartItems);
-    const loading = useSelector(state => state.loading[CART_ITEMS]);
+    const cartItems = useSelector(state => state.user.cartItems);
+    const loading = useSelector(state => state.user.loading[CART_ITEMS]);
 
     const dispatch = useDispatch();
 

@@ -11,7 +11,7 @@ import SpinnerButton from "../spinner/spinner-button";
 const ProductListItem = ({ product, onClick }) => {
     const { id, name, price, category: { name: categoryName}, photoUrl } = product;
     const photo = photoUrl || image;
-    const loading = useSelector(state => state.loading[ADD_PRODUCT_TO_CART]);
+    const loading = useSelector(state => state.user.loading[ADD_PRODUCT_TO_CART]);
 
     return (
         <Grid item xs={12} md={4}>

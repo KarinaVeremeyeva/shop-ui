@@ -24,10 +24,10 @@ import { DETAILS, USER_DATA } from "../../reducers/constants";
 import classes from './pages.module.css';
 
 const DetailsPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.userData);
+    const isAuthorized = useSelector(state => !!state.user.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
-    const loading = useSelector(state => state.loading[DETAILS] || state.loading[USER_DATA]);
-    const details = useSelector(state => state.details);
+    const loading = useSelector(state => state.admin.loading[DETAILS] || state.user.loading[USER_DATA]);
+    const details = useSelector(state => state.admin.details);
 
     const dispatch = useDispatch();
 

@@ -23,9 +23,9 @@ const ShoppingCartItem = ({ cartItem, shopService }) => {
     const { product: { id, name, price, photoUrl, description }, quantity } = cartItem
     const photo = photoUrl || image;
     
-    const loadingAdd = useSelector(state => state.loading[ADD_PRODUCT_TO_CART]);
-    const loadingReduce = useSelector(state => state.loading[REDUCE_PRODUCT]);
-    const loadingRemove = useSelector(state => state.loading[REMOVE_PRODUCTS]);
+    const loadingAdd = useSelector(state => state.user.loading[ADD_PRODUCT_TO_CART]);
+    const loadingReduce = useSelector(state => state.user.loading[REDUCE_PRODUCT]);
+    const loadingRemove = useSelector(state => state.user.loading[REMOVE_PRODUCTS]);
 
     const dispatch = useDispatch();
 

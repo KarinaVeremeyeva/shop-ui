@@ -13,7 +13,7 @@ const ProductInfoList = ({ products, onAddProduct, onEditProduct, onRemoveProduc
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState();
 
-    const loading = useSelector(state => state.loading[PRODUCTS_LIST]);
+    const loading = useSelector(state => state.user.loading[PRODUCTS_LIST]);
 
     const handleClose = () => {
         setOpen(false);

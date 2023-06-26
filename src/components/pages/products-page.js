@@ -11,10 +11,10 @@ import { Filters } from "../filters";
 import classes from './pages.module.css';
 
 const ProductsPage = ({ shopService }) => {
-    const categories = useSelector(state => state.categories);
-    const products = useSelector(state => state.productsInfo.products);
-    const filters = useSelector(state => state.productsInfo.filters);
-    const totalCount = useSelector(state => state.productsInfo.totalPages);
+    const categories = useSelector(state => state.shop.categories);
+    const products = useSelector(state => state.shop.productsInfo.products);
+    const filters = useSelector(state => state.shop.productsInfo.filters);
+    const totalCount = useSelector(state => state.shop.productsInfo.totalPages);
 
     const dispatch = useDispatch();
     const { categoryId } = useParams();

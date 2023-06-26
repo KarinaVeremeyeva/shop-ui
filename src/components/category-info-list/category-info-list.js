@@ -22,7 +22,7 @@ const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveC
     const [selectedCategory, setSelectedCategory] = useState();
     const [availableParents, setAvailableParents] = useState([]);
 
-    const loading = useSelector(state => state.loading[CATEGORIES_LIST]);
+    const loading = useSelector(state => state.admin.loading[CATEGORIES_LIST]);
 
     const handleClose = () => {
         setOpen(false);

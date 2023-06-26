@@ -13,7 +13,7 @@ const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState();
-    const loading = useSelector(state => state.loading[DETAILS]);
+    const loading = useSelector(state => state.admin.loading[DETAILS]);
 
     const handleClose = () => {
         setOpen(false);

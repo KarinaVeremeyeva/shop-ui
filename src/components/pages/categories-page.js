@@ -24,10 +24,10 @@ import Spinner from "../spinner";
 import classes from './pages.module.css';
 
 const CategoriesPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.userData);
+    const isAuthorized = useSelector(state => !!state.user.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
-    const categories = useSelector(state => state.categoriesList);
-    const loading = useSelector(state => state.loading[CATEGORIES_LIST] || state.loading[USER_DATA]);
+    const categories = useSelector(state => state.admin.categoriesList);
+    const loading = useSelector(state => state.admin.loading[CATEGORIES_LIST] || state.user.loading[USER_DATA]);
 
     const dispatch = useDispatch();
 
