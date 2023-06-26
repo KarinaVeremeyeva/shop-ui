@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import { withShopService } from "../hoc";
-import { useDispatch, useSelector } from "react-redux";
 import { PRODUCTS_LIST, USER_DATA } from "../../reducers/constants";
 import Spinner from "../spinner";
 import { getIsPermittedForAdmin } from "../../selectors/selectors";
@@ -26,8 +26,8 @@ import {
     removeProductRequested,
     updateProductError,
     updateProductRequested
-} from "../../actions";
-import classes from './products-page.module.css';
+} from "../../actions/admin-actions";
+import classes from './pages.module.css';
 
 const ProductsInfoPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);

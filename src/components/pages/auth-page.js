@@ -2,8 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { withAuthService } from "../hoc";
 import Login from "../login";
-
-import classes from './products-page.module.css';
+import classes from './pages.module.css';
 
 const AuthPage = ({ authService }) => {
     return (

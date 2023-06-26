@@ -4,10 +4,11 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Grid, Pagination } from "@mui/material";
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsRequested, productsLoaded, productsError, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
+import { productsRequested, productsLoaded, productsError } from "../../actions/shop-actions";
+import { productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions/user-actions";
 import { withShopService } from "../hoc";
 import { Filters } from "../filters";
-import classes from './products-page.module.css';
+import classes from './pages.module.css';
 
 const ProductsPage = ({ shopService }) => {
     const categories = useSelector(state => state.categories);

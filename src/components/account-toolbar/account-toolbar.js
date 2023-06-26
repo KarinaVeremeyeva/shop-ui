@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from "@mui/material";
 import { withAuthService } from "../hoc";
-import { resetUserData } from "../../actions";
+import { resetUserData } from "../../actions/user-actions";
 import { getIsPermittedForAdmin, getIsPermittedForUser } from "../../selectors/selectors";
 import classes from './account-toolbar.module.css';
 

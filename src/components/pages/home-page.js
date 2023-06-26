@@ -1,10 +1,9 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-
 import { withShopService } from "../hoc";
 import CategoryList from "../category-list";
-import classes from './products-page.module.css';
+import classes from './pages.module.css';
 
 const HomePage = () => {
     const categories = useSelector(state => state.categories);

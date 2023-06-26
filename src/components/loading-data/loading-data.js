@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { categoriesRequested, categoriesLoaded, userDataLoaded, userDataRequested } from "../../actions";
+import { categoriesRequested, categoriesLoaded } from "../../actions/shop-actions";
+import { userDataLoaded, userDataRequested } from "../../actions/user-actions";
 import { withShopService } from "../hoc";
 
 const LoadingData = ({ children, shopService }) => {

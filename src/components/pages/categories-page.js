@@ -18,10 +18,10 @@ import {
     removeCategoryRequested,
     updateCategoryError,
     updateCategoryRequested
-} from "../../actions";
-import classes from './products-page.module.css';
+} from "../../actions/admin-actions";
 import { CATEGORIES_LIST, USER_DATA } from "../../reducers/constants";
 import Spinner from "../spinner";
+import classes from './pages.module.css';
 
 const CategoriesPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData);
