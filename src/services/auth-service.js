@@ -5,21 +5,19 @@ export default class AuthService {
         const response = await fetch(`${this._apiUrl}/accounts/login`, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({username, password})
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Could not fetch ${this._apiUrl}/accounts/login, received ${response.status}`);
-            }
-
-            const token = response.headers.get("authorization");
-            if (token) {
-                localStorage.setItem("token", token);
-            }
         });
+        
+        if (!response.ok) {
+            throw new Error(`Could not fetch ${this._apiUrl}/accounts/login, received ${response.status}`);
+        }
+
+        const token = response.headers.get('Authorization');
+        if (token) {
+            localStorage.setItem('token', token);
+        }
 
         return response;
     }
