@@ -7,10 +7,10 @@ import store from './store';
 import App from './components/app';
 import ErrorBoundry from './components/error-boundry';
 import ShopService from './services/shop-service';
-import { ShopServiceProvider} from './components/shop-service-context';
+import { ShopServiceProvider} from './contexts/shop-service-context';
 import CssBaseline from '@mui/material/CssBaseline';
 import AuthService from './services/auth-service';
-import { AuthServiceProvider } from './components/auth-service-context';
+import { AuthServiceProvider } from './contexts/auth-service-context';
 import LoadingData from './components/loading-data';
 
 const shopService = new ShopService();

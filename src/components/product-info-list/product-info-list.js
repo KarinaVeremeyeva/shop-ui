@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
-import ProductInfoListItem from "../product-info-list-item";
+import ProductInfoListItem from "./product-info-list-item";
 import { PRODUCTS_LIST } from "../../reducers/constants";
 import Spinner from "../spinner";
 import ProductFormDialog from "../dialogs/product-form-dialog";

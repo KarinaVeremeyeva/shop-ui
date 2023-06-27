@@ -10,7 +10,9 @@ import classes from './pages.module.css';
 
 const ProductDetailsPage = ({ shopService }) => {
     const [product, setProduct] = useState();
+    
     const categories = useSelector(state => state.shop.categories);
+
     const dispatch = useDispatch();
     const { productId } = useParams();
 

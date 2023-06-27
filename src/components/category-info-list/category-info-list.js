@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
-import CategoryInfoListItem from "../category-info-list-item/category-info-list-item";
+import CategoryInfoListItem from "./category-info-list-item/category-info-list-item";
 import CategoryFormDialog from "../dialogs/category-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
 import Spinner from "../spinner";
 import { CATEGORIES_LIST } from "../../reducers/constants";
+import { getChildren } from "./get-children";
 import classes from './category-info-list.module.css';
-
-const getChildren = (categories, id) => {
-    const currentCategory = categories.find(c => c.id === id);
-    const childrenCategories = categories.filter(c => c.parentCategoryId === id);
-    const nestedChildren = childrenCategories.map(c => getChildren(categories, c.id)).flat();
-
-    return [currentCategory, ...nestedChildren]
-};
 
 const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveCategory }) => {
     const [open, setOpen] = useState(false);

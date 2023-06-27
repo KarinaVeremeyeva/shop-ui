@@ -64,12 +64,14 @@ const CategoriesPage = ({ shopService }) => {
     }
     
     const pageContent = isAuthorized && isUserPermited
-        ? (<CategoryInfoList
+        ? (
+            <CategoryInfoList
                 categories={categories}
                 onAddCategory={handleAddCategory}
                 onEditCategory={handleEditCategory}
                 onRemoveCategory={handleRemoveCategory}
-            />)
+            />
+            )
         : <AccessDenied />;
 
     return (

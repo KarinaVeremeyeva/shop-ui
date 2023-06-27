@@ -61,7 +61,15 @@ const ProductsPage = ({ shopService }) => {
                 </Grid>
             </Grid>
                 <Grid item xs={6}>
-                    {products.length > 0 && (<Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>)}
+                    {products.length > 0 && (
+                        <Pagination
+                            count={totalCount}
+                            color="primary"
+                            page={pageNumber}
+                            onChange={handleChange}
+                            classes={{ root: classes.paginationWrapper }}
+                        />
+                    )}
                     <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
                 </Grid>
         </Grid>

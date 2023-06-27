@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Button, Card, CardContent, Grid, Typography, Tooltip, CardActionArea } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { ADD_PRODUCT_TO_CART } from "../../reducers/constants";
+import { ADD_PRODUCT_TO_CART } from "../../../reducers/constants";
 import classes from './product-list-item.module.css';
-import image from '../../assets/no-image.jpg';
-import SpinnerButton from "../spinner/spinner-button";
+import image from '../../../assets/no-image.jpg';
+import SpinnerButton from "../../spinner/spinner-button";
 
 const ProductListItem = ({ product, onClick }) => {
     const { id, name, price, category: { name: categoryName}, photoUrl } = product;
     const photo = photoUrl || image;
+    
     const loading = useSelector(state => state.user.loading[ADD_PRODUCT_TO_CART]);
 
     return (
@@ -31,7 +32,13 @@ const ProductListItem = ({ product, onClick }) => {
                 <div className={classes.btnContainer}>
                     <SpinnerButton loading={loading}>
                         {(loading) => (
-                            <Button className={classes.btnWrapper} disabled={loading} onClick={() => onClick(id)} variant="contained" startIcon={<ShoppingCartIcon />}>
+                            <Button
+                                className={classes.btnWrapper}
+                                disabled={loading}
+                                onClick={() => onClick(id)}
+                                variant="contained"
+                                startIcon={<ShoppingCartIcon />}
+                            >
                                 Buy
                             </Button>
                         )}

@@ -7,7 +7,7 @@ const SpinnerButton = ({ loading, children }) => {
         <Box className={classes.spinnerBtnContainer}>
             {children (loading)}
             {loading && (
-                <CircularProgress size={24} classes={{ root: classes.spinnerBtn}} />
+                <CircularProgress size={24} classes={{ root: classes.spinnerBtn }} />
             )}
         </Box>
     );

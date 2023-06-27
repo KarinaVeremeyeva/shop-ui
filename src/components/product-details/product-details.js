@@ -4,15 +4,16 @@ import { Button, Grid, Typography, Box } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import classes from './product-details.module.css';
-import image from '../../assets/no-image.jpg';
 import SpinnerButton from "../spinner/spinner-button";
 import { ADD_PRODUCT_TO_CART } from "../../reducers/constants";
+import classes from './product-details.module.css';
+import image from '../../assets/no-image.jpg';
 
 const ProductDetails = ({ product, onClick }) => {
-    const {  id, name, price, description, category, details, photoUrl } = product;
+    const { id, name, price, description, category, details, photoUrl } = product;
     const { name: categoryName } = category;
     const photo = photoUrl || image;
+
     const loading = useSelector(state => state.user.loading[ADD_PRODUCT_TO_CART]);
 
     const setFormat = (type, value) => {
@@ -60,7 +61,9 @@ const ProductDetails = ({ product, onClick }) => {
                         return (
                             <Grid container key={`${id}-${type}-${value}`} columnGap={5}>
                                 <Grid item xs={4}>{detailName}</Grid>
-                                <Grid item xs={4} className={classes.iconWrapper}>{setFormat(type, value)}</Grid>
+                                <Grid item xs={4} className={classes.iconWrapper}>
+                                    {setFormat(type, value)}
+                                </Grid>
                             </Grid>
                         );
                     })

@@ -1,28 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
 import ProductDetailItem from "./product-detail-item";
+import { getValidationErrors } from "./get-validation-errors";
 import classes from '../dialogs.module.css';
-
-const getValidationErrors = (name, price, categoryId, productDetails) => {
-    let errors = [];
-    if (!name) {
-        errors.push('Name should not be empty');
-    }
-    if (price <= 0 ) {
-        errors.push('Price must be greater than 0');
-    }
-    if (!categoryId) {
-        errors.push('Category should not be empty');
-    }
-    if (!productDetails.every(pd => pd.detailId)) {
-        errors.push('Product detail is not selected');
-    }
-    if (!productDetails.every(pd => pd.value)) {
-        errors.push('Product detail value is empty');
-    }
-
-    return errors.reduce((resultError, currentError) => resultError + '. ' + currentError, '');
-};
 
 const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
     const [name, setName] = useState(product?.name || '');
@@ -45,14 +25,6 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
         const validationErrors = getValidationErrors(name, price, categoryId, productDetails);
         setError(validationErrors);
     }, [name, price, categoryId, productDetails, setError]);
-
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handlePriceChange = (e) => {
-        setPrice(e.target.value);
-    };
 
     const handleAddDetail = () => {
         setProductDetails([...productDetails, {}]);
@@ -109,7 +81,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         required
                         label="Name"
                         value={name}
-                        onChange={handleNameChange}
+                        onChange={(e) => setName(e.target.value)}
                         fullWidth
                     />
                 </div>
@@ -131,7 +103,7 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         label="Price"
                         value={price}
                         type="number"
-                        onChange={handlePriceChange}
+                        onChange={(e) => setPrice(e.target.value)}
                         fullWidth
                     />
                 </div>
