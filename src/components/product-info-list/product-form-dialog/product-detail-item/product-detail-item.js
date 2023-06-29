@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, MenuItem, IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import DetailValue from "./detail-value";
-import classes from '../../dialogs.module.css';
+import classes from '../../../dialogs/dialogs.module.css';
 
 const ProductDetailItem = ({
     productDetail,

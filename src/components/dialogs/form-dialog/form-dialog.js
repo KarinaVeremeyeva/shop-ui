@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormHelperTe
 
 const FormDialog = ({ open, onClose, onSubmit, dialogTitle, children, disabled, errorText }) => {
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 {children}

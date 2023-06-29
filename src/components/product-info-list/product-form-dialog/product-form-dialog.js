@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import ProductDetailItem from "./product-detail-item";
 import { getValidationErrors } from "./get-validation-errors";
-import FormDialog from "../form-dialog";
-import classes from '../dialogs.module.css';
+import FormDialog from "../../dialogs/form-dialog";
+import classes from '../../dialogs/dialogs.module.css';
 
 const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
     const [name, setName] = useState(product?.name || '');

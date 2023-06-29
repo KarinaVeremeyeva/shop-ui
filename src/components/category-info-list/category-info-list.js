@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
 import CategoryInfoListItem from "./category-info-list-item/category-info-list-item";
-import CategoryFormDialog from "../dialogs/category-form-dialog";
+import CategoryFormDialog from "./category-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
 import Spinner from "../spinner";
 import { CATEGORIES_LIST } from "../../reducers/constants";

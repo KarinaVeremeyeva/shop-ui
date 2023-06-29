@@ -4,7 +4,7 @@ import { Grid, Button } from "@mui/material";
 import DetailListItem from "./detail-list-item";
 import { DETAILS } from "../../reducers/constants";
 import Spinner from "../spinner";
-import DetailFormDialog from "../dialogs/detail-form-dialog";
+import DetailFormDialog from "./detail-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
 import { types } from './detail-list-item/detail-types';
 import classes from './detail-list.module.css';

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
-import FormDialog from "../form-dialog";
-import classes from '../dialogs.module.css';
+import FormDialog from "../../dialogs/form-dialog";
+import classes from '../../dialogs/dialogs.module.css';
 
 const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }) => {
     const [name, setName] = useState(category?.name || '');
