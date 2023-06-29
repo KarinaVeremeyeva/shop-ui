@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormHelperText, MenuItem } from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 import ProductDetailItem from "./product-detail-item";
 import { getValidationErrors } from "./get-validation-errors";
+import FormDialog from "../form-dialog";
 import classes from '../dialogs.module.css';
 
 const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, details }) => {
@@ -72,100 +73,91 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
     };
 
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-            <DialogTitle>{dialogTitle}</DialogTitle>
-            <DialogContent>
-                <div>
-                    <TextField
-                        margin="dense"
-                        required
-                        label="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        fullWidth
-                    />
-                </div>
-                <div>
-                    <TextField
-                        margin="dense"
-                        label="Description"
-                        value={description}
-                        multiline
-                        rows={3}
-                        fullWidth
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <TextField
-                        margin="dense"
-                        required
-                        label="Price"
-                        value={price}
-                        type="number"
-                        onChange={(e) => setPrice(e.target.value)}
-                        fullWidth
-                    />
-                </div>
-                <div>
-                    <TextField
-                        margin="dense"
-                        value={categoryId}
-                        required
-                        label="Category"
-                        onChange={(e) => setCategoryId(e.target.value)}
-                        select
-                        fullWidth
-                    >
-                        {
-                            categories.map(category => (
-                                <MenuItem key={category.id} value={category.id}>
-                                    {category.name}
-                                </MenuItem>
-                            ))
-                        }
-                    </TextField>
-                </div>
-                <div>
-                    <Button
-                        variant="outlined"
-                        onClick={() => handleAddDetail()}
-                        classes={{ root: classes.addBtnWrapper }}
-                    >
-                        Add detail
-                    </Button>
-                    {
-                        productDetails.map((pd, index) => {
-                            const detail = details.find(d => d.id === pd.detailId);
-                            return (
-                                <ProductDetailItem
-                                    productDetail={pd}
-                                    index={index}
-                                    detail={detail}
-                                    availableDetais={availableDetais}
-                                    onChangeDetailId={handleDetailIdChange}
-                                    onChangeDetailValue={handleDetailValueChange}
-                                    onRemoveDetail={handleRemoveDetail}
-                                />
-                            );
-                        })
-                    }
-                </div>
-                <FormHelperText error={!!errorText}>
-                    {errorText}
-                </FormHelperText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose} variant="outlined">Cancel</Button>
-                <Button
-                    onClick={handleOnSubmit}
-                    variant="contained"
-                    disabled={!!errorText}
+        <FormDialog
+            open={open}
+            onClose={onClose}
+            onSubmit={handleOnSubmit}
+            dialogTitle={dialogTitle}
+            disabled={!!errorText}
+            errorText={errorText}
+        >
+            <div>
+                <TextField
+                    margin="dense"
+                    required
+                    label="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    fullWidth
+                />
+            </div>
+            <div>
+                <TextField
+                    margin="dense"
+                    label="Description"
+                    value={description}
+                    multiline
+                    rows={3}
+                    fullWidth
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </div>
+            <div>
+                <TextField
+                    margin="dense"
+                    required
+                    label="Price"
+                    value={price}
+                    type="number"
+                    onChange={(e) => setPrice(e.target.value)}
+                    fullWidth
+                />
+            </div>
+            <div>
+                <TextField
+                    margin="dense"
+                    value={categoryId}
+                    required
+                    label="Category"
+                    onChange={(e) => setCategoryId(e.target.value)}
+                    select
+                    fullWidth
                 >
-                    Submit
+                    {
+                        categories.map(category => (
+                            <MenuItem key={category.id} value={category.id}>
+                                {category.name}
+                            </MenuItem>
+                        ))
+                    }
+                </TextField>
+            </div>
+            <div>
+                <Button
+                    variant="outlined"
+                    onClick={() => handleAddDetail()}
+                    classes={{ root: classes.addBtnWrapper }}
+                >
+                    Add detail
                 </Button>
-            </DialogActions>
-        </Dialog>
+                {
+                    productDetails.map((pd, index) => {
+                        const detail = details.find(d => d.id === pd.detailId);
+                        return (
+                            <ProductDetailItem
+                                productDetail={pd}
+                                index={index}
+                                detail={detail}
+                                availableDetais={availableDetais}
+                                onChangeDetailId={handleDetailIdChange}
+                                onChangeDetailValue={handleDetailValueChange}
+                                onRemoveDetail={handleRemoveDetail}
+                            />
+                        );
+                    })
+                }
+            </div>     
+        </FormDialog>
     );
 };
 
