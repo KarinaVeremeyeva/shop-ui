@@ -1,18 +1,13 @@
+import * as apiClient from './http-utils';
+
 export default class AuthService {
     _apiUrl = 'https://localhost:7017/api';
 
     login = async (username, password) => {
-        const response = await fetch(`${this._apiUrl}/accounts/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({username, password})
-        });
-        
-        if (!response.ok) {
-            throw new Error(`Could not fetch ${this._apiUrl}/accounts/login, received ${response.status}`);
-        }
+        const response = await apiClient.postResource(
+            `${this._apiUrl}/accounts/login`,
+            { username, password }
+        );
 
         const token = response.headers.get('Authorization');
         if (token) {
@@ -23,11 +18,9 @@ export default class AuthService {
     }
 
     logout = async () => {
-        const response = await fetch(`${this._apiUrl}/accounts/logout`);
-        if (!response.ok) {
-            throw new Error(`Could not fetch ${this._apiUrl}/accounts/logout, received ${response.status}`);
-        }
+        const token = localStorage.getItem('token');
+        await apiClient.getResource(`${this._apiUrl}/accounts/logout`, token);
         
-        localStorage.removeItem("token")
+        localStorage.removeItem('token');
     };
 }

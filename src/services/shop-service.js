@@ -1,66 +1,22 @@
+import * as apiClient from './http-utils';
+
 export default class ShopService {
     _apiUrl = 'https://localhost:7092/api';
 
     getResource = async (url, token = null) => {
-        const headers = token ? { 'Authorization': token } : {};
-        const response = await fetch(`${this._apiUrl}/${url}`, { headers });
-    
-        if (!response.ok) {
-            throw new Error(`Could not fetch ${this._apiUrl}/${url}, received ${response.status}`);
-        }
-        
-        return response;
+        return await apiClient.getResource(`${this._apiUrl}/${url}`, token);
     };
     
-    postResource = async (url, body = null, token = null) => {
-        let requestData = { method: 'POST', headers: {} };
-        if (body) {
-            requestData.body = JSON.stringify(body);
-            requestData.headers['Content-Type'] = 'application/json';
-        }
-    
-        if (token) {
-            requestData.headers['Authorization'] = token;
-        }
-    
-        const response = await fetch(`${this._apiUrl}/${url}`, requestData);
-    
-        if (!response.ok) {
-            throw new Error(`Could not post ${this._apiUrl}/${url}, received ${response.status}`);
-        }
-        
-        return response;
+    postResource = async (url, body = null, token = null) => {        
+        return await apiClient.postResource(`${this._apiUrl}/${url}`, body, token);
     };
     
-    putResource = async (url, body = null, token = null) => {
-        let requestData = { method: 'PUT', headers: {} };
-        if (body) {
-            requestData.body = JSON.stringify(body);
-            requestData.headers['Content-Type'] = 'application/json';
-        }
-    
-        if (token) {
-            requestData.headers['Authorization'] = token;
-        }
-    
-        const response = await fetch(`${this._apiUrl}/${url}`, requestData);
-    
-        if (!response.ok) {
-            throw new Error(`Could not put ${this._apiUrl}/${url}, received ${response.status}`);
-        }
-        
-        return response;
+    putResource = async (url, body = null, token = null) => {        
+        return await apiClient.putResource(`${this._apiUrl}/${url}`, body, token);
     };
     
     deleteResource = async (url, token = null) => {
-        const headers = token ? { 'Authorization': token } : {};
-        const response = await fetch(`${this._apiUrl}/${url}`, { method: 'DELETE', headers });
-    
-        if (!response.ok) {
-            throw new Error(`Could not delete ${this._apiUrl}/${url}, received ${response.status}`);
-        }
-        
-        return response;
+        return await apiClient.deleteResource(`${this._apiUrl}/${url}`, token);
     };
 
     getProducts = async (categoryId, params, selectedFilters = {}) => {
@@ -128,7 +84,7 @@ export default class ShopService {
 
     getDetails = async () => {
         const token = localStorage.getItem('token');
-        const response = this.getResource('details/admin', token);
+        const response = await this.getResource('details/admin', token);
         const jsonData = await response.json();
         
         return jsonData;
