@@ -11,15 +11,15 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
     const [price, setPrice] = useState(product?.price || 0);
     const [categoryId, setCategoryId] = useState(product?.categoryId || '');
     const [productDetails, setProductDetails] = useState(product?.productDetails || []);
-    const [availableDetais, setAvailableDetails] = useState([...productDetails]);
+    const [availableDetails, setAvailableDetails] = useState([]);
 
     const [errorText, setError] = useState('');
 
     const dialogTitle = product ? 'Edit product' : 'Add product';
 
     useEffect(() => {
-        const availableDetais = details.filter(d => !productDetails.find(pd => pd.detailId === d.id));
-        setAvailableDetails(availableDetais);
+        const availableDetails = details.filter(d => !productDetails.find(pd => pd.detailId === d.id));
+        setAvailableDetails(availableDetails);
     }, [setAvailableDetails, details, productDetails]);
 
     useEffect(() => {
@@ -146,11 +146,11 @@ const ProductFormDialog = ({ product, open, onClose, onSubmit, categories, detai
                         return (
                             <ProductDetailItem
                                 productDetail={pd}
-                                index={index}
+                                key={`product_detail_${index}`}
                                 detail={detail}
-                                availableDetais={availableDetais}
-                                onChangeDetailId={handleDetailIdChange}
-                                onChangeDetailValue={handleDetailValueChange}
+                                availableDetails={availableDetails}
+                                onChangeDetailId={(value) => handleDetailIdChange(index, value)}
+                                onChangeDetailValue={(value) => handleDetailValueChange(index, value)}
                                 onRemoveDetail={handleRemoveDetail}
                             />
                         );

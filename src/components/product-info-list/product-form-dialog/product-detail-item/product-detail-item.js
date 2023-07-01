@@ -6,22 +6,22 @@ import classes from '../../../dialogs/dialogs.module.css';
 
 const ProductDetailItem = ({
     productDetail,
-    index,
     detail,
-    availableDetais,
+    availableDetails,
     onChangeDetailId,
     onChangeDetailValue,
     onRemoveDetail
 }) => {
-    const details = detail ? [ detail, ...availableDetais ] : availableDetais;
-
+    const shouldIncludeDetail = !!detail && availableDetails.every(d => d.id !== detail.id);
+    const details = shouldIncludeDetail ? [ detail, ...availableDetails ] : availableDetails;
+    
     return (
-        <div key={`product_detail_${index}`} className={classes.productDetailsContainer}>
+        <div className={classes.productDetailsContainer}>
             <TextField
                 margin="dense"
                 value={productDetail.detailId || ''}
                 label="Detail Name"
-                onChange={(e) => onChangeDetailId(index, e.target.value)}
+                onChange={(e) => onChangeDetailId(e.target.value)}
                 select
                 className={classes.textFieldWrapper}
             >
@@ -36,7 +36,7 @@ const ProductDetailItem = ({
             <DetailValue
                 type={detail?.type}
                 value={productDetail.value || ''}
-                onChange={(value) => onChangeDetailValue(index, value)}
+                onChange={(value) => onChangeDetailValue(value)}
             />
             <IconButton
                 onClick={() => onRemoveDetail(productDetail.detailId)}
