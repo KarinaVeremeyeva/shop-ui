@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
-import ProductListItem from "../product-list-item";
+import ProductListItem from "./product-list-item";
 import Spinner from "../spinner";
 import { PRODUCTS } from "../../reducers/constants";
 
 const ProductList = ({ products, onAddProduct }) => {
-    const loading = useSelector(state => state.loading[PRODUCTS]);
+    const loading = useSelector(state => state.shop.loading[PRODUCTS]);
     if (loading) {
         return <Spinner />;
     }

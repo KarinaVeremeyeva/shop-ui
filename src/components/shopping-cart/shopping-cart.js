@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { withShopService } from "../hoc";
 import { useDispatch, useSelector } from "react-redux";
-import { cartItemsRequested, cartItemsLoaded, cartItemsError } from "../../actions";
 import { Grid, Typography } from "@mui/material";
-import ShoppingCartItem from "../shopping-cart-item";
+import { withShopService } from "../hoc";
+import { cartItemsRequested, cartItemsLoaded, cartItemsError } from "../../actions/user-actions";
+import ShoppingCartItem from "../shopping-cart/shopping-cart-item";
 import Spinner from "../spinner";
 import { CART_ITEMS } from "../../reducers/constants";
 
 const ShoppingCart = ({ shopService }) => {
-    const cartItems = useSelector(state => state.cartItems);
-    const loading = useSelector(state => state.loading[CART_ITEMS]);
+    const cartItems = useSelector(state => state.user.cartItems);
+    const loading = useSelector(state => state.user.loading[CART_ITEMS]);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,11 +41,9 @@ const ShoppingCart = ({ shopService }) => {
             <Typography variant="h6">Shopping cart</Typography>
             <Typography variant="h6">(${totalPrice})</Typography>
             {
-                cartItems.map(item => {
-                    return (
-                        <ShoppingCartItem key={item.id} cartItem={item} shopService={shopService} />
-                    );
-                })
+                cartItems.map(item => (
+                    <ShoppingCartItem key={item.id} cartItem={item} shopService={shopService} />
+                ))
             }
         </Grid>
     );

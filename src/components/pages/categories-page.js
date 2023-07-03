@@ -18,16 +18,16 @@ import {
     removeCategoryRequested,
     updateCategoryError,
     updateCategoryRequested
-} from "../../actions";
-import classes from './products-page.module.css';
+} from "../../actions/admin-actions";
 import { CATEGORIES_LIST, USER_DATA } from "../../reducers/constants";
 import Spinner from "../spinner";
+import classes from './pages.module.css';
 
 const CategoriesPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.userData);
+    const isAuthorized = useSelector(state => !!state.userData.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
-    const categories = useSelector(state => state.categoriesList);
-    const loading = useSelector(state => state.loading[CATEGORIES_LIST] || state.loading[USER_DATA]);
+    const categories = useSelector(state => state.admin.categoriesList);
+    const loading = useSelector(state => state.admin.loading[CATEGORIES_LIST] || state.user.loading[USER_DATA]);
 
     const dispatch = useDispatch();
 
@@ -64,12 +64,14 @@ const CategoriesPage = ({ shopService }) => {
     }
     
     const pageContent = isAuthorized && isUserPermited
-        ? (<CategoryInfoList
+        ? (
+            <CategoryInfoList
                 categories={categories}
                 onAddCategory={handleAddCategory}
                 onEditCategory={handleEditCategory}
                 onRemoveCategory={handleRemoveCategory}
-            />)
+            />
+            )
         : <AccessDenied />;
 
     return (

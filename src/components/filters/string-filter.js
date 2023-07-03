@@ -4,7 +4,7 @@ import classes from './filters.module.css';
 
 const StringFilter = ({ values, name, onChange, selectedValues, id }) => {
     return (
-        <FormGroup classes={{ root: classes.formGroup}}>
+        <FormGroup classes={{ root: classes.formGroup }}>
             <Typography variant="subtitle1">{name}</Typography>
             {
                 values.map((value) => {

@@ -5,7 +5,6 @@ import { getIsPermittedForAdmin } from "../../selectors/selectors";
 import { withShopService } from "../hoc";
 import DetailList from "../detail-list";
 import AccessDenied from "../access-denied";
-import classes from './products-page.module.css';
 import {
     detailsLoaded,
     detailsRequested,
@@ -19,15 +18,16 @@ import {
     removeDetailRequested,
     removeDetailError,
     detailRemoved
-} from "../../actions";
+} from "../../actions/admin-actions";
 import Spinner from "../spinner";
 import { DETAILS, USER_DATA } from "../../reducers/constants";
+import classes from './pages.module.css';
 
 const DetailsPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.userData);
+    const isAuthorized = useSelector(state => !!state.userData.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
-    const loading = useSelector(state => state.loading[DETAILS] || state.loading[USER_DATA]);
-    const details = useSelector(state => state.details);
+    const loading = useSelector(state => state.admin.loading[DETAILS] || state.user.loading[USER_DATA]);
+    const details = useSelector(state => state.admin.details);
 
     const dispatch = useDispatch();
 

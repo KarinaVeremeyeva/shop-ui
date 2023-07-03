@@ -29,7 +29,7 @@ const NumberFilter = ({ values, name, onChange, selectedValues, id }) => {
     };
 
     return (
-        <Grid container classes={{ root: classes.wrapGrid}}>
+        <Grid container classes={{ root: classes.wrapGrid }}>
             <Typography variant="subtitle1" className={classes.titleWrap}>
                 {name}
             </Typography>

@@ -1,19 +1,20 @@
 import React, { useState} from "react";
 import { useSelector } from "react-redux";
 import { Grid, Button } from "@mui/material";
-import DetailListItem from "../detail-list-item";
+import DetailListItem from "./detail-list-item";
 import { DETAILS } from "../../reducers/constants";
 import Spinner from "../spinner";
-import DetailFormDialog from "../dialogs/detail-form-dialog";
+import DetailFormDialog from "./detail-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
-import { types } from './detail-types';
+import { types } from './detail-list-item/detail-types';
 import classes from './detail-list.module.css';
 
 const DetailList = ({ details, onEditDetail, onAddDetail, onRemoveDetail }) => {
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState();
-    const loading = useSelector(state => state.loading[DETAILS]);
+    
+    const loading = useSelector(state => state.admin.loading[DETAILS]);
 
     const handleClose = () => {
         setOpen(false);

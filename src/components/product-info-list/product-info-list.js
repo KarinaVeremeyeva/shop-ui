@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
-import ProductInfoListItem from "../product-info-list-item";
+import ProductInfoListItem from "./product-info-list-item";
 import { PRODUCTS_LIST } from "../../reducers/constants";
 import Spinner from "../spinner";
-import ProductFormDialog from "../dialogs/product-form-dialog";
+import ProductFormDialog from "./product-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
 import classes from './product-info-list.module.css';
 
@@ -13,7 +13,7 @@ const ProductInfoList = ({ products, onAddProduct, onEditProduct, onRemoveProduc
     const [openConfirm, setOpenConfirm] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState();
 
-    const loading = useSelector(state => state.loading[PRODUCTS_LIST]);
+    const loading = useSelector(state => state.user.loading[PRODUCTS_LIST]);
 
     const handleClose = () => {
         setOpen(false);

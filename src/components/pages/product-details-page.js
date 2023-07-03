@@ -5,12 +5,14 @@ import { Grid } from "@mui/material";
 import ProductDetails from "../product-details";
 import { withShopService } from "../hoc";
 import CategoryList from "../category-list";
-import { productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
-import classes from './products-page.module.css';
+import { productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions/user-actions";
+import classes from './pages.module.css';
 
 const ProductDetailsPage = ({ shopService }) => {
     const [product, setProduct] = useState();
-    const categories = useSelector(state => state.categories);
+    
+    const categories = useSelector(state => state.shop.categories);
+
     const dispatch = useDispatch();
     const { productId } = useParams();
 

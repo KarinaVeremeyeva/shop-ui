@@ -2,21 +2,30 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Grid, Typography, Box, Card, CardContent } from "@mui/material";
 import { Add, Delete, Remove } from "@mui/icons-material";
-import { productAddedToCart, productRemovedFromCart, allProductsRemovedFromCart, requestAddProductToCart,
-requestRemoveProductFromCart, requestRemoveAllProductsFromCart, addProductToCartError, removeProductFromCartError, removeAllProductsFromCartError } from "../../actions";
-import { withShopService } from "../hoc";
+import {
+    productAddedToCart,
+    productRemovedFromCart,
+    allProductsRemovedFromCart,
+    requestAddProductToCart,
+    requestRemoveProductFromCart,
+    requestRemoveAllProductsFromCart,
+    addProductToCartError,
+    removeProductFromCartError,
+    removeAllProductsFromCartError
+} from "../../../actions/user-actions";
+import { withShopService } from "../../hoc";
+import SpinnerButton from "../../spinner/spinner-button";
+import { ADD_PRODUCT_TO_CART, REDUCE_PRODUCT, REMOVE_PRODUCTS } from "../../../reducers/constants";
 import classes from './shopping-cart-item.module.css';
-import image from '../../assets/no-image.jpg';
-import SpinnerButton from "../spinner/spinner-button";
-import { ADD_PRODUCT_TO_CART, REDUCE_PRODUCT, REMOVE_PRODUCTS } from "../../reducers/constants";
+import image from '../../../assets/no-image.jpg';
 
 const ShoppingCartItem = ({ cartItem, shopService }) => {
     const { product: { id, name, price, photoUrl, description }, quantity } = cartItem
     const photo = photoUrl || image;
     
-    const loadingAdd = useSelector(state => state.loading[ADD_PRODUCT_TO_CART]);
-    const loadingReduce = useSelector(state => state.loading[REDUCE_PRODUCT]);
-    const loadingRemove = useSelector(state => state.loading[REMOVE_PRODUCTS]);
+    const loadingAdd = useSelector(state => state.user.loading[ADD_PRODUCT_TO_CART]);
+    const loadingReduce = useSelector(state => state.user.loading[REDUCE_PRODUCT]);
+    const loadingRemove = useSelector(state => state.user.loading[REMOVE_PRODUCTS]);
 
     const dispatch = useDispatch();
 

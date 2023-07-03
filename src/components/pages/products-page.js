@@ -4,16 +4,17 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Grid, Pagination } from "@mui/material";
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsRequested, productsLoaded, productsError, productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions";
+import { productsRequested, productsLoaded, productsError } from "../../actions/shop-actions";
+import { productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions/user-actions";
 import { withShopService } from "../hoc";
 import { Filters } from "../filters";
-import classes from './products-page.module.css';
+import classes from './pages.module.css';
 
 const ProductsPage = ({ shopService }) => {
-    const categories = useSelector(state => state.categories);
-    const products = useSelector(state => state.productsInfo.products);
-    const filters = useSelector(state => state.productsInfo.filters);
-    const totalCount = useSelector(state => state.productsInfo.totalPages);
+    const categories = useSelector(state => state.shop.categories);
+    const products = useSelector(state => state.shop.productsInfo.products);
+    const filters = useSelector(state => state.shop.productsInfo.filters);
+    const totalCount = useSelector(state => state.shop.productsInfo.totalPages);
 
     const dispatch = useDispatch();
     const { categoryId } = useParams();
@@ -60,7 +61,15 @@ const ProductsPage = ({ shopService }) => {
                 </Grid>
             </Grid>
                 <Grid item xs={6}>
-                    {products.length > 0 && (<Pagination count={totalCount} color="primary" page={pageNumber} onChange={handleChange} classes={{ root: classes.paginationWrapper }}/>)}
+                    {products.length > 0 && (
+                        <Pagination
+                            count={totalCount}
+                            color="primary"
+                            page={pageNumber}
+                            onChange={handleChange}
+                            classes={{ root: classes.paginationWrapper }}
+                        />
+                    )}
                     <ProductList categoryId={categoryId} products={products} onAddProduct={handleAddToCart} />
                 </Grid>
         </Grid>
