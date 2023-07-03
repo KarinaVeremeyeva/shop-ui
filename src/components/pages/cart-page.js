@@ -9,7 +9,7 @@ import AccessDenied from "../access-denied";
 import classes from './pages.module.css';
 
 const CartPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.user.userData);
+    const isAuthorized = useSelector(state => !!state.userData.userData);
     const isUserPermited = useSelector(getIsPermittedForUser);
     const categories = useSelector(state => state.shop.categories);
     

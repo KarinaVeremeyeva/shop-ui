@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import ProductDetailItem from "./product-detail-item";
-import { getValidationErrors } from "./get-validation-errors";
+import { getValidationErrors } from "./validation";
 import FormDialog from "../../dialogs/form-dialog";
 import classes from '../../dialogs/dialogs.module.css';
 

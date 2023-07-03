@@ -7,7 +7,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Spinner from "../spinner";
 import { CATEGORIES } from "../../reducers/constants";
 import CustomContent from "./custom-content";
-import { getPath } from "./get-path";
+import { getPath } from "./helpers";
 import classes from './category-list.module.css';
 
 const ROOT_NODE_KEY = 'root';

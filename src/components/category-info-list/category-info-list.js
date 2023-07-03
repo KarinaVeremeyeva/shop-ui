@@ -6,7 +6,7 @@ import CategoryFormDialog from "./category-form-dialog";
 import ConfirmDialog from "../dialogs/confirm-dialog";
 import Spinner from "../spinner";
 import { CATEGORIES_LIST } from "../../reducers/constants";
-import { getChildren } from "./get-children";
+import { getChildren } from "./helpers";
 import classes from './category-info-list.module.css';
 
 const CategoryInfoList = ({ categories, onEditCategory, onAddCategory, onRemoveCategory }) => {

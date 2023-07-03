@@ -30,7 +30,7 @@ import {
 import classes from './pages.module.css';
 
 const ProductsInfoPage = ({ shopService }) => {
-    const isAuthorized = useSelector(state => !!state.user.userData);
+    const isAuthorized = useSelector(state => !!state.userData.userData);
     const isUserPermited = useSelector(getIsPermittedForAdmin);
     const products = useSelector(state => state.admin.productsList);
     const loading = useSelector(state => state.admin.loading[PRODUCTS_LIST] || state.user.loading[USER_DATA]);

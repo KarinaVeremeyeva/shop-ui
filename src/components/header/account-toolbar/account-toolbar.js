@@ -9,8 +9,8 @@ import { getIsPermittedForAdmin, getIsPermittedForUser } from "../../../selector
 import classes from './account-toolbar.module.css';
 
 const AccountToolbar = ({ authService }) => {
-    const isAuthorized = useSelector(state => !!state.user.userData);
-    const email = useSelector(state => state.user.userData?.email);
+    const isAuthorized = useSelector(state => !!state.userData.userData);
+    const email = useSelector(state => state.userData.userData?.email);
     const isAdminPermited = useSelector(getIsPermittedForAdmin);
     const isUserPermited = useSelector(getIsPermittedForUser);
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
-import { makeFilters } from "./make-filters";
+import { makeFilters } from "./helpers";
 import classes from './filters.module.css';
 
 const Filters = ({ filters, onFiltersUpdated }) => {

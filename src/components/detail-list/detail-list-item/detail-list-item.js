@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card, CardContent, Grid } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { displayDetailType } from "./display-detail-type";
+import { displayDetailType } from "./helpers";
 import classes from './detail-list-item.module.css';
 
 const DetailListItem = ({ detail, onOpen, onOpenConfirm }) => {
