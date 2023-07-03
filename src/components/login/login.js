@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button, Card, CardContent, FormGroup, FormHelperText, TextField } from "@mui/material";
 import { withShopService } from "../hoc";
-import { userDataLoaded, userDataRequested } from "../../actions/user-data-actions";
+import { fetchUserData } from "../../actions/user-data-actions";
 import classes from './login.module.css';
 
 const Login = (props) => {
@@ -17,12 +17,8 @@ const Login = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        dispatch(userDataRequested());
         props.authService.login(login, password)
-            .then(() => {
-                return props.shopService.getUserData()
-                    .then((userData) => dispatch(userDataLoaded(userData)));
-            })
+            .then(() => dispatch(fetchUserData(props.shopService)))
             .then(() => navigate("/"))
             .catch(() => setError('Wrong username or password'));
     };

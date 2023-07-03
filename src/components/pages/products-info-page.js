@@ -19,7 +19,7 @@ import classes from './pages.module.css';
 
 const ProductsInfoPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData.userData);
-    const isUserPermited = useSelector(getIsPermittedForAdmin);
+    const isAdminPermited = useSelector(getIsPermittedForAdmin);
     const products = useSelector(state => state.admin.productsList);
     const loading = useSelector(state => state.admin.loading[PRODUCTS_LIST] || state.user.loading[USER_DATA]);
     const categories = useSelector(state => state.admin.categoriesList);
@@ -28,10 +28,12 @@ const ProductsInfoPage = ({ shopService }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchProductsList(shopService));
-        dispatch(fetchCategoriesList(shopService));
-        dispatch(fetchDetails(shopService));
-    }, [dispatch, shopService]);
+        if (isAdminPermited) {
+            dispatch(fetchProductsList(shopService));
+            dispatch(fetchCategoriesList(shopService));
+            dispatch(fetchDetails(shopService));
+        }
+    }, [dispatch, shopService, isAdminPermited]);
 
     const handleAddProduct = (product) => {
         dispatch(addProduct(shopService, product));
@@ -49,7 +51,7 @@ const ProductsInfoPage = ({ shopService }) => {
         return <Spinner />;
     }
 
-    const pageContent = isAuthorized && isUserPermited
+    const pageContent = isAuthorized && isAdminPermited
         ? (
         <ProductInfoList
                 products={products}

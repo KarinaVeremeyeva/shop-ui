@@ -17,14 +17,14 @@ const ShoppingCart = ({ shopService }) => {
         dispatch(fetchCartItems(shopService))
     }, [dispatch, shopService]);
 
+    if (loading) {
+        return <Spinner />;
+    }
+
     const totalPrice = cartItems.reduce(
         (total, cartItem) => total + cartItem.product.price * cartItem.quantity,
         0
     );
-
-    if (loading) {
-        return <Spinner />;
-    }
 
     if (cartItems.length === 0) {
         return (
