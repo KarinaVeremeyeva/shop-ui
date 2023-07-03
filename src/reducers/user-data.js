@@ -44,7 +44,7 @@ const userData = (state = initialState, action) => {
                 loading: {
                     ...state.loading,
                     [loadingType.USER_DATA]: false
-                },
+                }
             };
         default:
             return state;
