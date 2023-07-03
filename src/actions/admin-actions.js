@@ -239,3 +239,135 @@ export const removeProductError = (error) => {
         payload: error
     };
 };
+
+export const fetchDetails = shopService => async dispatch => {
+    await dispatch(detailsRequested());
+    try {
+        const details = await shopService.getDetails();
+        return await dispatch(detailsLoaded(details));   
+    }
+    catch (error) {
+        return await dispatch(detailsError(error));        
+    }
+};
+
+export const addDetail = (shopService, detail) => async dispatch => {
+    await dispatch(addDetailRequested());
+    try {
+        const result = await shopService.addDetail(detail);
+        return await dispatch(detailAdded(result));   
+    }
+    catch (error) {
+        return await dispatch(addDetailError(error));        
+    }
+};
+
+export const updateDetail = (shopService, detail) => async dispatch => {
+    await dispatch(updateDetailRequested());
+    try {
+        const result = await shopService.updateDetail(detail);
+        return await dispatch(detailUpdated(result));   
+    }
+    catch (error) {
+        return await dispatch(updateDetailError(error));        
+    }
+};
+
+export const deleteDetail = (shopService, detailId) => async dispatch => {
+    await dispatch(removeDetailRequested());
+    try {
+        await shopService.deleteDetail(detailId);
+        return await dispatch(detailRemoved(detailId));   
+    }
+    catch (error) {
+        return await dispatch(removeDetailError(error));        
+    }
+};
+
+export const fetchCategoriesList = shopService => async dispatch => {
+    await dispatch(categoriesListRequested());
+    try {
+        const categories = await shopService.getCategoriesList();
+        return await dispatch(categoriesListLoaded(categories));   
+    }
+    catch (error) {
+        return await dispatch(categoriesListError(error));        
+    }
+};
+
+export const addCategory = (shopService, category) => async dispatch => {
+    await dispatch(addCategoryRequested());
+    try {
+        const result = await shopService.addCategory(category);
+        return await dispatch(categoryAdded(result));   
+    }
+    catch (error) {
+        return await dispatch(addCategoryError(error));        
+    }
+};
+
+export const updateCategory = (shopService, category) => async dispatch => {
+    await dispatch(updateCategoryRequested());
+    try {
+        const result = await shopService.updateCategory(category);
+        return await dispatch(categoryUpdated(result));   
+    }
+    catch (error) {
+        return await dispatch(updateCategoryError(error));        
+    }
+};
+
+export const deleteCategory = (shopService, categoryId) => async dispatch => {
+    await dispatch(removeCategoryRequested());
+    try {
+        await shopService.deleteCategory(categoryId);
+        return await dispatch(categoryRemoved(categoryId));   
+    }
+    catch (error) {
+        return await dispatch(removeCategoryError(error));        
+    }
+};
+
+export const fetchProductsList = shopService => async dispatch => {
+    await dispatch(productsListRequested());
+    try {
+        const products = await shopService.getProductsList();
+        return await dispatch(productsListLoaded(products));   
+    }
+    catch (error) {
+        return await dispatch(productsListError(error));        
+    }
+};
+
+export const addProduct = (shopService, product) => async dispatch => {
+    await dispatch(addProductRequested());
+    try {
+        const result = await shopService.addProduct(product);
+        return await dispatch(productAdded(result));   
+    }
+    catch (error) {
+        return await dispatch(addProductError(error));        
+    }
+};
+
+export const updateProduct = (shopService, product) => async dispatch => {
+    await dispatch(updateProductRequested());
+    try {
+        const result = await shopService.updateProduct(product);
+        return await dispatch(productUpdated(result));   
+    }
+    catch (error) {
+        return await dispatch(updateProductError(error));        
+    }
+};
+
+export const deleteProduct = (shopService, productId) => async dispatch => {
+    await dispatch(removeProductRequested());
+    try {
+        await shopService.deleteProduct(productId);
+        return await dispatch(productRemoved(productId));   
+    }
+    catch (error) {
+        return await dispatch(removeProductError(error));        
+    }
+};

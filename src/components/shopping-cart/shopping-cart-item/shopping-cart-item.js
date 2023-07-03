@@ -2,17 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Grid, Typography, Box, Card, CardContent } from "@mui/material";
 import { Add, Delete, Remove } from "@mui/icons-material";
-import {
-    productAddedToCart,
-    productRemovedFromCart,
-    allProductsRemovedFromCart,
-    requestAddProductToCart,
-    requestRemoveProductFromCart,
-    requestRemoveAllProductsFromCart,
-    addProductToCartError,
-    removeProductFromCartError,
-    removeAllProductsFromCartError
-} from "../../../actions/user-actions";
+import { addProductToCart, reduceProductCount, removeAllProducts } from "../../../actions/user-actions";
 import { withShopService } from "../../hoc";
 import SpinnerButton from "../../spinner/spinner-button";
 import { ADD_PRODUCT_TO_CART, REDUCE_PRODUCT, REMOVE_PRODUCTS } from "../../../reducers/constants";
@@ -30,24 +20,15 @@ const ShoppingCartItem = ({ cartItem, shopService }) => {
     const dispatch = useDispatch();
 
     const handleIncreaseProductCount = (productId) => {
-        dispatch(requestAddProductToCart());
-        shopService.addToCart(productId)
-            .then(cartItem => dispatch(productAddedToCart(cartItem)))
-            .catch(error => dispatch(addProductToCartError(error)));  
+        dispatch(addProductToCart(shopService, productId));
     };
 
     const handleDecreaseProductCount = (productId) => {
-        dispatch(requestRemoveProductFromCart());
-        shopService.reduceProductCount(productId)
-            .then(() => dispatch(productRemovedFromCart(productId)))
-            .catch(error => dispatch(removeProductFromCartError(error)));
+        dispatch(reduceProductCount(shopService, productId));
     };
 
     const handleRemoveProductFromCart = (productId) => {
-        dispatch(requestRemoveAllProductsFromCart());
-        shopService.removeFromCart(productId)
-            .then(() => dispatch(allProductsRemovedFromCart(productId)))
-            .catch(error => dispatch(removeAllProductsFromCartError(error)));
+        dispatch(removeAllProducts(shopService, productId));
     };
 
     return (

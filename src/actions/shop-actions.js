@@ -39,3 +39,26 @@ export const categoriesError = (error) => {
         payload: error
     };
 };
+
+export const fetchProducts = (shopService, categoryId, params, selectedFilters = {}) =>
+    async dispatch => {
+        await dispatch(productsRequested());
+        try {
+            const products = await shopService.getProducts(categoryId, params, selectedFilters);
+            return await dispatch(productsLoaded(products));
+        }
+        catch (error) {
+            return await dispatch(productsError(error));
+        }
+    };
+
+export const fetchCategories = shopService => async dispatch => {
+    await dispatch(categoriesRequested());
+    try {
+        const categories = await shopService.getCategories();
+        return await dispatch(categoriesLoaded(categories));
+    }
+    catch (error) {
+        return await dispatch(categoriesError(error));
+    }
+};

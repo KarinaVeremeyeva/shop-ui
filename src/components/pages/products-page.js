@@ -4,8 +4,8 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Grid, Pagination } from "@mui/material";
 import ProductList from "../product-list";
 import CategoryList from "../category-list";
-import { productsRequested, productsLoaded, productsError } from "../../actions/shop-actions";
-import { productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions/user-actions";
+import { fetchProducts } from "../../actions/shop-actions";
+import { addProductToCart } from "../../actions/user-actions";
 import { withShopService } from "../hoc";
 import { Filters } from "../filters";
 import classes from './pages.module.css';
@@ -27,27 +27,16 @@ const ProductsPage = ({ shopService }) => {
     const pageNumber = +searchParams.get('pageNumber') || 1;
 
     useEffect(() => {
-        dispatch(productsRequested());
-        shopService.getProducts(categoryId, { pageNumber })
-            .then(products => {
-                dispatch(productsLoaded(products));
-            })
-            .catch((error) => dispatch(productsError(error)));
+        dispatch(fetchProducts(shopService, categoryId, { pageNumber }));
         }, [categoryId, dispatch, shopService, pageNumber]
     );
 
     const handleAddToCart = (productId) => {
-        dispatch(requestAddProductToCart());
-        shopService.addToCart(productId)
-            .then(cartItem => dispatch(productAddedToCart(cartItem)))
-            .catch(error => dispatch(addProductToCartError(error)));
+        dispatch(addProductToCart(shopService, productId));
     };
 
     const onFiltersUpdated = useCallback((selectedFilters) => {
-        dispatch(productsRequested());
-        shopService.getProducts(categoryId, { pageNumber }, selectedFilters)
-            .then(products => dispatch(productsLoaded(products)))
-            .catch((error) => dispatch(productsError(error)));
+        dispatch(fetchProducts(shopService, categoryId, { pageNumber }, selectedFilters));
     }, [categoryId, dispatch, pageNumber, shopService])
     
     return (

@@ -5,20 +5,7 @@ import { withShopService } from "../hoc";
 import CategoryInfoList from "../category-info-list";
 import AccessDenied from "../access-denied";
 import { getIsPermittedForAdmin } from "../../selectors/selectors";
-import {
-    addCategoryRequested,
-    addCategoryError,
-    categoriesListError,
-    categoriesListLoaded,
-    categoriesListRequested,
-    categoryAdded,
-    categoryRemoved,
-    categoryUpdated,
-    removeCategoryError,
-    removeCategoryRequested,
-    updateCategoryError,
-    updateCategoryRequested
-} from "../../actions/admin-actions";
+import { fetchCategoriesList, addCategory, updateCategory, deleteCategory } from "../../actions/admin-actions";
 import { CATEGORIES_LIST, USER_DATA } from "../../reducers/constants";
 import Spinner from "../spinner";
 import classes from './pages.module.css';
@@ -32,31 +19,19 @@ const CategoriesPage = ({ shopService }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(categoriesListRequested());
-        shopService.getCategoriesList()
-            .then(categories => dispatch(categoriesListLoaded(categories)))
-            .catch(error => dispatch(categoriesListError(error)));
+        dispatch(fetchCategoriesList(shopService));
     }, [dispatch, shopService]);
 
     const handleAddCategory = (category) => {
-        dispatch(addCategoryRequested());
-        shopService.addCategory(category)
-            .then(category => dispatch(categoryAdded(category)))
-            .catch(error => dispatch(addCategoryError(error)));
+        dispatch(addCategory(shopService, category));
     };
 
     const handleEditCategory = (category) => {
-        dispatch(updateCategoryRequested());
-        shopService.updateCategory(category)
-            .then(category => dispatch(categoryUpdated(category)))
-            .catch(error => dispatch(updateCategoryError(error)));
+        dispatch(updateCategory(shopService, category));
     };
 
     const handleRemoveCategory = (categoryId) => {
-        dispatch(removeCategoryRequested());
-        shopService.deleteCategory(categoryId)
-            .then(() => dispatch(categoryRemoved(categoryId)))
-            .catch(error => dispatch(removeCategoryError(error)));
+        dispatch(deleteCategory(shopService, categoryId));
     };
 
     if (loading) {

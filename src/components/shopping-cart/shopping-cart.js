@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Typography } from "@mui/material";
 import { withShopService } from "../hoc";
-import { cartItemsRequested, cartItemsLoaded, cartItemsError } from "../../actions/user-actions";
+import { fetchCartItems } from "../../actions/user-actions";
 import ShoppingCartItem from "../shopping-cart/shopping-cart-item";
 import Spinner from "../spinner";
 import { CART_ITEMS } from "../../reducers/constants";
@@ -14,12 +14,8 @@ const ShoppingCart = ({ shopService }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(cartItemsRequested());
-        shopService.getCartItems()
-            .then((cartItems) => dispatch(cartItemsLoaded(cartItems)))
-            .catch((error) => dispatch(cartItemsError(error)))
-        }, [dispatch, shopService]
-    );
+        dispatch(fetchCartItems(shopService))
+    }, [dispatch, shopService]);
 
     const totalPrice = cartItems.reduce(
         (total, cartItem) => total + cartItem.product.price * cartItem.quantity,

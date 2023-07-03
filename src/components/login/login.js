@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button, Card, CardContent, FormGroup, FormHelperText, TextField } from "@mui/material";
 import { withShopService } from "../hoc";
-import { userDataLoaded, userDataRequested } from "../../actions/user-actions";
+import { userDataLoaded, userDataRequested } from "../../actions/user-data-actions";
 import classes from './login.module.css';
 
 const Login = (props) => {
