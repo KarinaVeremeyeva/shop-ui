@@ -1,79 +1,79 @@
 import * as actionType from './actionTypes';
 
-export const cartItemsRequested = () => {
+const cartItemsRequested = () => {
     return {
         type: actionType.CART_ITEMS_REQUESTED,
     };
 };
 
-export const cartItemsLoaded = (cartItems) => {
+const cartItemsLoaded = (cartItems) => {
     return {
         type: actionType.CART_ITEMS_LOADED,
         payload: cartItems
     };
 };
 
-export const cartItemsError = (error) => {
+const cartItemsError = (error) => {
     return {
         type: actionType.CART_ITEMS_FAILURE,
         payload: error
     };
 };
 
-export const requestAddProductToCart = () => {
+const requestAddProductToCart = () => {
     return {
         type: actionType.ADD_PRODUCT_TO_CART_REQUESTED,
     };
 };
 
-export const productAddedToCart = (cartItem) => {
+const productAddedToCart = (cartItem) => {
     return {
         type: actionType.ADD_PRODUCT_TO_CART_SUCCESS,
         payload: cartItem
     };
 };
 
-export const addProductToCartError = (error) => {
+const addProductToCartError = (error) => {
     return {
         type: actionType.ADD_PRODUCT_TO_CART_FAILURE,
         payload: error
     };
 };
 
-export const requestRemoveProductFromCart = () => {
+const requestRemoveProductFromCart = () => {
     return {
         type: actionType.REMOVE_PRODUCT_FROM_CART_REQUESTED,
     };
 };
 
-export const productRemovedFromCart = (productId) => {
+const productRemovedFromCart = (productId) => {
     return {
         type: actionType.REMOVE_PRODUCT_FROM_CART_SUCCESS,
         payload: productId
     };
 };
 
-export const removeProductFromCartError = (error) => {
+const removeProductFromCartError = (error) => {
     return {
         type: actionType.REMOVE_PRODUCT_FROM_CART_FAILURE,
         payload: error
     };
 };
 
-export const requestRemoveAllProductsFromCart = () => {
+const requestRemoveAllProductsFromCart = () => {
     return {
         type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_REQUESTED,
     };
 };
 
-export const allProductsRemovedFromCart = (productId) => {
+const allProductsRemovedFromCart = (productId) => {
     return {
         type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_SUCCESS,
         payload: productId
     };
 };
 
-export const removeAllProductsFromCartError = (error) => {
+const removeAllProductsFromCartError = (error) => {
     return {
         type: actionType.ALL_PRODUCTS_REMOVED_FROM_CART_FAILURE,
         payload: error

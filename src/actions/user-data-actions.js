@@ -1,19 +1,19 @@
 import * as actionType from './actionTypes';
 
-export const userDataRequested = () => {
+const userDataRequested = () => {
     return {
         type: actionType.USER_DATA_REQUESTED,
     };
 };
 
-export const userDataLoaded = (userData) => {
+const userDataLoaded = (userData) => {
     return {
         type: actionType.USER_DATA_LOADED,
         payload: userData
     };
 };
 
-export const userDataError = (error) => {
+const userDataError = (error) => {
     return {
         type: actionType.USER_DATA_LOADED,
         payload: error
