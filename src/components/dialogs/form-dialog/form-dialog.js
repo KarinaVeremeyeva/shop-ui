@@ -1,9 +1,15 @@
 import React from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormHelperText } from "@mui/material"
+import classes from '../dialogs.module.css';
 
 const FormDialog = ({ open, onClose, onSubmit, dialogTitle, children, disabled, errorText }) => {
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+        <Dialog
+            open={open}
+            onClose={onClose}
+            maxWidth="sm"
+            classes={{ paper: classes.dialog }}
+        >
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 {children}

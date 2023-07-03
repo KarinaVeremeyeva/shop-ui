@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 import ProductDetails from "../product-details";
 import { withShopService } from "../hoc";
 import CategoryList from "../category-list";
-import { productAddedToCart, requestAddProductToCart, addProductToCartError } from "../../actions/user-actions";
+import { addProductToCart } from "../../actions/user-actions";
 import classes from './pages.module.css';
 
 const ProductDetailsPage = ({ shopService }) => {
@@ -27,10 +27,7 @@ const ProductDetailsPage = ({ shopService }) => {
     );
 
     const handleAddToCart = (productId) => {
-        dispatch(requestAddProductToCart());
-        shopService.addToCart(productId)
-            .then(cartItem => dispatch(productAddedToCart(cartItem)))
-            .catch(error => dispatch(addProductToCartError(error)));
+        dispatch(addProductToCart(shopService, productId));
     };
 
     if (!product) {

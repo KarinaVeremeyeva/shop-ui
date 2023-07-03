@@ -3,7 +3,8 @@ import * as loadingType from './constants';
 
 const initialState = {
     userData: null,
-    loading: {}
+    loading: {},
+    error: null
 };
 
 const userData = (state = initialState, action) => {
@@ -14,7 +15,8 @@ const userData = (state = initialState, action) => {
                 loading: {
                     ...state.loading,
                     [loadingType.USER_DATA]: true
-                }
+                },
+                error: null
             };
         case actionType.USER_DATA_LOADED:
             return {
@@ -23,12 +25,26 @@ const userData = (state = initialState, action) => {
                 loading: {
                     ...state.loading,
                     [loadingType.USER_DATA]: false
-                }
+                },
+                error: null
             };
+        case actionType.USER_DATA_FAILURE:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    [loadingType.USER_DATA]: false
+                },
+                error: action.payload
+            }
         case actionType.RESET_USER_DATA:
             return {
                 ...state,
-                userData: null
+                userData: null,
+                loading: {
+                    ...state.loading,
+                    [loadingType.USER_DATA]: false
+                }
             };
         default:
             return state;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
 import FormDialog from "../../dialogs/form-dialog";
-import classes from '../../dialogs/dialogs.module.css';
 
 const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
     const [type, setType] = useState(detail?.type || 0);
@@ -34,13 +33,15 @@ const DetailFormDialog = ({ detail, types, open, onClose, onSubmit }) => {
                 label="Name"
                 value={name}
                 onChange={handleNameChange}
-                className={classes.textFieldWrapper}/>
+                fullWidth
+            />
             <TextField
                 value={type}
                 onChange={(e) => setType(e.target.value)}
                 select
                 label="Type"
                 margin="dense"
+                fullWidth
             >
                 {
                     types.map(type => <MenuItem key={type.value} value={type.value}>{type.name}</MenuItem>)

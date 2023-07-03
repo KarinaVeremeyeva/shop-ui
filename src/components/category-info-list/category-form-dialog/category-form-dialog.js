@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
 import FormDialog from "../../dialogs/form-dialog";
-import classes from '../../dialogs/dialogs.module.css';
 
 const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }) => {
     const [name, setName] = useState(category?.name || '');
@@ -36,6 +35,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
                     value={name}
                     label="Name"
                     onChange={handleNameChange}
+                    fullWidth
                 />
             </div>
             <div>
@@ -44,6 +44,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
                     value={description}
                     label="Description"
                     onChange={(e) => setDescription(e.target.value)}
+                    fullWidth
                 />
             </div>
             <div>
@@ -53,7 +54,7 @@ const CategoryFormDialog = ({ category, allCategories, open, onClose, onSubmit }
                     onChange={(e) => setParentCategoryId(e.target.value)}
                     select
                     label="Parent Category"
-                    className={classes.textField}
+                    fullWidth
                 >
                     <MenuItem value={""}>
                         <em>None</em>

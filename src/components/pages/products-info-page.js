@@ -8,30 +8,18 @@ import { getIsPermittedForAdmin } from "../../selectors/selectors";
 import ProductInfoList from "../product-info-list";
 import AccessDenied from "../access-denied";
 import {
-    addProductError,
-    addProductRequested,
-    categoriesListError,
-    categoriesListLoaded,
-    categoriesListRequested,
-    detailsError,
-    detailsLoaded,
-    detailsRequested,
-    productAdded,
-    productRemoved,
-    productUpdated,
-    productsListError,
-    productsListLoaded,
-    productsListRequested,
-    removeProductError,
-    removeProductRequested,
-    updateProductError,
-    updateProductRequested
+    fetchDetails,
+    fetchProductsList,
+    fetchCategoriesList,
+    addProduct,
+    updateProduct,
+    deleteProduct
 } from "../../actions/admin-actions";
 import classes from './pages.module.css';
 
 const ProductsInfoPage = ({ shopService }) => {
     const isAuthorized = useSelector(state => !!state.userData.userData);
-    const isUserPermited = useSelector(getIsPermittedForAdmin);
+    const isAdminPermited = useSelector(getIsPermittedForAdmin);
     const products = useSelector(state => state.admin.productsList);
     const loading = useSelector(state => state.admin.loading[PRODUCTS_LIST] || state.user.loading[USER_DATA]);
     const categories = useSelector(state => state.admin.categoriesList);
@@ -40,46 +28,30 @@ const ProductsInfoPage = ({ shopService }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(productsListRequested());
-        dispatch(categoriesListRequested());
-        dispatch(detailsRequested());
-        shopService.getProductsList()
-            .then(products => dispatch(productsListLoaded(products)))
-            .catch(error => dispatch(productsListError(error)));
-        shopService.getCategoriesList()
-            .then(categories => dispatch(categoriesListLoaded(categories)))
-            .catch(error => dispatch(categoriesListError(error)));
-        shopService.getDetails()
-            .then(details => dispatch(detailsLoaded(details)))
-            .catch(error => dispatch(detailsError(error)));
-    }, [dispatch, shopService]);
+        if (isAdminPermited) {
+            dispatch(fetchProductsList(shopService));
+            dispatch(fetchCategoriesList(shopService));
+            dispatch(fetchDetails(shopService));
+        }
+    }, [dispatch, shopService, isAdminPermited]);
 
     const handleAddProduct = (product) => {
-        dispatch(addProductRequested());
-        shopService.addProduct(product)
-            .then(product => dispatch(productAdded(product)))
-            .catch(error => dispatch(addProductError(error)));
+        dispatch(addProduct(shopService, product));
     };
 
     const handleEditProduct = (product) => {
-        dispatch(updateProductRequested());
-        shopService.updateProduct(product)
-            .then(product => dispatch(productUpdated(product)))
-            .catch(error => dispatch(updateProductError(error)));
+        dispatch(updateProduct(shopService, product));
     };
 
     const handleRemoveProduct = (productId) => {
-        dispatch(removeProductRequested());
-        shopService.deleteProduct(productId)
-            .then(() => dispatch(productRemoved(productId)))
-            .catch(erorr => dispatch(removeProductError(erorr)));
+        dispatch(deleteProduct(shopService, productId));
     };
 
     if (loading) {
         return <Spinner />;
     }
 
-    const pageContent = isAuthorized && isUserPermited
+    const pageContent = isAuthorized && isAdminPermited
         ? (
         <ProductInfoList
                 products={products}
