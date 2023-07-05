@@ -1,5 +1,5 @@
 # shop-ui
-An application for managing goods and selling them in an online store, which consume [REST API](https://github.com/KarinaVeremeyeva/Shop).
+An application for managing goods and selling them in an online store, which consumes [REST API](https://github.com/KarinaVeremeyeva/Shop).
 The project has role-based authentication. The application user has the ability to filter content using various types of dynamic criteria and process shopping cart items. The admin role can create, update, and delete content.
 
 ## Technologies
@@ -8,34 +8,43 @@ The project has role-based authentication. The application user has the ability 
 - Material UI
 
 ## Screenshots
-Products page:
+#### Products page:
+Page available to all registered and unregistered users. Products are displayed based on the selected category and filters.
+Filters are generated dynamically based on the attributes that are present in all products in the selection
 
 ![image](https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/3e878697-ea52-4144-b986-9868bd454233)
 
-Product details:
+#### Product details:
+Here a registered user can add an item to the cart
 
 ![image](https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/81b9e1fa-8785-43d6-92ec-8c853ed17c91)
 
-Shopping cart:
+#### Shopping cart:
+Page for managing items in the cart. Available only to registered users
 
 ![image](https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/8f622028-8fea-435f-8090-8e92c0305242)
 
-Register new user:
+#### Register a new user:
 
 <img src="https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/28c95493-6f3f-421a-8ce4-8e4058be77e9" width=50% height=50%>
 
-Admin panel:
+#### Admin panel:
+Three pages on entity management: categories, details and products.
+Each page is available only to the administrator and allows you to perform CRUD operations on each of the entities.
+For a category, the important part is choosing a parent category while blocking the creation of a cyclic relationship to child categories.
+Details are limited to three types: string (color, brand), number (camera resolution) and boolean (presence/absence of some attribute).
+For products, the main part is the dynamic selection of details
 
 ![image](https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/a6615829-065f-4d9a-a94b-c1b09a506031)
 
-Edit product form:
+#### Edit product form:
 
 <img src="https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/c1c639f7-05d4-49af-b6df-f73ecafc45db" width=50% height=50%>
 
-Add product form:
+#### Add product form:
 
 <img src="https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/3b693c90-7de7-4168-b588-af6f4bfd566f" width=50% height=50%>
 
-Confirm delete dialog:
+#### Confirm delete dialog:
 
 <img src="https://github.com/KarinaVeremeyeva/shop-ui/assets/57318127/86cc0305-e1ae-461f-b709-15bafcf65b8e" width=50% height=50%>
