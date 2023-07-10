@@ -1,7 +1,7 @@
 import * as apiClient from './http-utils';
 
 export default class AuthService {
-    _apiUrl = 'https://localhost:7017/api';
+    _apiUrl = 'http://localhost:5001/api';
 
     login = async (username, password) => {
         const response = await apiClient.postResource(
