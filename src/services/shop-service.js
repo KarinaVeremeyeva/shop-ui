@@ -1,7 +1,7 @@
 import * as apiClient from './http-utils';
 
 export default class ShopService {
-    _apiUrl = 'https://localhost:7092/api';
+    _apiUrl = 'http://localhost:5000/api';
 
     getResource = async (url, token = null) => {
         return await apiClient.getResource(`${this._apiUrl}/${url}`, token);
